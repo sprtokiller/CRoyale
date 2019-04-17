@@ -9,9 +9,9 @@ import { PlayerTile } from './src/playerTile';
 export class WPlayersComponent implements OnInit {
   pTiles = PLAYERTILES;
   constructor() { }
-
+  alive = 100;
   ngOnInit() {
-    for (let i in this.pTiles) {
+    for (let i in this.pTiles) { //barvy
       let s:number = this.pTiles[i].att+this.pTiles[i].def+this.pTiles[i].farm;
       let r:number;
       let g:number;
