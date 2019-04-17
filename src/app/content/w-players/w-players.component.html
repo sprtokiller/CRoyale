@@ -1,3 +1,13 @@
 <div>
-  w-players works!
+  <div class="plaHeader"></div>
+  <div class="plaBody">
+      <mat-grid-list cols="5" rowHeight="1:1" gutterSize="5px">
+          <mat-grid-tile
+              *ngFor="let PlayerTile of pTiles"
+              [style.background]="PlayerTile.color">
+              {{PlayerTile.nick}}
+          </mat-grid-tile>
+        </mat-grid-list>
+  </div>
+  <div class="plaFooter"></div>
 </div>

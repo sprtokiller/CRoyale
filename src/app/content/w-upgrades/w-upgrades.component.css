@@ -1,0 +1,12 @@
+.right-aligned-header > .mat-content {
+    justify-content: space-between;
+    background-color:violet;
+}
+
+.mat-content > mat-panel-title, .mat-content > mat-panel-description {
+  width:0px;
+}
+.p_head{
+    width: 100%;
+    text-align: center;
+}
