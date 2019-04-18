@@ -1,16 +1,24 @@
+<script type = "text/javascript" src = "scroll.js" ></script>
 <div>
   <div class="plaHeader">
     <div class="plaSelected">custom player</div>
     <div class="plaCount">{{alive}}</div>
   </div>
   <div class="plaBody">
+      <div class="plaBodyInner">
+          <div class="plaBodyContent">
+
       <mat-grid-list cols="5" rowHeight="1:1" gutterSize="5px">
-          <mat-grid-tile
+         <mat-grid-tile class="generatedTile"
               *ngFor="let PlayerTile of pTiles"
-              [style.background]="PlayerTile.color">
+              [style.background]="PlayerTile.color"
+              (mouseover)="msOver(PlayerTile.id);"
+              (mouseout)="msOut(PlayerTile.id);">
               {{PlayerTile.nick}}
-          </mat-grid-tile>
+         </mat-grid-tile>
         </mat-grid-list>
+      </div>
+      </div>
   </div>
   <div class="plaFooter"></div>
 </div>

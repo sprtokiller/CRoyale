@@ -2,9 +2,8 @@ export class PlayerTile {
     id: number;
     nick: string;
     alive: boolean;
-    rank: number;
     hp: number;
-    points: number;
+    power: number;
     def: number;
     att: number;
     farm: number;

@@ -10,24 +10,32 @@ export class WPlayersComponent implements OnInit {
   pTiles = PLAYERTILES;
   constructor() { }
   alive = 100;
-  ngOnInit() {
-    for (let i in this.pTiles) { //barvy
-      let s:number = this.pTiles[i].att+this.pTiles[i].def+this.pTiles[i].farm;
+  getColors(n: any) {
+    let s:number = this.pTiles[n].att+this.pTiles[n].def+this.pTiles[n].farm;
       let r:number;
       let g:number;
       let b:number;
       if (s == 0){
-        r = 230;
-        g = 230;
-        b = 230;
+        r = 210;
+        g = 210;
+        b = 210;
       } else {
-        r = 120 + Math.round((this.pTiles[i].att/s)*120);
-        g = 120 + Math.round((this.pTiles[i].farm/s)*120);
-        b = 120 + Math.round((this.pTiles[i].def/s)*120);
+        r = 100 + Math.round((this.pTiles[n].att/s)*150);
+        g = 100 + Math.round((this.pTiles[n].farm/s)*150);
+        b = 100 + Math.round((this.pTiles[n].def/s)*150);
       }
-      this.pTiles[i].color = 'rgb(' + r.toString() + ', ' + g.toString() + ', ' + b.toString() + ')';
-      console.log("Styl: " + this.pTiles[i].color);
-   }
+    return(r.toString() + ', ' + g.toString() + ', ' + b.toString());
   }
 
+  ngOnInit() {
+    for (let i in this.pTiles) { //zacatek inti
+      this.pTiles[i].color = 'rgba(' + this.getColors(i) + ', 0.85)';
+   }
+  }
+  msOver(sID:number){
+    this.pTiles[sID].color = 'rgba(' + this.getColors(sID) + ', 0.97)';
+  }
+  msOut(sID:number){
+    this.pTiles[sID].color = 'rgba(' + this.getColors(sID) + ', 0.85)';
+  }
 }
