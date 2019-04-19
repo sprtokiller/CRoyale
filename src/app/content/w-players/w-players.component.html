@@ -5,7 +5,6 @@
     <div class="plaCount">{{alive}}</div>
   </div>
   <div class="plaBody">
-      <div class="plaBodyInner">
           <div class="plaBodyContent">
 
       <mat-grid-list cols="5" rowHeight="1:1" gutterSize="5px">
@@ -14,10 +13,12 @@
               [style.background]="PlayerTile.color"
               (mouseover)="msOver(PlayerTile.id);"
               (mouseout)="msOut(PlayerTile.id);">
-              {{PlayerTile.nick}}
+              <div class="tileContent">
+                <div class="tileNick">{{PlayerTile.nick}}</div>
+              </div>
+              
          </mat-grid-tile>
         </mat-grid-list>
-      </div>
       </div>
   </div>
   <div class="plaFooter"></div>
