@@ -30,10 +30,17 @@
 .generatedTile {
     border-radius: 3px 15px 3px 15px;
     margin: 0px;
+    opacity: 0.85;
 }
+.generatedTile:hover {
+    opacity: 0.97;
+}
+.generatedTile:hover .tileImg {
+    width: 70%;
+ }
 .plaBodyContent {
     width: calc(100% - 16px);
-    height: 100%;
+    height: calc(100% - 16px);
     padding-left:8px; 
     padding-top: 8px;
     padding-bottom: 8px;
@@ -48,15 +55,25 @@
     width: 100%;
     height: 100%;
 }
-.o-divider {
-    margin-left: 4px;
-    margin-right: 4px;
-    height: 1px;
-    background: #656D78;
-    float: left;
-  }
+hr { 
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+	border: 1px dotted #CCCCCC;
+  } 
 .tileNick {
     text-align: left;
     text-transform: uppercase;
     font-weight: bold;
 }
+.tileImg {
+    display: block;
+    margin: auto;
+    width: 63%;
+    margin-top: 1em;
+  } 
+ .imgWrapper{
+     width: 100%;
+ } 

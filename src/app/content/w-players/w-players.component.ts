@@ -29,13 +29,16 @@ export class WPlayersComponent implements OnInit {
 
   ngOnInit() {
     for (let i in this.pTiles) { //zacatek inti
-      this.pTiles[i].color = 'rgba(' + this.getColors(i) + ', 0.85)';
+      this.pTiles[i].color = 'rgb(' + this.getColors(i) + ')';
    }
   }
   msOver(sID:number){
-    this.pTiles[sID].color = 'rgba(' + this.getColors(sID) + ', 0.97)';
+    this.pTiles[sID].color = 'rgb(' + this.getColors(sID) + ')';
   }
   msOut(sID:number){
-    this.pTiles[sID].color = 'rgba(' + this.getColors(sID) + ', 0.85)';
+    this.pTiles[sID].color = 'rgb(' + this.getColors(sID) + ')';
+  }
+  getAvatarPath(aID:number){
+    return("assets/resx/cookie" + aID.toString() + ".png");
   }
 }

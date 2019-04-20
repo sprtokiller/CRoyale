@@ -8,4 +8,5 @@ export class PlayerTile {
     att: number;
     farm: number;
     color: string;
+    avatar_id: number;
   }

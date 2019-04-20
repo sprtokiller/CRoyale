@@ -10,11 +10,13 @@
       <mat-grid-list cols="5" rowHeight="1:1" gutterSize="5px">
          <mat-grid-tile class="generatedTile"
               *ngFor="let PlayerTile of pTiles"
-              [style.background]="PlayerTile.color"
-              (mouseover)="msOver(PlayerTile.id);"
-              (mouseout)="msOut(PlayerTile.id);">
+              [style.background]="PlayerTile.color">
               <div class="tileContent">
                 <div class="tileNick">{{PlayerTile.nick}}</div>
+                <hr>
+                <div class="imgWrapper">
+                  <img class="tileImg" [src]="getAvatarPath(PlayerTile.avatar_id)">
+                </div>
               </div>
               
          </mat-grid-tile>

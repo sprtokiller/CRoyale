@@ -1,0 +1,17 @@
+[
+  {
+    'repeat(100)': {
+      id: '{{index()}}',
+	  nick: '{{firstName()}}',
+      alive: '{{bool()}}',
+      hp: '{{integer([30], [100])}}',
+      power: '{{integer([0], [2000])}}',
+      def: '{{integer([0], [30])}}',
+      att: '{{integer([0], [30])}}',
+      farm: '{{integer([00], [30])}}',
+      color: '',
+      avatar_id: '{{integer([0], [5])}}'
+    }
+  }
+]
+https://next.json-generator.com/
