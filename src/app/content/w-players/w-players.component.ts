@@ -10,6 +10,7 @@ export class WPlayersComponent implements OnInit {
   pTiles = PLAYERTILES;
   constructor() { }
   alive = 100;
+  selectedPlayerTile: PlayerTile;
   getColors(n: any) {
     let s:number = this.pTiles[n].att+this.pTiles[n].def+this.pTiles[n].farm;
       let r:number;
@@ -32,13 +33,17 @@ export class WPlayersComponent implements OnInit {
       this.pTiles[i].color = 'rgb(' + this.getColors(i) + ')';
    }
   }
-  msOver(sID:number){
+  msOver(sID:number) : void{
     this.pTiles[sID].color = 'rgb(' + this.getColors(sID) + ')';
   }
-  msOut(sID:number){
+  msOut(sID:number) : void{
     this.pTiles[sID].color = 'rgb(' + this.getColors(sID) + ')';
   }
-  getAvatarPath(aID:number){
+  getAvatarPath(aID:number) : string{
     return("assets/resx/cookie" + aID.toString() + ".png");
+  }
+  onSelect(clickedPT:PlayerTile) : void{
+    this.selectedPlayerTile = clickedPT;
+    console.log(clickedPT.nick);
   }
 }

@@ -1,7 +1,9 @@
 <script type = "text/javascript" src = "scroll.js" ></script>
 <div>
   <div class="plaHeader">
-    <div class="plaSelected">custom player</div>
+    <div class="plaSelected">
+      <app-player-detail [playerTile]="selectedPlayerTile"></app-player-detail>
+    </div>
     <div class="plaCount">{{alive}}</div>
   </div>
   <div class="plaBody">
@@ -10,13 +12,27 @@
       <mat-grid-list cols="5" rowHeight="1:1" gutterSize="5px">
          <mat-grid-tile class="generatedTile"
               *ngFor="let PlayerTile of pTiles"
-              [style.background]="PlayerTile.color">
+              [style.background]="PlayerTile.color"
+              [class.selected]="PlayerTile === selectedPlayerTile"
+              (click)="onSelect(PlayerTile)">
               <div class="tileContent">
                 <div class="tileNick">{{PlayerTile.nick}}</div>
                 <hr>
+                <div class="statWrapper">
+                  <div class="statUp">
+                    <span class="statThief"><i class="fas fa-bug"></i></span>
+                    <span class="statSpy"><i class="fas fa-user-secret"></i></span>
+                  </div>
+                  <div class="statDown">
+                    <span class="statDef">{{PlayerTile.def}} <i class="fas fa-shield-alt"></i></span>
+                    <span class="statAtt">{{PlayerTile.att}} <i class="fab fa-gripfire"></i></span>
+                    <span class="statFarm">{{PlayerTile.farm}} <i class="fas fa-angle-double-up"></i></span>
+                  </div>
+                </div>
                 <div class="imgWrapper">
                   <img class="tileImg" [src]="getAvatarPath(PlayerTile.avatar_id)">
                 </div>
+                
               </div>
               
          </mat-grid-tile>

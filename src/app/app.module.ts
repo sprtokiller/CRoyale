@@ -8,6 +8,8 @@ import { WPlayersComponent } from './content/w-players/w-players.component';
 import { WUpgradesComponent } from './content/w-upgrades/w-upgrades.component';
 import { WClickerComponent } from './content/w-clicker/w-clicker.component';
 import { WStatsComponent } from './content/w-stats/w-stats.component';
+import { PlayerDetailComponent } from './content/w-players/player-detail/player-detail.component';
+
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list'; //zmena
@@ -19,7 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
     WPlayersComponent,
     WUpgradesComponent,
     WClickerComponent,
-    WStatsComponent
+    WStatsComponent,
+    PlayerDetailComponent
   ],
   imports: [
     BrowserModule,

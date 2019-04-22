@@ -1,0 +1,11 @@
+<div *ngIf="playerTile">
+
+  <h2>{{playerTile.nick | uppercase}} Details</h2>
+  <div><span>id: </span>{{playerTile.id}}</div>
+
+</div>
+<div *ngIf="playerTile == null" class="vertContent">
+
+  <h1>No player selected</h1>
+
+</div>
