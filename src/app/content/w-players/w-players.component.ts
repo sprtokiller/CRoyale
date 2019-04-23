@@ -21,9 +21,9 @@ export class WPlayersComponent implements OnInit {
         g = 210;
         b = 210;
       } else {
-        r = 100 + Math.round((this.pTiles[n].att/s)*150);
-        g = 100 + Math.round((this.pTiles[n].farm/s)*150);
-        b = 100 + Math.round((this.pTiles[n].def/s)*150);
+        if ((r/s)*100 > 40){r = 210} else {r = 100}
+        if ((g/s)*100 > 40){g = 210} else {g = 100}
+        if ((b/s)*100 > 40){b = 210} else {b = 100}
       }
     return(r.toString() + ', ' + g.toString() + ', ' + b.toString());
   }
