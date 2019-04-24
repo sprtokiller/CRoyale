@@ -31,6 +31,7 @@ export class WPlayersComponent implements OnInit {
   ngOnInit() {
     for (let i in this.pTiles) { //zacatek inti
       this.pTiles[i].color = 'rgb(' + this.getColors(i) + ')';
+      console.log(this.pTiles[i].color);
    }
   }
   msOver(sID:number) : void{
