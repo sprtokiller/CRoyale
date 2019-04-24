@@ -13,17 +13,17 @@ export class WPlayersComponent implements OnInit {
   selectedPlayerTile: PlayerTile;
   getColors(n: any) {
     let s:number = this.pTiles[n].att+this.pTiles[n].def+this.pTiles[n].farm;
-      let r:number;
-      let g:number;
-      let b:number;
+      let r:number = this.pTiles[n].att;
+      let g:number = this.pTiles[n].farm;
+      let b:number = this.pTiles[n].def;
       if (s == 0){
         r = 210;
         g = 210;
         b = 210;
       } else {
-        if ((r/s)*100 > 40){r = 210} else {r = 100}
-        if ((g/s)*100 > 40){g = 210} else {g = 100}
-        if ((b/s)*100 > 40){b = 210} else {b = 100}
+        if ((r/s)*100 > 30){r = 210} else {r = 100}
+        if ((g/s)*100 > 30){g = 210} else {g = 100}
+        if ((b/s)*100 > 30){b = 210} else {b = 100}
       }
     return(r.toString() + ', ' + g.toString() + ', ' + b.toString());
   }

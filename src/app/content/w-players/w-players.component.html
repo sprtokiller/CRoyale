@@ -1,7 +1,12 @@
 <script type = "text/javascript" src = "scroll.js" ></script>
 <div>
-  <div class="plaHeader">
-    <div class="plaSelected">
+  <div class="plaHeader"
+  [class.noPlayer]="selectedPlayerTile == null"
+  [class.yesPlayer]="selectedPlayerTile != null">
+    <div class="plaSelected"
+    [class.noPlayer]="selectedPlayerTile == null"
+    [class.yesPlayer]="selectedPlayerTile != null"
+    >
       <app-player-detail [playerTile]="selectedPlayerTile"></app-player-detail>
     </div>
     <div class="plaCount">{{alive}}</div>
@@ -39,5 +44,7 @@
         </mat-grid-list>
       </div>
   </div>
-  <div class="plaFooter"></div>
+  <div class="plaFooter">
+
+  </div>
 </div>
