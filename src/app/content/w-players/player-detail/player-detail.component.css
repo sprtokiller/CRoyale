@@ -1,0 +1,10 @@
+h1{
+    text-align: center;
+    font-style: italic;
+    line-height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+.vertContent{
+    vertical-align: middle;
+}
