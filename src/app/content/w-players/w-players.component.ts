@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PLAYERTILES } from './src/MOCK';
 import { PlayerTile } from './src/playerTile';
+
 @Component({
   selector: 'app-w-players',
   templateUrl: './w-players.component.html',
@@ -8,10 +9,10 @@ import { PlayerTile } from './src/playerTile';
 })
 export class WPlayersComponent implements OnInit {
   pTiles = PLAYERTILES;
-  constructor() { }
+  constructor() { }  //implementace servisu
   alive = 100;
   selectedPlayerTile: PlayerTile;
-  getColors(n: any) {
+  getColors(n: number) {
     let s:number = this.pTiles[n].att+this.pTiles[n].def+this.pTiles[n].farm;
       let r:number = this.pTiles[n].att;
       let g:number = this.pTiles[n].farm;
@@ -21,16 +22,15 @@ export class WPlayersComponent implements OnInit {
         g = 210;
         b = 210;
       } else {
-        if ((r/s)*100 > 30){r = 210} else {r = 100}
-        if ((g/s)*100 > 30){g = 210} else {g = 100}
-        if ((b/s)*100 > 30){b = 210} else {b = 100}
+        let cs = [r, g, b].map(c => ((x:number) => ((x/s)*100 > 30))(c) ? 210 : 100) //elegance
+        r = cs[0], g = cs[1], b = cs[2]
       }
-    return(r.toString() + ', ' + g.toString() + ', ' + b.toString());
+    return(`${r}, ${g}, ${b}`);
   }
 
   ngOnInit() {
     for (let i in this.pTiles) { //zacatek inti
-      this.pTiles[i].color = 'rgb(' + this.getColors(i) + ')';
+      this.pTiles[i].color = 'rgb(' + this.getColors(Number(i)) + ')';
       console.log(this.pTiles[i].color);
    }
   }

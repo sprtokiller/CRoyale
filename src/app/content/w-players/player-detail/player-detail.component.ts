@@ -13,5 +13,7 @@ export class PlayerDetailComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  getAvatarPath2(aID:number) : string{
+    return("assets/resx/cookie" + aID.toString() + ".png");
+  }
 }

@@ -8,8 +8,9 @@
 .plaBody::-webkit-scrollbar { width: 0 !important }
 .plaHeader{
     width: 100%;
-    -webkit-transition: height 2s; /* Safari */
-    transition: height 2s;
+    -webkit-transition: height 1s ease-out; /* Safari */
+    transition: height 1s ease-out;
+    overflow: hidden;
 }
 .plaFooter{
     height: 16vh;
@@ -24,8 +25,9 @@
     margin: 0px;
     top:0px;
     left:0px;
-    -webkit-transition: height 2s; /* Safari */
-    transition: height 2s;
+    -webkit-transition: height 1s ease-out; /* Safari */
+    transition: height 1s ease-out;
+    overflow: hidden;
 }
 .plaCount{
     position: absolute;
