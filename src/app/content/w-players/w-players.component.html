@@ -11,7 +11,10 @@
     </div>
     <div class="plaCount">{{alive}}</div>
   </div>
-  <div class="plaBody">
+  <div class="plaBody"
+  [class.plaBodyNoPlayer]="selectedPlayerTile == null"
+  [class.plaBodyYesPlayer]="selectedPlayerTile != null"
+  >
           <div class="plaBodyContent">
 
       <mat-grid-list cols="5" rowHeight="1:1" gutterSize="5px">
@@ -35,7 +38,7 @@
                   </div>
                 </div>
                 <div class="imgWrapper">
-                  <img class="tileImg" [src]="getAvatarPath(PlayerTile.avatar_id)">
+                  <img class="tileImg" [src]="getImgPath(PlayerTile.avatar_id)">
                 </div>
                 
               </div>

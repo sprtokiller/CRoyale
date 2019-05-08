@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PlayerTile } from '../src/playerTile';
-
+import { CestyService } from '../../../cesty.service';
 @Component({
   selector: 'app-player-detail',
   templateUrl: './player-detail.component.html',
@@ -9,11 +9,11 @@ import { PlayerTile } from '../src/playerTile';
 export class PlayerDetailComponent implements OnInit {
   @Input() playerTile: PlayerTile;
   
-  constructor() { }
+  constructor(private cestyService: CestyService) { }
 
   ngOnInit() {
   }
-  getAvatarPath2(aID:number) : string{
-    return("assets/resx/cookie" + aID.toString() + ".png");
+  getImgPath(aID:number): string {
+    return this.cestyService.getAvatarPath(aID);
   }
 }

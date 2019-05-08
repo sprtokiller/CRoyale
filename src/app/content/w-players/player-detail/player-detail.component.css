@@ -22,6 +22,16 @@ h1{
     align-content: center;
     vertical-align: middle;
 }
+.detailWrapper{
+    display: flex;
+    height: 24vh;
+    width: calc(100% - 24vh);
+    position: absolute;
+    top:0px;
+    right:0px;
+    align-content: center;
+    vertical-align: middle;
+}
 .detailImg{
     display: flex;
     margin: auto;

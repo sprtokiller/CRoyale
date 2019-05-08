@@ -1,15 +1,22 @@
 .plaBody{
     padding: 5px;
-    height: 60vh;
     overflow: hidden; 
     overflow: -moz-scrollbars-none;
     -ms-overflow-style: none;
+    -webkit-transition: height 0.5s ease; /* Safari */
+    transition: height 0.5s ease;
+}
+.plaBodyYesPlayer{
+    height: 60vh;
+}
+.plaBodyNoPlayer{
+    height: 72vh;
 }
 .plaBody::-webkit-scrollbar { width: 0 !important }
 .plaHeader{
     width: 100%;
-    -webkit-transition: height 1s ease-out; /* Safari */
-    transition: height 1s ease-out;
+    -webkit-transition: height 0.5s ease; /* Safari */
+    transition: height 0.5s ease;
     overflow: hidden;
 }
 .plaFooter{
@@ -25,8 +32,8 @@
     margin: 0px;
     top:0px;
     left:0px;
-    -webkit-transition: height 1s ease-out; /* Safari */
-    transition: height 1s ease-out;
+    -webkit-transition: height 0.5s ease; /* Safari */
+    transition: height 0.5s ease;
     overflow: hidden;
 }
 .plaCount{

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PLAYERTILES } from './src/MOCK';
 import { PlayerTile } from './src/playerTile';
+import { CestyService } from '../../cesty.service';
 
 @Component({
   selector: 'app-w-players',
@@ -9,8 +10,8 @@ import { PlayerTile } from './src/playerTile';
 })
 export class WPlayersComponent implements OnInit {
   pTiles = PLAYERTILES;
-  constructor() { }  //implementace servisu
-  alive = 100;
+  constructor(private cestyService: CestyService) { }  //implementace servisu
+  alive = PLAYERTILES.length; //3 / 5 sloupcu
   selectedPlayerTile: PlayerTile;
   getColors(n: number) {
     let s:number = this.pTiles[n].att+this.pTiles[n].def+this.pTiles[n].farm;
@@ -40,8 +41,8 @@ export class WPlayersComponent implements OnInit {
   msOut(sID:number) : void{
     this.pTiles[sID].color = 'rgb(' + this.getColors(sID) + ')';
   }
-  getAvatarPath(aID:number) : string{
-    return("assets/resx/cookie" + aID.toString() + ".png");
+  getImgPath(aID:number): string {
+    return this.cestyService.getAvatarPath(aID);
   }
   onSelect(clickedPT:PlayerTile) : void{
     this.selectedPlayerTile = clickedPT;
