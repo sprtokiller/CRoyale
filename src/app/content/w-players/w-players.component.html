@@ -17,7 +17,7 @@
   >
           <div class="plaBodyContent">
 
-      <mat-grid-list cols="5" rowHeight="1:1" gutterSize="5px">
+      <mat-grid-list cols="{{columnCount}}" rowHeight="1:1" gutterSize="5px">
          <mat-grid-tile class="generatedTile"
               *ngFor="let PlayerTile of pTiles"
               [style.background]="PlayerTile.color"
@@ -48,6 +48,22 @@
       </div>
   </div>
   <div class="plaFooter">
+    <input id="tab1P" type="radio" name="tabsP" checked>
+        <label for="tab1P">Basics</label>
+      
+        <input id="tab2P" type="radio" name="tabsP">
+        <label for="tab2P">Powers</label>
+      
+        <section id="content1P">
 
+            Bacon ipsum dolor sit amet landjaeger sausage brisket, jerky drumstick fatback boudin.
+
+        </section>
+      
+        <section id="content2P">
+
+            Jerky jowl pork chop tongue, kielbasa shank venison. Capicola shank pig ribeye leberkas filet mignon brisket beef kevin tenderloin porchetta. Capicola fatback venison shank kielbasa, drumstick ribeye landjaeger beef kevin tail meatball pastrami prosciutto pancetta. Tail kevin spare ribs ground round ham ham hock brisket shoulder. Corned beef tri-tip leberkas flank sausage ham hock filet mignon beef ribs pancetta turkey.
+
+        </section>
   </div>
 </div>

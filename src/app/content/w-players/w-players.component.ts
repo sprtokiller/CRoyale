@@ -11,7 +11,8 @@ import { CestyService } from '../../cesty.service';
 export class WPlayersComponent implements OnInit {
   pTiles = PLAYERTILES;
   constructor(private cestyService: CestyService) { }  //implementace servisu
-  alive = PLAYERTILES.length; //3 / 5 sloupcu
+  alive = PLAYERTILES.length;
+  columnCount: string = "5";
   selectedPlayerTile: PlayerTile;
   getColors(n: number) {
     let s:number = this.pTiles[n].att+this.pTiles[n].def+this.pTiles[n].farm;
@@ -33,6 +34,9 @@ export class WPlayersComponent implements OnInit {
     for (let i in this.pTiles) { //zacatek inti
       this.pTiles[i].color = 'rgb(' + this.getColors(Number(i)) + ')';
       console.log(this.pTiles[i].color);
+   }
+   if (this.alive < 7) {
+      this.columnCount = "3";
    }
   }
   msOver(sID:number) : void{

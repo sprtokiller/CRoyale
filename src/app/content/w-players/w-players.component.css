@@ -7,10 +7,10 @@
     transition: height 0.5s ease;
 }
 .plaBodyYesPlayer{
-    height: 60vh;
+    height: 54vh;
 }
 .plaBodyNoPlayer{
-    height: 72vh;
+    height: 66vh;
 }
 .plaBody::-webkit-scrollbar { width: 0 !important }
 .plaHeader{
@@ -20,9 +20,10 @@
     overflow: hidden;
 }
 .plaFooter{
-    height: 16vh;
+    height: 22vh;
     width: 100%;
-    background-color: chocolate;
+    background-color: rgb(0, 0, 50);
+    padding: 5px;
 }
 .plaSelected{
     position: absolute;
@@ -62,6 +63,7 @@
     border-radius: 3px 15px 3px 15px;
     margin: 0px;
     opacity: 0.85;
+    cursor: pointer;
 }
 .generatedTile:hover {
     opacity: 0.97;
@@ -174,3 +176,74 @@ hr {
     float: left; 
     width: 20%;
  } 
+/* bottom */
+ section {
+    display: none;
+    padding: 10px 0 0;
+    color: white;
+  }
+  
+  input {
+    display: none;
+  }
+  
+  label {
+    width:50%;
+    font-size: 0.80em;
+    display: inline-block;
+    margin: 0 0 -1px;
+    padding: 4px 8px; 
+    font-weight: 600;
+    text-align: center;
+    color:  #789;
+    border: 1px solid transparent;
+  }
+  
+  label:before {
+    font-family: fontawesome;
+    font-weight: normal;
+    margin-right: 10px;
+  }
+  /*
+  label[for*='1']:before { content: '\f1cb'; }
+  label[for*='2']:before { content: '\f17d'; }
+  */
+  
+  label:hover {
+    color: #abc; 
+    cursor: pointer;
+  }
+  
+  input:checked + label {
+    color: #0af;
+    border: 1px solid #abc;
+    border-top: 2px solid #0af;
+    border-bottom: none;
+  }
+  input:not(:checked) + label {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #abc;
+  }
+  #tab1P:checked ~ #content1P,
+  #tab2P:checked ~ #content2P {
+    display: block;
+  }
+  /*
+  @media screen and (max-width: 800px) {
+    label {
+      font-size: 0;
+    }
+    label:before {
+      margin: 0;
+      font-size: 18px;
+    }
+  }
+  
+  @media screen and (max-width: 500px) {
+    label {
+      padding: 15px;
+    }
+  }
+  */
