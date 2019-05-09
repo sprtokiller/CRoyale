@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PlayerTile } from '../src/playerTile';
+import { PlayerTile } from '../srcPlayers/playerTile';
 import { CestyService } from '../../../cesty.service';
 @Component({
   selector: 'app-player-detail',

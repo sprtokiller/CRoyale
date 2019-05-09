@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PLAYERTILES } from './src/MOCK';
-import { PlayerTile } from './src/playerTile';
+import { PLAYERTILES } from './srcPlayers/MOCK_PLAYER_TILES';
+import { PlayerTile } from './srcPlayers/playerTile';
 import { CestyService } from '../../cesty.service';
 
 @Component({
