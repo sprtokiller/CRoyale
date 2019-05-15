@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list'; //zmena
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
+import { SkillTileDetailComponent } from './content/w-upgrades/skill-tile-detail/skill-tile-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
     WUpgradesComponent,
     WClickerComponent,
     WStatsComponent,
-    PlayerDetailComponent
+    PlayerDetailComponent,
+    SkillTileDetailComponent
   ],
   imports: [
     BrowserModule,

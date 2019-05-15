@@ -34,11 +34,12 @@
       
         <section id="content2">
           <mat-grid-list cols="3" rowHeight="1:1" gutterSize="5px">
-               <app-skill-detail
+               <app-skill-tile-detail
                class="generatedSkillTile"
                *ngFor="let SkillTile of sTiles"
                [skill]="SkillTile">
-              </app-skill-detail>    
+               {{SkillTile.skillName}}
+              </app-skill-tile-detail>    
            </mat-grid-list>
         </section>
       

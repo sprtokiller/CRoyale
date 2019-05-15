@@ -33,7 +33,7 @@ export class WPlayersComponent implements OnInit {
   ngOnInit() {
     for (let i in this.pTiles) { //zacatek inti
       this.pTiles[i].color = 'rgb(' + this.getColors(Number(i)) + ')';
-      console.log(this.pTiles[i].color);
+    //  console.log(this.pTiles[i].color);
    }
    if (this.alive < 7) {
       this.columnCount = "3";

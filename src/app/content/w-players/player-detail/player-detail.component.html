@@ -1,10 +1,10 @@
   <div class="mame" [class.visible]="playerTile != null" [class.invisible]="playerTile == null">
     <div class="mImgWrapper" [class.visible]="playerTile != null">
-       <img class="detailImg" [src]="getImgPath(playerTile.avatar_id)">
+       <img *ngIf="playerTile != null" class="detailImg" [src]="getImgPath(playerTile.avatar_id)">
     </div>
     <div class="detailWrapper">
-      <h2>{{playerTile.nick | uppercase}} Details</h2>
-      <div><span>id: </span>{{playerTile.id}}</div>
+      <h2 *ngIf="playerTile != null">{{playerTile.nick | uppercase}} Details</h2>
+      <div *ngIf="playerTile != null"><span>id: </span>{{playerTile.id}}</div>
     </div>
   </div>
   <div class="nemame" [class.visible]="playerTile == null" [class.invisible]="playerTile != null">
