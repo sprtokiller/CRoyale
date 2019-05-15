@@ -49,7 +49,11 @@ export class WPlayersComponent implements OnInit {
     return this.cestyService.getAvatarPath(aID);
   }
   onSelect(clickedPT:PlayerTile) : void{
-    this.selectedPlayerTile = clickedPT;
+    if (this.selectedPlayerTile == clickedPT){
+      this.selectedPlayerTile = null;
+    } else {
+      this.selectedPlayerTile = clickedPT;
+    }
     console.log(clickedPT.nick);
   }
 }
