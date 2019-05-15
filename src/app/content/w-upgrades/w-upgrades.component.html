@@ -33,12 +33,13 @@
         </section>
       
         <section id="content2">
-          <p>
-            Bacon ipsum dolor sit amet landjaeger sausage brisket, jerky drumstick fatback boudin.
-          </p>
-          <p>
-            Jerky jowl pork chop tongue, kielbasa shank venison. Capicola shank pig ribeye leberkas filet mignon brisket beef kevin tenderloin porchetta. Capicola fatback venison shank kielbasa, drumstick ribeye landjaeger beef kevin tail meatball pastrami prosciutto pancetta. Tail kevin spare ribs ground round ham ham hock brisket shoulder. Corned beef tri-tip leberkas flank sausage ham hock filet mignon beef ribs pancetta turkey.
-          </p>
+          <mat-grid-list cols="3" rowHeight="1:1" gutterSize="5px">
+               <app-skill-detail
+               class="generatedSkillTile"
+               *ngFor="let SkillTile of sTiles"
+               [skillTileInput]="SkillTile">
+              </app-skill-detail>    
+           </mat-grid-list>
         </section>
       
       

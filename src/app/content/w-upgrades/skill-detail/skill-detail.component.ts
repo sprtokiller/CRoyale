@@ -7,9 +7,11 @@ import { CestyService } from '../../../cesty.service';
   styleUrls: ['./skill-detail.component.css']
 })
 export class SkillDetailComponent implements OnInit {
-  @Input() skillTile: SkillTile;
+  @Input() skillTileInput: SkillTile;
   
   constructor() { }
+
+  isLocked:boolean = false;
 
   ngOnInit() {
   }

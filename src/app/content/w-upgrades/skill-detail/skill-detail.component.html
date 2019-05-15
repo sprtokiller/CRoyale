@@ -1,3 +1,5 @@
-  <div class="wrapper" [class.locked]="isLocked == false" [class.unlocked]="isLocked == true">
-      Skill
+<mat-grid-tile class="wrapper">
+  <div [class.locked]="isLocked == false" [class.unlocked]="isLocked == true">
+    {{skillTileInput.id}}
   </div>
+</mat-grid-tile>
