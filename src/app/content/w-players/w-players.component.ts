@@ -12,6 +12,7 @@ export class WPlayersComponent implements OnInit {
   pTiles = PLAYERTILES;
   constructor(private cestyService: CestyService) { }  //implementace servisu
   alive = PLAYERTILES.length;
+  visible = PLAYERTILES.length;
   columnCount: string = "5";
   selectedPlayerTile: PlayerTile;
   getColors(n: number) {
@@ -20,9 +21,7 @@ export class WPlayersComponent implements OnInit {
       let g:number = this.pTiles[n].farm;
       let b:number = this.pTiles[n].def;
       if (s == 0){
-        r = 210;
-        g = 210;
-        b = 210;
+        r = g = b = 210;
       } else {
         let cs = [r, g, b].map(c => ((x:number) => ((x/s)*100 > 30))(c) ? 210 : 100) //elegance
         r = cs[0], g = cs[1], b = cs[2]

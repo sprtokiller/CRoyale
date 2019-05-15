@@ -9,7 +9,10 @@
     >
       <app-player-detail [playerTile]="selectedPlayerTile"></app-player-detail>
     </div>
-    <div class="plaCount">{{alive}}</div>
+    <div class="CountWrapper">
+     <div class="plaCount"><span class="smallIcon"><i class="fas fa-male"></i></span><span class="smallText">{{alive}}</span></div>
+     <div class="visCount"><span class="smallIcon"><i class="far fa-eye"></i></span><span class="smallText">{{visible}}</span></div>
+    </div>
   </div>
   <div class="plaBody"
   [class.plaBodyNoPlayer]="selectedPlayerTile == null"

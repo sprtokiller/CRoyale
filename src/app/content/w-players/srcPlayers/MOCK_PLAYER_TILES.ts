@@ -3,7 +3,7 @@ import { PlayerTile } from './playerTile';
 export const PLAYERTILES: PlayerTile[] = [
   {
     "id": 0,
-    "nick": "Sloan",
+    "nick": "Víťa",
     "alive": false,
     "hp": 40,
     "power": 1076,
@@ -15,7 +15,7 @@ export const PLAYERTILES: PlayerTile[] = [
   },
   {
     "id": 1,
-    "nick": "Beatrice",
+    "nick": "Olda",
     "alive": true,
     "hp": 49,
     "power": 1474,
@@ -27,7 +27,7 @@ export const PLAYERTILES: PlayerTile[] = [
   },
   {
     "id": 2,
-    "nick": "Misty",
+    "nick": "Kryštof",
     "alive": true,
     "hp": 36,
     "power": 536,
@@ -39,7 +39,7 @@ export const PLAYERTILES: PlayerTile[] = [
   },
   {
     "id": 3,
-    "nick": "May",
+    "nick": "Tomáš",
     "alive": false,
     "hp": 54,
     "power": 453,
@@ -51,7 +51,7 @@ export const PLAYERTILES: PlayerTile[] = [
   },
   {
     "id": 4,
-    "nick": "Mcguire",
+    "nick": "☺",
     "alive": true,
     "hp": 54,
     "power": 818,
