@@ -7,7 +7,7 @@ import { CestyService } from '../../../cesty.service';
   styleUrls: ['./skill-detail.component.css']
 })
 export class SkillDetailComponent implements OnInit {
-  @Input() skillTileInput: SkillTile;
+  @Input() skill: SkillTile;
   
   constructor() { }
 
