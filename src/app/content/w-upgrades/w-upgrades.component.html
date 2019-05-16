@@ -33,13 +33,13 @@
         </section>
       
         <section id="content2">
-          <mat-grid-list cols="3" rowHeight="1:1" gutterSize="5px">
-               <app-skill-tile-detail
-               class="generatedSkillTile"
-               *ngFor="let SkillTile of sTiles"
-               [skill]="SkillTile">
-               {{SkillTile.skillName}}
-              </app-skill-tile-detail>    
+          <mat-grid-list cols="3" rowHeight="1:1" gutterSize="5px">        
+              <mat-grid-tile class="generatedSkillTile"
+              *ngFor="let gen of sTiles">
+                  <div [class.locked]="isLocked == false" [class.unlocked]="isLocked == true">
+                    {{gen.skillName}}
+                  </div>
+                </mat-grid-tile>   
            </mat-grid-list>
         </section>
       
