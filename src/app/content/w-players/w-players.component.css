@@ -176,24 +176,30 @@ hr {
      line-height: calc(font-size*1.2);
      background-color: rgba(240, 240, 240, 0.5);
      font-weight: bold;
+     overflow: hidden;
+     white-space: nowrap; /* Don't forget this one */
+     text-overflow: ellipsis;
  }
  .statDef {
      text-align: right;
      float: left;
      width: 36%;
      color: rgb(0, 0, 100);
+     max-height: calc(font-size*1.2);
  }
  .statAtt {
      text-align: center;
      float: none;
      width: 33%;
      color: rgb(80, 0, 0);
+     max-height: calc(font-size*1.2);
  }
  .statFarm {
      text-align: left;
      float: right;
      width: 33%;
      color: rgb(0, 50, 0);
+     max-height: calc(font-size*1.2);
  }
  .statSpy {
     float: right;

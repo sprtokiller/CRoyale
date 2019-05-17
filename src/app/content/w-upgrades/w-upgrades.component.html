@@ -7,42 +7,47 @@
   <label class="lab2" for="tab2">Skills</label>
 
 
-      
-        <section id="content1">
-            <div style="width:100%;margin:0px auto;">
-                <mat-expansion-panel style=margin:0px;width:100%;float:center;>
-                  <mat-expansion-panel-header>
-                    <mat-panel-title style="background-color:violet;border:10px;border-color:blueviolet">
-                      <p class="p_head">
-                      Upgrade numba one
-                      </p>
-                    </mat-panel-title>
-                  </mat-expansion-panel-header>
-                  <div style="width:100%">
-                    <button mat-flat-button color="accent" style="
-                    float: left;">Buy</button>
-                    <button mat-flat-button color="accent" style="display: inline;
-                    float: none;">Buy 10</button>
-                    <button mat-flat-button color="accent" style="display: inline;
-                    float: none;">Buy 100</button>
-                  </div>
-                  
-                
-                </mat-expansion-panel>
-                </div>
-        </section>
-      
-        <section id="content2">
-          <mat-grid-list cols="3" rowHeight="1:1" gutterSize="5px">        
-              <mat-grid-tile class="generatedSkillTile"
-              *ngFor="let gen of sTiles">
-                  <div [class.locked]="isLocked == false" [class.unlocked]="isLocked == true">
-                    {{gen.skillName}}
-                  </div>
-                </mat-grid-tile>   
-           </mat-grid-list>
-        </section>
-      
-      
 
+  <section id="content1">
+    <div style="width:100%;margin:0px auto;">
+      <mat-expansion-panel style=margin:0px;width:100%;float:center;>
+        <mat-expansion-panel-header>
+          <mat-panel-title style="background-color:violet;border:10px;border-color:blueviolet">
+            <p class="p_head">
+              Upgrade numba one
+            </p>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div style="width:100%">
+          <button mat-flat-button color="accent" style="
+                    float: left;">Buy</button>
+          <button mat-flat-button color="accent" style="display: inline;
+                    float: none;">Buy 10</button>
+          <button mat-flat-button color="accent" style="display: inline;
+                    float: none;">Buy 100</button>
+        </div>
+
+
+      </mat-expansion-panel>
+    </div>
+  </section>
+
+  <section id="content2">
+    <mat-grid-list cols="3" rowHeight="1:1" gutterSize="5px">
+
+      <div class="generatedSkillRow" *ngFor="let sTR of sTierTiles">
+
+        <mat-grid-tile class="generatedSkillTile" *ngFor="let sT of sTR; let j = index">
+          <div [class.locked]="isLocked == false" [class.unlocked]="isLocked == true">
+            {{sT.skillName}}
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile class="gridDivider" colspan="3">
+          <hr class="divider">
+        </mat-grid-tile>
+
+      </div>
+
+    </mat-grid-list>
+  </section>
 </div>

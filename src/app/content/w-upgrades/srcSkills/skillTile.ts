@@ -3,6 +3,7 @@ export class SkillTile {
     skillName: string;
     baseSkillPrice: number;
     tier: number;
+    tierID: number;
     defVal: number;
     attVal: number;
     farmVal: number;

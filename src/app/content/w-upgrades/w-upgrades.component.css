@@ -12,6 +12,18 @@
     width: 100%;
     text-align: center;
 }
+hr.divider{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  width: calc(100% - 16px);
+  color: lightgreen;
+}
+.gridDivider{
+  height: 10px;
+  max-height: 10px;
+  margin-inline-start: 5px;
+  margin-inline-end: 5px;
+}
 .innerUpgradeWrapper{
   height: 100%;
   width: 100%;
