@@ -34,9 +34,7 @@
 
   <section id="content2">
     <mat-grid-list cols="3" rowHeight="1:1" gutterSize="5px">
-
       <div class="generatedSkillRow" *ngFor="let sTR of sTierTiles">
-
         <mat-grid-tile class="generatedSkillTile" *ngFor="let sT of sTR; let j = index">
           <div [class.locked]="isLocked == false" [class.unlocked]="isLocked == true">
             {{sT.skillName}}
@@ -45,9 +43,7 @@
         <mat-grid-tile class="gridDivider" colspan="3">
           <hr class="divider">
         </mat-grid-tile>
-
       </div>
-
     </mat-grid-list>
   </section>
 </div>

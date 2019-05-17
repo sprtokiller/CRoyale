@@ -1,30 +1,34 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
-.right-aligned-header > .mat-content {
-    justify-content: space-between;
-    background-color:violet;
+.right-aligned-header>.mat-content {
+  justify-content: space-between;
+  background-color: violet;
 }
 
-.mat-content > mat-panel-title, .mat-content > mat-panel-description {
-  width:0px;
+.mat-content>mat-panel-title, .mat-content>mat-panel-description {
+  width: 0px;
 }
-.p_head{
-    width: 100%;
-    text-align: center;
+
+.p_head {
+  width: 100%;
+  text-align: center;
 }
-hr.divider{
+
+hr.divider {
   margin-top: 0px;
   margin-bottom: 0px;
   width: calc(100% - 16px);
   color: lightgreen;
 }
-.gridDivider{
+
+.gridDivider {
   height: 10px;
   max-height: 10px;
   margin-inline-start: 5px;
   margin-inline-end: 5px;
 }
-.innerUpgradeWrapper{
+
+.innerUpgradeWrapper {
   height: 100%;
   width: 100%;
   border-right-color: deepskyblue;
@@ -37,11 +41,9 @@ hr.divider{
   padding: 10px;
 }
 
-
 section {
   display: none;
   padding: 20px 0 0;
- 
   color: white;
 }
 
@@ -50,11 +52,11 @@ input {
 }
 
 label {
-  width:50%;
+  width: 50%;
   font-size: 0.80em;
   display: inline-block;
   margin: 0 0 -1px;
-  padding: 8px 12px; 
+  padding: 8px 12px;
   font-weight: 600;
   text-align: center;
   color: #789;
@@ -66,33 +68,35 @@ label:before {
   font-weight: normal;
   margin-right: 10px;
 }
+
 /*
 label[for*='1']:before { content: '\f1cb'; }
 label[for*='2']:before { content: '\f17d'; }
 */
 
 label:hover {
-  color:  #abc;
+  color: #abc;
   cursor: pointer;
 }
 
-input:checked + label {
+input:checked+label {
   color: #0af;
   border: 1px solid #abc;
   border-top: 2px solid #0af;
   border-bottom: none;
 }
-input:not(:checked) + label {
+
+input:not(:checked)+label {
   border-top: none;
   border-right: none;
   border-left: none;
   border-bottom: 1px solid #abc;
 }
 
-#tab1:checked ~ #content1,
-#tab2:checked ~ #content2 {
+#tab1:checked~#content1, #tab2:checked~#content2 {
   display: block;
 }
+
 /*
 @media screen and (max-width: 800px) {
   label {
