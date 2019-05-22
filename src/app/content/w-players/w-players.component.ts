@@ -14,9 +14,11 @@ export class WPlayersComponent implements OnInit {
   alive = PLAYERTILES.length;
   visible = PLAYERTILES.length;
   columnCount: string = "5";
+  sortMode : number;
+  asc : boolean;
   selectedPlayerTile: PlayerTile;
   getColors(n: number) {
-    let s:number = this.pTiles[n].att+this.pTiles[n].def+this.pTiles[n].farm;
+      let s:number = this.pTiles[n].att+this.pTiles[n].def+this.pTiles[n].farm;
       let r:number = this.pTiles[n].att;
       let g:number = this.pTiles[n].farm;
       let b:number = this.pTiles[n].def;
@@ -30,6 +32,9 @@ export class WPlayersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.pTiles.sort((a, b) => a.nick > b.nick ? 1 : -1 );
+    this.sortMode = 0;
+    this.asc = false;
     for (let i in this.pTiles) { //zacatek inti
       this.pTiles[i].color = 'rgb(' + this.getColors(Number(i)) + ')';
     //  console.log(this.pTiles[i].color);
@@ -54,5 +59,104 @@ export class WPlayersComponent implements OnInit {
       this.selectedPlayerTile = clickedPT;
     }
     console.log(clickedPT.nick);
+  }
+  sortByName(pTs:PlayerTile[]) : PlayerTile[]{
+    let answer:PlayerTile[] = pTs;
+    let maximum:number;
+    let maxIndex:number;
+    let maxDef:PlayerTile;
+    let k:number = 0;
+    //repeat until k = lenght
+    for (let k = 0; k < answer.length; k++) {
+    maximum = -1;
+    for (let i = k; i < answer.length; i++) { 
+      if (answer[i].farm > maximum){
+        maximum = answer[i].farm;
+        maxDef = answer[i];
+        maxIndex = i;
+      }
+    }
+    answer[maxIndex] = answer[k];
+    answer[k] = maxDef;
+    }
+    return answer;
+  }
+
+  sortMe(sortID:number){
+    console.log(sortID)
+    switch (sortID){
+      case 0: 
+      if (this.sortMode != 0){
+        this.sortMode = 0;
+        this.asc = false;
+      } else {
+        if (this.asc == true){
+          this.asc = false;
+        } else {
+          this.asc = true;
+        }
+      }
+      if (this.asc == false) {
+        ///
+        this.pTiles.sort((a, b) => a.nick > b.nick ? 1 : -1 );
+        ///
+      } else {
+        this.pTiles.sort((a, b) => b.nick > a.nick ? 1 : -1);
+      }
+      break;
+
+      case 1: 
+      if (this.sortMode != 1){
+        this.sortMode = 1;
+        this.asc = false;
+      } else {
+        if (this.asc == true){
+          this.asc = false;
+        } else {
+          this.asc = true;
+        }
+      }
+      if (this.asc == false) {
+        this.pTiles.sort((a, b) => a.def - b.def);
+      } else {
+        this.pTiles.sort((a, b) => b.def - a.def);
+      }
+      break;
+
+      case 2: 
+      if (this.sortMode != 2){
+        this.sortMode = 2;
+        this.asc = false;
+      } else {
+        if (this.asc == true){
+          this.asc = false;
+        } else {
+          this.asc = true;
+        }
+      }
+      if (this.asc == false) {
+        this.pTiles.sort((a, b) => a.att - b.att);
+      } else {
+        this.pTiles.sort((a, b) => b.att - a.att);
+      }
+      break;
+      case 3: 
+      if (this.sortMode != 3){
+        this.sortMode = 3;
+        this.asc = false;
+      } else {
+        if (this.asc == true){
+          this.asc = false;
+        } else {
+          this.asc = true;
+        }
+      }
+      if (this.asc == false) {
+        this.pTiles.sort((a, b) => a.farm - b.farm);
+      } else {
+        this.pTiles.sort((a, b) => b.farm - a.farm);
+      }
+      break;
+    }
   }
 }

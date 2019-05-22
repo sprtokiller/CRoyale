@@ -33,14 +33,14 @@
   </section>
 
   <section id="content2">
-    <mat-grid-list cols="3" rowHeight="1:1" gutterSize="5px">
+    <mat-grid-list cols="3" rowHeight="0.5vh" gutterSize="5px">
       <div class="generatedSkillRow" *ngFor="let sTR of sTierTiles">
-        <mat-grid-tile class="generatedSkillTile" *ngFor="let sT of sTR; let j = index">
+        <mat-grid-tile rowspan="8" class="generatedSkillTile" *ngFor="let sT of sTR; let j = index">
           <div [class.locked]="isLocked == false" [class.unlocked]="isLocked == true">
             {{sT.skillName}}
           </div>
         </mat-grid-tile>
-        <mat-grid-tile class="gridDivider" colspan="3">
+        <mat-grid-tile colspan="3" class="dividerTile">
           <hr class="divider">
         </mat-grid-tile>
       </div>

@@ -22,6 +22,57 @@ h1{
     align-content: center;
     vertical-align: middle;
 }
+.buttonsTop{
+    position: absolute;
+    left: calc(5px + 1%);
+    top: 0px;
+    width: calc(80% - 15px);
+    height: 100%;
+}
+.buttonTop{
+    position: absolute;
+    width: 22%;
+    height: 5vh;
+    bottom: 0px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: black;
+    color: #789;
+    cursor: pointer;
+    border: 1px solid #789;
+}
+.buttonTop:hover{
+    color:#abc;
+    border: 1px solid #abc;
+}
+.btnSelB{
+    border: 2px solid #0af;
+    color: #0af;
+}
+.btnSelB:hover{
+    border: 2px solid #0af;
+    color: #0af;
+}
+.btnSelR{
+    border: 2px solid rgb(202, 35, 35);
+    color: rgb(202, 35, 35);
+}
+.btnSelR:hover{
+    border: 2px solid rgb(202, 35, 35);
+    color: rgb(202, 35, 35);
+}
+.btn1{
+    left: 0px;
+}
+.btn2{
+    left: 26%;
+}
+.btn3{
+    left: 52%;
+}
+.btn4{
+    left: 78%;
+}
 .detailWrapper{
     display: flex;
     height: 24vh;

@@ -1,12 +1,17 @@
-  <div class="mame" [class.visible]="playerTile != null" [class.invisible]="playerTile == null">
-    <div class="mImgWrapper" [class.visible]="playerTile != null">
-       <img *ngIf="playerTile != null" class="detailImg" [src]="getImgPath(playerTile.avatar_id)">
-    </div>
-    <div class="detailWrapper">
-      <h2 *ngIf="playerTile != null">{{playerTile.nick | uppercase}} Details</h2>
-      <div *ngIf="playerTile != null"><span>id: </span>{{playerTile.id}}</div>
-    </div>
+<div class="mame" [class.visible]="playerTile != null" [class.invisible]="playerTile == null">
+  <div class="mImgWrapper" [class.visible]="playerTile != null">
+    <img *ngIf="playerTile != null" class="detailImg" [src]="getImgPath(playerTile.avatar_id)">
   </div>
-  <div class="nemame" [class.visible]="playerTile == null" [class.invisible]="playerTile != null">
-    <h1>No player selected</h1>
+  <div class="detailWrapper">
+    <h2 *ngIf="playerTile != null">{{playerTile.nick | uppercase}} Details</h2>
+    <div *ngIf="playerTile != null"><span>id: </span>{{playerTile.id}}</div>
   </div>
+</div>
+<div class="nemame" [class.visible]="playerTile == null" [class.invisible]="playerTile != null">
+  <div class="buttonsTop">
+    <div [class.btnSelB]="(sortModeLocal == 0) && (ascLocal == false)" [class.btnSelR]="(sortModeLocal == 0) && (ascLocal == true)" (click)="btnSortMode(0)" class="btn1 buttonTop" *ngIf="playerTile == null">A-Z</div>
+    <div [class.btnSelB]="(sortModeLocal == 1) && (ascLocal == false)" [class.btnSelR]="(sortModeLocal == 1) && (ascLocal == true)" (click)="btnSortMode(1)" class="btn2 buttonTop" *ngIf="playerTile == null"><i class="fas fa-shield-alt"></i></div>
+    <div [class.btnSelB]="(sortModeLocal == 2) && (ascLocal == false)" [class.btnSelR]="(sortModeLocal == 2) && (ascLocal == true)" (click)="btnSortMode(2)" class="btn3 buttonTop" *ngIf="playerTile == null"><i class="fab fa-gripfire"></i></div>
+    <div [class.btnSelB]="(sortModeLocal == 3) && (ascLocal == false)" [class.btnSelR]="(sortModeLocal == 3) && (ascLocal == true)" (click)="btnSortMode(3)" class="btn4 buttonTop" *ngIf="playerTile == null"><i class="fas fa-angle-double-up"></i></div>
+  </div>
+</div>

@@ -7,7 +7,7 @@
     [class.noPlayer]="selectedPlayerTile == null"
     [class.yesPlayer]="selectedPlayerTile != null"
     >
-      <app-player-detail [playerTile]="selectedPlayerTile"></app-player-detail>
+      <app-player-detail [playerTile]="selectedPlayerTile" (mySortEvent)="sortMe($event)"></app-player-detail>
     </div>
     <div class="CountWrapper">
      <div class="plaCount"><span class="smallIcon"><i class="fas fa-male"></i></span><span class="smallText">{{alive}}</span></div>
