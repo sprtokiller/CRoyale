@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PLAYERTILES } from './srcPlayers/MOCK_PLAYER_TILES';
 import { PlayerTile } from './srcPlayers/playerTile';
 import { CestyService } from '../../cesty.service';
+import { StatsService } from '../../stats.service';
+import { Zprava } from '../w-stats/zprava';
 
 @Component({
   selector: 'app-w-players',
@@ -10,7 +12,7 @@ import { CestyService } from '../../cesty.service';
 })
 export class WPlayersComponent implements OnInit {
   pTiles = PLAYERTILES;
-  constructor(private cestyService: CestyService) { }  //implementace servisu
+  constructor(private cestyService: CestyService, private statsService: StatsService) { }  //implementace servisu
   alive = PLAYERTILES.length;
   visible = PLAYERTILES.length;
   columnCount: string = "5";
@@ -52,11 +54,14 @@ export class WPlayersComponent implements OnInit {
   getImgPath(aID:number): string {
     return this.cestyService.getAvatarPath(aID);
   }
+
   onSelect(clickedPT:PlayerTile) : void{
     if (this.selectedPlayerTile == clickedPT){
       this.selectedPlayerTile = null;
     } else {
       this.selectedPlayerTile = clickedPT;
+      let custMess:Zprava = {id: 1, text: clickedPT.nick, color: "red"};
+      this.statsService.myMethod(custMess);
     }
     console.log(clickedPT.nick);
   }
