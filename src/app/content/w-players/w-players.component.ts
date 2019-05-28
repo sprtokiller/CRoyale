@@ -61,7 +61,6 @@ export class WPlayersComponent implements OnInit {
     } else {
       this.selectedPlayerTile = clickedPT;
       let custMess:Zprava = {id: 1, text: clickedPT.nick, color: "red"};
-      this.statsService.myMethod(custMess);
     }
     console.log(clickedPT.nick);
   }

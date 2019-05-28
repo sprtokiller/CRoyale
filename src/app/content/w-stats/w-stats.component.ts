@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Zprava } from './zprava';
-import { StatsService } from 'src/app/stats.service'
+import { StatsService } from 'src/app/stats.service';
+import { Observable, Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-w-stats',
   templateUrl: './w-stats.component.html',
@@ -9,21 +11,23 @@ import { StatsService } from 'src/app/stats.service'
 export class WStatsComponent implements OnInit {
 UName:string="DickObraz";
 UBalance:number=912093210941094;
-public z0 = {};
-
-z1:Zprava = {id: 1, text: "oof", color: "red" };
-z2:Zprava = {id: 1, text: "oof", color: "white" };
-z3:Zprava = {id: 1, text: "oof", color: "white" };
-Zpravas: Zprava[] = [this.z1, this.z2, this.z3];
-
-  constructor(private statsservice: StatsService) {
-
-      this.statsservice.myMethod$.subscribe((z0) => {
-      this.z0 = z0; // And he have data here too!
-       });
+private messagesRef: Subscription = null;
+private zpravas: Zprava[]; 
+  constructor(private statsService: StatsService) {
    }
 
   ngOnInit() {
+    this.messagesRef = this.statsService.messages$.subscribe(()=>{
+      this.updateMessageBox();
+  });
+    this.zpravas = [this.statsService.msg1, this.statsService.msg2, this.statsService.msg3];
+    let test1: Zprava = {id: this.statsService.nextID, text: "Final Welcome Message", color: "white"};
+    this.statsService.pushMsg(test1);
   }
- 
+
+  updateMessageBox(){
+    this.zpravas[0] = this.statsService.msg1;
+    this.zpravas[1] = this.statsService.msg2;
+    this.zpravas[2] = this.statsService.msg3;
+  }
 }

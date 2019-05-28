@@ -1,13 +1,9 @@
 <div class="container">
   <div class="row">
-      <div class="col-xs-12">{{UName}}</div>
-      <div class="col-xs-4">{{UBalance}}</div>
-      <div class="col-xs-4"></div>
-      <div class="col-xs-4"></div>
       <div class="logbox">
         <div class="logs">
-          <div *ngFor="let item of Zpravas" class="log">
-            <span>{{item.text}}</span>
+          <div *ngFor="let msg of zpravas" class="log">
+            <span [style.color]="msg.color">{{msg.text}}</span>
           </div>
         </div>
       </div> 
