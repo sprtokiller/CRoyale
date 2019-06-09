@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PLAYERTILES } from './srcPlayers/MOCK_PLAYER_TILES';
 import { PlayerTile } from './srcPlayers/playerTile';
-import { CestyService } from '../../cesty.service';
+import { CestyService } from '../commonServices/cesty.service';
 import { StatsService } from '../../stats.service';
 import { Zprava } from '../w-stats/zprava';
 

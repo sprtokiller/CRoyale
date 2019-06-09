@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PlayerTile } from '../srcPlayers/playerTile';
-import { CestyService } from '../../../cesty.service';
+import { CestyService } from '../../commonServices/cesty.service';
 @Component({
   selector: 'app-player-detail',
   templateUrl: './player-detail.component.html',

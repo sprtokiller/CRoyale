@@ -3,7 +3,7 @@ import { SKILLTILES } from './srcSkills/MOCK_SKILL_TILES';
 import { SkillTile } from './srcSkills/skillTile';
 import { ConfigService } from '../../config.service';
 import { StatsService } from 'src/app/stats.service';
-import { Zprava } from '../w-stats/zprava';
+import { Zprava } from '../../game/w-stats/zprava';
 @Component({
   selector: 'app-w-upgrades',
   templateUrl: './w-upgrades.component.html',

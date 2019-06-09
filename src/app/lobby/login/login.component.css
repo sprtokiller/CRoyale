@@ -1,0 +1,12 @@
+mat-card {
+    margin: 20px;
+    width: 100%;
+}
+
+div.cardsRight{
+    width: 35%;
+}
+
+div.cardsLeft{
+    width: 35%;
+}

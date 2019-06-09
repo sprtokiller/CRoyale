@@ -1,10 +1,18 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule }             from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { GameMainComponent }    from './game/game-main.component';
+import { LobbyMainComponent }   from './lobby/lobby-main.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LobbyMainComponent },
+ // { path: 'play/:id', component: GameMainComponent }, dodělat až bude víc zápasů --> server
+  { path: 'play', component: GameMainComponent }
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

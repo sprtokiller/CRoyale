@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { Zprava } from './content/w-stats/zprava'
+import { Zprava } from './game/w-stats/zprava'
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +12,7 @@ export class StatsService {
   public msg3: Zprava = {id: 2, text: "Your defensive branch is: Armor", color: "RoyalBlue"}
   public nextID: number = 3;
   constructor() {
-
+    
   }
   pushMsg(msgIn : Zprava){
     this.nextID++;
