@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,9 +25,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
-  MatToolbarModule, MatMenuModule,MatIconModule, MatProgressSpinnerModule
+  MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule
 } from '@angular/material';
-
+import { AlertComponent } from './lobby/login/alert/alert.component';
+import { MatListModule } from '@angular/material/list'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,7 @@ import {
     PlayerDetailComponent,
     LoginComponent,
     GameMainComponent,  
-    LobbyMainComponent  
+    LobbyMainComponent, AlertComponent  
   ],
   imports: [
     BrowserModule,
@@ -46,6 +47,7 @@ import {
     BrowserAnimationsModule,
     MatGridListModule,
     FormsModule,
+    ReactiveFormsModule,
     MatExpansionModule,
     MatDividerModule,
     HttpClientModule,
@@ -58,7 +60,8 @@ import {
     MatTableModule,
     MatMenuModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

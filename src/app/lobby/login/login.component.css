@@ -1,12 +1,147 @@
-mat-card {
-    margin: 20px;
+#classicLogin{
+    position: absolute;
+    left:0px;
+    width:65%;
+    padding: 16px;
+}
+
+#outerLogin{
+    position: absolute;
+    right:0px;
+    width:35%;
+    padding: 16px;
+}
+
+#gglIcon{
+    position: absolute;
+    left: 0px;
+    height: 20px;
+    background-color: red;
+    background-image: url(google.png);
+    display: block;
+    top: 0px;
+}
+
+#gglbtn{
+    margin: 8px 0px;
     width: 100%;
 }
 
+#fbbtn{
+    margin: 8px 0px;
+}
+
+#sadface{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+#labmsgWrapper{
+    position: absolute;
+    text-align: center;
+    font-size: 0.6em;
+    bottom: 1em;
+    width: calc(100% - 32px);
+}
+
+input {
+    font-size: 0.6em;
+    width: 100%;
+    padding: 6px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    -webkit-touch-callout: initial; /* iOS Safari */
+    -webkit-user-select: initial; /* Safari */
+    -khtml-user-select: initial; /* Konqueror HTML */
+    -moz-user-select: initial; /* Firefox */
+    -ms-user-select: initial; /* Internet Explorer/Edge */
+    user-select: initial; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+  
+
+#nofriends{
+    position: absolute;
+    text-align: center;
+    font-size: 0.8em;
+    bottom: 1em;
+    width: calc(100% - 32px);
+}
+
+#frnds{
+    text-align: left;
+    font-size: 1em;
+    margin-bottom: 0px;
+}
+
+.wlcmsg{
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loginWrapper{
+    position: absolute;
+    background-color: black;
+    background-image: url(background01.JPG);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+}
+
+mat-card {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: calc(- 20px + 100%);
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
 div.cardsRight{
-    width: 35%;
+    width: 30%;
+    position: absolute;
+    right: 20%;
+    height: 70%;
+    top: 15%;
+    cursor: default;
 }
 
 div.cardsLeft{
-    width: 35%;
+    width: 30%;
+    position: absolute;
+    left: 20%;
+    height: 70%;
+    top: 15%;
+    cursor: default;
+}
+
+.loginCard{
+    margin-top: 0px;
+    margin-bottom: 20px;
+    height: calc(65% - 10px);
+}
+
+.playCard{
+    margin-top: 20px;
+    margin-bottom: 0px;
+    height: calc(35% - 10px);
+}
+
+.skinCard{
+    margin-top: 0px;
+    margin-bottom: 20px;
+    height: calc(35% - 10px);
+}
+
+.friendsCard{
+    margin-top: 20px;
+    margin-bottom: 0px;
+    height: calc(65% - 10px);
 }

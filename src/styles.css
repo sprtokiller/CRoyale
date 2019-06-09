@@ -18,8 +18,8 @@ font-size: calc(1em + 1vw);
     user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
-*::selection { background: transparent; } 
-*::-moz-selection { background: transparent; }
+:not(input)::selection { background: transparent; } 
+:not(input)::-moz-selection { background: transparent; }
 
 h1, h2, h3, h4, h5 {
     cursor: default;

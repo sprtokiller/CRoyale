@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Zprava } from './zprava';
-import { StatsService } from 'src/app/stats.service';
+import { StatsService } from 'src/app/_services/stats.service';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
