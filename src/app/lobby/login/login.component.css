@@ -2,40 +2,72 @@
     position: absolute;
     left:0px;
     width:65%;
-    padding: 16px;
+    padding-left: 16px;
+    padding-right: 8px;
+    height: 16vh;
 }
 
 #outerLogin{
     position: absolute;
     right:0px;
     width:35%;
-    padding: 16px;
+    padding-left: 8px;
+    padding-right: 16px;
+    height: 16vh;
+}
+
+.formBtn{
+    font-size: 2.5vh;
+    font-weight: bold;
+    padding: 0px;
 }
 
 #gglIcon{
     position: absolute;
-    left: 0px;
-    height: 20px;
+    left: 1.5vh;
+    height: 3vh;
+    width: 3vh;
     background-color: red;
-    background-image: url(google.png);
+    background-repeat: no-repeat;
+    background-image: url('google.png');
+    background-size: contain; 
     display: block;
-    top: 0px;
+    top: 1.5vh;
 }
 
 #gglbtn{
-    margin: 8px 0px;
-    width: 100%;
+    position: absolute;
+    left: 8px;
+    top: 10vh;
+    width: calc(100% - 24px);
+    max-width: calc(100% - 24px);
 }
 
 #fbbtn{
-    margin: 8px 0px;
+    position: absolute;
+    left: 8px;
+    top: 2vh;
+    width: calc(100% - 24px);
+    max-width: calc(100% - 24px);
+    color: white;
+    background-color: #4267B2;
+}
+#sadfacewrapper{
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
 }
 
 #sadface{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
+    position: relative;
+    margin: auto;
+    background-repeat: no-repeat;
+    background-image: url('sadface.png');
+    background-size: contain; 
+    width: 25vh;
+    height: 25vh;
 }
 
 #labmsgWrapper{
@@ -46,11 +78,28 @@
     width: calc(100% - 32px);
 }
 
+#loginBtn{
+    margin-top: 2vh;
+    position: absolute;
+    width: 40%;
+    left: 16px;
+    background-color: forestgreen;
+    line-height: 5vh;
+}
+
+#registerBtn{
+    margin-top: 2vh;
+    position: absolute;
+    width: 40%;
+    right: 8px;
+    background-color: gold;
+}
+
 input {
     font-size: 0.6em;
-    width: 100%;
+    width: calc(100% - 24px);
     padding: 6px 10px;
-    margin: 8px 0;
+    margin: 0;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -97,6 +146,10 @@ input {
     top: 0px;
 }
 
+.form-control{
+    height: 5vh;
+}
+
 mat-card {
     margin-left: 10px;
     margin-right: 10px;
@@ -108,7 +161,7 @@ div.cardsRight{
     width: 30%;
     position: absolute;
     right: 20%;
-    height: 70%;
+    height: 70vh;
     top: 15%;
     cursor: default;
 }
@@ -117,31 +170,59 @@ div.cardsLeft{
     width: 30%;
     position: absolute;
     left: 20%;
-    height: 70%;
+    height: 70vh;
     top: 15%;
     cursor: default;
+}
+
+.userErr{
+    position: absolute;
+    top: 0vh;
+}
+
+.passErr{
+    position: absolute;
+    top: 8vh;
+}
+
+.passLabel{
+    position: absolute;
+    top: 10vh;
+}
+.userLabel{
+    position: absolute;
+    top: 2vh;
+}
+
+#formLoginX{
+    height: 16vh;
 }
 
 .loginCard{
     margin-top: 0px;
     margin-bottom: 20px;
-    height: calc(65% - 10px);
+    height: calc(45vh - 10px);
 }
 
 .playCard{
     margin-top: 20px;
     margin-bottom: 0px;
-    height: calc(35% - 10px);
+    height: calc(25vh - 10px);
+}
+
+.redErr{
+    font-size: 0.5em;
+    color: red;
 }
 
 .skinCard{
     margin-top: 0px;
     margin-bottom: 20px;
-    height: calc(35% - 10px);
+    height: calc(25vh - 10px);
 }
 
 .friendsCard{
     margin-top: 20px;
     margin-bottom: 0px;
-    height: calc(65% - 10px);
+    height: calc(45vh - 10px);
 }

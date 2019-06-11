@@ -32,9 +32,10 @@ export class LoginComponent implements OnInit {
     //      this.router.navigate(['/']);
     //  }
   }
+  elem;
 
   ngOnInit() {
-
+    this.elem = document.documentElement;
 //FB
         (window as any).fbAsyncInit = function() {
           FB.init({
@@ -65,6 +66,21 @@ export class LoginComponent implements OnInit {
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
+  openFullscreen() {
+    if (this.elem.requestFullscreen) {
+      this.elem.requestFullscreen();
+    } else if (this.elem.mozRequestFullScreen) {
+      /* Firefox */
+      this.elem.mozRequestFullScreen();
+    } else if (this.elem.webkitRequestFullscreen) {
+      /* Chrome, Safari and Opera */
+      this.elem.webkitRequestFullscreen();
+    } else if (this.elem.msRequestFullscreen) {
+      /* IE/Edge */
+      this.elem.msRequestFullscreen();
+    }
+  }
+
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
@@ -75,7 +91,7 @@ export class LoginComponent implements OnInit {
       if (this.loginForm.invalid) {
           return;
       }
-
+      console.log(this.f.username.value, this.f.password.value);
       this.loading = true;
       this.authenticationService.login(this.f.username.value, this.f.password.value)
           .pipe(first())

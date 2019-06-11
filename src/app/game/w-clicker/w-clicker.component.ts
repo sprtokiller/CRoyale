@@ -10,6 +10,7 @@ export class WClickerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+   // document.getElementById
   }
 
 }
