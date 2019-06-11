@@ -9,8 +9,22 @@ export class WClickerComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-   // document.getElementById
-  }
+  event: MouseEvent;
+  posX = 0;
+  posY = 0;
+  divNextX = 0;
+  divNextY = 0;
+  onClick(event: MouseEvent): void {
+  //  this.event = event;
+  //  this.posX = event.clientX;
+  //  this.posY = event.clientY;
+  //  console.log("Click:" + this.posX.toString() + "x " + this.posY.toString() + "y")
+  this.divNextX = Math.random() * 100; 
+  this.divNextY = Math.random() * 100; 
 
+}
+  ngOnInit() {
+    document.getElementById("canvas");
+  }
+  
 }
