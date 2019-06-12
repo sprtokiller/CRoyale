@@ -8,13 +8,13 @@
 }
 .cClicker {
     width: 100%;
-    height: 70%;
+    height: 70vh;
     background-color: aqua;
 }
 .cStats {
     vertical-align: bottom;
     width: 100%;
-    height: 30%;
+    height: 30vh;
     background-color: coral;
 }
 .cUpgrades {
