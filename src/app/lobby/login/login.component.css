@@ -18,32 +18,70 @@
 
 .formBtn{
     font-size: 2.5vh;
-    font-weight: bold;
+    line-height: 5vh;
+    text-align: center;
     padding: 0px;
 }
 
 #gglIcon{
     position: absolute;
-    left: 1.5vh;
+    left: 1vh;
     height: 3vh;
     width: 3vh;
-    background-color: red;
     background-repeat: no-repeat;
     background-image: url('google.png');
     background-size: contain; 
     display: block;
-    top: 1.5vh;
+    top: 1vh;
+}
+
+#fbIcon{
+    position: absolute;
+    left: 1vh;
+    height: 3vh;
+    width: 3vh;
+    background-repeat: no-repeat;
+    background-image: url('facebook.png');
+    background-size: contain; 
+    display: block;
+    top: 1vh;
+}
+
+#fullIcon{
+    position: absolute;
+    left: 1vh;
+    height: 3vh;
+    width: 3vh;
+    background-repeat: no-repeat;
+    background-image: url('full.png');
+    background-size: contain; 
+    display: block;
+    top: 1vh;
+}
+
+#goFullScreen{
+    position: absolute;
+    right: 2vh;
+    height: 5vh;
+    display: block;
+    top: 2vh;
+    z-index: 999;
 }
 
 #gglbtn{
+    padding-left: 5vh;
+    text-align: left;
     position: absolute;
     left: 8px;
     top: 10vh;
     width: calc(100% - 24px);
     max-width: calc(100% - 24px);
+    overflow: hidden;
 }
 
 #fbbtn{
+    padding-left: 5vh;
+    text-align: left;
     position: absolute;
     left: 8px;
     top: 2vh;
@@ -51,6 +89,7 @@
     max-width: calc(100% - 24px);
     color: white;
     background-color: #4267B2;
+    overflow: hidden;
 }
 #sadfacewrapper{
     position: relative;
@@ -157,21 +196,23 @@ mat-card {
     background-color: rgba(255, 255, 255, 0.85);
 }
 
+#cardsMain{
+    top:15vh;
+}
+
 div.cardsRight{
-    width: 30%;
+    width: 30vw;
     position: absolute;
-    right: 20%;
     height: 70vh;
-    top: 15%;
+    top: 15vh;
     cursor: default;
 }
 
 div.cardsLeft{
-    width: 30%;
+    width: 30vw;
     position: absolute;
-    left: 20%;
     height: 70vh;
-    top: 15%;
+    top: 15vh;
     cursor: default;
 }
 

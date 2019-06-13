@@ -1,12 +1,23 @@
 
-<div class="loginWrapper">
-  <div class="cardsRight">
+<button style="padding-right: 1vh" id="goFullScreen" class="formBtn" mat-raised-button (click)="openFullscreen()" *ngIf="!full">
+    <div id="fullIcon">
+    </div>
+    <span style="margin-left: 5vh">
+        Fullscreen
+    </span>
+    
+</button>
+
+
+<div  class="loginWrapper">
+  <div id="cardsMain" (window:resize)="onResize($event)" [style.transform]="scaling">
+  <div class="cardsRight" [style.width]="currentW" [style.right]="marginSize">
     <mat-card class="loginCard">
       <h1 class="wlcmsg">Welcome, guest!</h1>
       <div id="labmsgWrapper">
          Login to access friendlist, custom avatars and much more!
       </div>
-      <div id="classicLogin" style="background-color: red;">
+      <div id="classicLogin">
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" id="formLoginX">
               <div class="form-group">
                   <input type="text" formControlName="username" placeholder="Username..." class="form-control userLabel" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
@@ -25,18 +36,18 @@
               </div>
           </form>
           <button id="loginBtn" class="formBtn form-control" mat-raised-button [disabled]="loading" (click)="onSubmit()">Login</button>
-          <button id="registerBtn" class="formBtn form-control" routerLink="/register" mat-raised-button>Register</button>
+          <button id="registerBtn" class="formBtn form-control" routerLink="/register" (click)="scaleMe()" mat-raised-button>Register</button>
 
       </div>
       <div id="outerLogin">
-          <button id="fbbtn" class="formBtn form-control" mat-raised-button><i id="fbIcon" class="fab fa-facebook-square"></i> Sign in</button>
+          <button id="fbbtn" class="formBtn form-control" mat-raised-button><div id="fbIcon"></div>Sign in</button>
           <button id="gglbtn" class="formBtn form-control" mat-raised-button><div id="gglIcon"></div>Sign in</button>
       </div>
     </mat-card>
     <mat-card class="playCard">Play Card</mat-card>
   </div>
   
-  <div class="cardsLeft">
+  <div class="cardsLeft" [style.width]="currentW" [style.left]="marginSize">
     <mat-card class="skinCard">Skin Card</mat-card>
     <mat-card class="friendsCard">
       <h1 id="frnds">Friends</h1>
@@ -52,10 +63,11 @@
           <div id="sadfacewrapper">
             <div id="sadface"></div>
           </div>
-          <div id="nofriends" (click)="openFullscreen()">Sorry, no friends for anonymous players.</div>
+          <div id="nofriends">Sorry, no friends for anonymous players.</div>
         </div>
 
     </mat-card>
   </div>
+</div>
 </div>
 
