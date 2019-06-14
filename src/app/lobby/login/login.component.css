@@ -65,7 +65,7 @@
     height: 5vh;
     display: block;
     top: 2vh;
-    z-index: 999;
+    z-index: 100;
 }
 
 #gglbtn{
@@ -235,6 +235,20 @@ div.cardsLeft{
     top: 2vh;
 }
 
+#protect{
+    position: absolute;
+    z-index: 999;
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    text-align: center;
+    line-height: 100vh;
+    font-size: calc(2vw + 2vh);
+    background-color: lightgray;
+    color: rgb(97, 97, 97);
+}
+
 #formLoginX{
     height: 16vh;
 }
@@ -242,7 +256,6 @@ div.cardsLeft{
 .loginCard{
     margin-top: 0px;
     margin-bottom: 20px;
-    height: calc(45vh - 10px);
 }
 
 .playCard{

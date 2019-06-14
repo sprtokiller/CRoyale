@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lobby-main.component.css']
 })
 export class LobbyMainComponent implements OnInit {
-
-  constructor() { }
+  constructor() { 
+  }
 
   ngOnInit() {
+    console.log("Go away, my code.");
   }
 
 }

@@ -1,3 +1,4 @@
+<div id="protect" *ngIf="tooSmall">Please resize your window</div>
 
 <button style="padding-right: 1vh" id="goFullScreen" class="formBtn" mat-raised-button (click)="openFullscreen()" *ngIf="!full">
     <div id="fullIcon">
@@ -8,11 +9,10 @@
     
 </button>
 
-
 <div  class="loginWrapper">
   <div id="cardsMain" (window:resize)="onResize($event)" [style.transform]="scaling">
-  <div class="cardsRight" [style.width]="currentW" [style.right]="marginSize">
-    <mat-card class="loginCard">
+  <div class="cardsRight" [style.width]="currentW" [style.right]="marginSize" [style.top]="marginTB">
+    <mat-card class="loginCard" [style.height]="H45">
       <h1 class="wlcmsg">Welcome, guest!</h1>
       <div id="labmsgWrapper">
          Login to access friendlist, custom avatars and much more!
@@ -44,12 +44,12 @@
           <button id="gglbtn" class="formBtn form-control" mat-raised-button><div id="gglIcon"></div>Sign in</button>
       </div>
     </mat-card>
-    <mat-card class="playCard">Play Card</mat-card>
+    <mat-card class="playCard" [style.height]="H25">Play Card</mat-card>
   </div>
   
-  <div class="cardsLeft" [style.width]="currentW" [style.left]="marginSize">
-    <mat-card class="skinCard">Skin Card</mat-card>
-    <mat-card class="friendsCard">
+  <div class="cardsLeft"  [style.width]="currentW" [style.left]="marginSize" [style.top]="marginTB">
+    <mat-card class="skinCard" [style.height]="H25">Skin Card</mat-card>
+    <mat-card class="friendsCard" [style.height]="H45">
       <h1 id="frnds">Friends</h1>
         <div *ngIf="this.authenticationService.currentUserValue">
             <mat-list dense >

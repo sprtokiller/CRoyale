@@ -15,6 +15,7 @@ declare var FB: any;
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  tooSmall : boolean;
   loginForm: FormGroup;
   loading = false;
   submitted = false;
@@ -22,9 +23,13 @@ export class LoginComponent implements OnInit {
   full = false;
   scalNum = 1.0;
   scaling = "scale(1.0)";
-  minW;
+  minW : string;
+  minH : string;
+  H45 : string;
+  H25: string;
   currentW = "30vw";
   marginSize = "20vw";
+  marginTB = "15vh";
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -40,8 +45,19 @@ export class LoginComponent implements OnInit {
   elem;
 
   ngOnInit() {
+    //prekryti pri male vysce okna
+    if ((window.innerHeight / screen.height) < 0.7) {
+      this.tooSmall = true;
+    } else {
+      this.marginTB = ((window.innerHeight - (0.7 * screen.height)) / 2).toString() + "px";
+      this.tooSmall = false;
+    }
+
     this.elem = document.documentElement;
     this.minW = (0.24 * screen.width).toString() + "px";
+    this.minH = (0.7 * screen.height).toString() + "px";
+    this.H45 = (0.45 * screen.height - 10).toString() + "px";
+    this.H25 = (0.25* screen.height - 10).toString() + "px";
     //FB
     (window as any).fbAsyncInit = function () {
       FB.init({
@@ -72,7 +88,14 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
   onResize(event: Event): void {
-    console.log(window.innerWidth / screen.width);
+    //responz. vyska
+    if ((window.innerHeight / screen.height) < 0.7) {
+      this.tooSmall = true;
+    } else {
+      this.marginTB = ((window.innerHeight - (0.7 * screen.height)) / 2).toString() + "px";
+      this.tooSmall = false;
+    }
+    //responz sirka
     if ((window.innerWidth / screen.width) < 0.48) {
       this.currentW = this.minW;
       this.marginSize = ((0.16 * screen.width) - ((0.8 * screen.width - window.innerWidth) / 2)).toString() + "px";
@@ -88,8 +111,6 @@ export class LoginComponent implements OnInit {
         this.scaling = "scale(1.0)";
 
       }
-    console.log(this.marginSize);
-    console.log(window.innerWidth);
   }
 
   scaleMe() {
