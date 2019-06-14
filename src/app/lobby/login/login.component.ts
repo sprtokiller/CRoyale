@@ -6,7 +6,7 @@ import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../_services/authentication.service';
 import { AlertService } from '../../_services/alert.service';
-
+import { W_MESSAGES } from './textResxFiles/textResx'
 declare var FB: any;
 
 @Component({
@@ -15,6 +15,7 @@ declare var FB: any;
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  randomWelcome : string;
   tooSmall : boolean;
   loginForm: FormGroup;
   loading = false;
@@ -45,6 +46,8 @@ export class LoginComponent implements OnInit {
   elem;
 
   ngOnInit() {
+    //rng text
+    this.randomWelcome = W_MESSAGES[Math.floor(Math.random() * W_MESSAGES.length)];
     //prekryti pri male vysce okna
     if ((window.innerHeight / screen.height) < 0.7) {
       this.tooSmall = true;

@@ -12,7 +12,10 @@
 <div  class="loginWrapper">
   <div id="cardsMain" (window:resize)="onResize($event)" [style.transform]="scaling">
   <div class="cardsRight" [style.width]="currentW" [style.right]="marginSize" [style.top]="marginTB">
-    <mat-card class="loginCard" [style.height]="H45">
+    <mat-card *ngIf="this.authenticationService.currentUserValue || true" class="loginCard" [style.height]="H45">
+      <h1 class="wlcmsg">{{randomWelcome}}</h1>
+    </mat-card>
+    <mat-card *ngIf="this.authenticationService.currentUserValue == null" class="loginCard" [style.height]="H45">
       <h1 class="wlcmsg">Welcome, guest!</h1>
       <div id="labmsgWrapper">
          Login to access friendlist, custom avatars and much more!
