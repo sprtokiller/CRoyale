@@ -15,7 +15,7 @@
     <mat-card *ngIf="this.authenticationService.currentUserValue || true" class="loginCard" [style.height]="H45">
       <h1 class="wlcmsg">{{randomWelcome}}</h1>
     </mat-card>
-    <mat-card *ngIf="this.authenticationService.currentUserValue == null" class="loginCard" [style.height]="H45">
+    <mat-card *ngIf="(this.authenticationService.currentUserValue == null) && false" class="loginCard" [style.height]="H45">
       <h1 class="wlcmsg">Welcome, guest!</h1>
       <div id="labmsgWrapper">
          Login to access friendlist, custom avatars and much more!

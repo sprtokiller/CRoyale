@@ -10,6 +10,7 @@ h1{
 }
 .nemame{
     overflow: hidden;
+    padding: 5px;
 }
 .mImgWrapper{
     display: flex;
@@ -22,16 +23,15 @@ h1{
     align-content: center;
     vertical-align: middle;
 }
-.buttonsTop{
-    position: absolute;
-    left: calc(5px + 1%);
-    top: 0px;
-    width: calc(80% - 15px);
-    height: 100%;
+.buttonTile{
+    padding-left: 4px;
+    padding-right: 4px;
 }
 .buttonTop{
     position: absolute;
-    width: 22%;
+    margin-left: 2px;
+    margin-right: 2px;
+    width: calc(100% - 4px);
     height: 5vh;
     bottom: 0px;
     text-align: center;
@@ -40,6 +40,18 @@ h1{
     color: #789;
     cursor: pointer;
     border: 1px solid #789;
+    line-height: 5vh;
+    align-content: center;
+}
+#matButton{
+    position: absolute;
+    bottom: 0px;
+    width: calc(100% - 24px);
+    margin-left: 8px;
+    margin-right: 16px;
+}
+i {
+    line-height: 5vh;
 }
 .buttonTop:hover{
     color:#abc;
@@ -61,18 +73,7 @@ h1{
     border: 2px solid rgb(202, 35, 35);
     color: rgb(202, 35, 35);
 }
-.btn1{
-    left: 0px;
-}
-.btn2{
-    left: 26%;
-}
-.btn3{
-    left: 52%;
-}
-.btn4{
-    left: 78%;
-}
+
 .detailWrapper{
     display: flex;
     height: 24vh;
@@ -82,6 +83,7 @@ h1{
     right:0px;
     align-content: center;
     vertical-align: middle;
+    color: white;
 }
 .detailImg{
     display: flex;
