@@ -7,6 +7,10 @@
     height: 16vh;
 }
 
+.allowed{
+    color:red;
+}
+
 #outerLogin{
     position: absolute;
     right:0px;
@@ -279,4 +283,48 @@ div.cardsLeft{
     margin-top: 20px;
     margin-bottom: 0px;
     height: calc(45vh - 10px);
+}
+
+.gameBtn{
+   width: 100%;
+   font-size: calc(0.4em + 0.8vw); 
+   height: 7vh;
+   font-weight: bold;
+   transition: background-color 0.5s;
+}
+
+#gmmds{
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: calc(100% - 32px);
+    height: 7vh;
+}
+
+#readyBtn{
+    background-color: rgb(61, 238, 61);
+    top: calc(50% - 3.5vh)
+}
+
+#playNowBtnWrapper{
+    position: absolute;
+    top: calc(7vh + 16px);
+    left: calc(10% + 16px);
+    width: calc(80% - 32px);
+    height: calc(18vh - 32px);
+    font-size: 1.2em;
+}
+
+.selectedBtn0{
+    background-color: rgb(100, 100, 216);
+}
+.selectedBtn1{
+    background-color: rgb(200, 78, 78);
+}
+.selectedBtn2{
+    background-color: rgb(200, 78, 225);
+}
+
+.notSelectedBtn{
+    background-color: gray;
 }

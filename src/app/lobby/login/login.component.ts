@@ -6,7 +6,9 @@ import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../_services/authentication.service';
 import { AlertService } from '../../_services/alert.service';
-import { W_MESSAGES } from './textResxFiles/textResx'
+import { W_MESSAGES } from './localResx/textResx';
+import { GBTNS } from './localResx/GBTNS';
+import { GBtn } from './localResx/gBtn';
 declare var FB: any;
 
 @Component({
@@ -15,6 +17,9 @@ declare var FB: any;
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  leftAllowed : boolean = true;
+  RP_caption : string = "Play Now"
+  localGBTNS : GBtn[] = GBTNS;
   randomWelcome : string;
   tooSmall : boolean;
   loginForm: FormGroup;
@@ -139,7 +144,7 @@ export class LoginComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
-  onSubmit() {
+  onSubmit() : void {
     this.submitted = true;
 
     // stop here if form is invalid
@@ -159,5 +164,28 @@ export class LoginComponent implements OnInit {
           this.loading = false;
         });
   }
+  onGameModeSelect(idX: number) : void {
+    switch (idX) {
+      case 0:
+        this.localGBTNS[0].selected = true;
+        this.localGBTNS[1].selected = false;
+        this.localGBTNS[2].selected = false;
+        break;
 
+      case 1:
+        this.localGBTNS[0].selected = false;
+        this.localGBTNS[1].selected = true;
+        this.localGBTNS[2].selected = false;
+        break;  
+
+      case 2:
+        this.localGBTNS[0].selected = false;
+        this.localGBTNS[1].selected = false;
+        this.localGBTNS[2].selected = true;
+        break;   
+    
+      default:
+        break;
+    }
+  }
 }
