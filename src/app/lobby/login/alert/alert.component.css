@@ -1,0 +1,10 @@
+#alertBox{
+    position: absolute;
+    top: 30px;
+    left: 500px;
+    border-top: 100px solid rgb(240, 185, 185);
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    height: 0;
+    width: 100px;
+}

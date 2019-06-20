@@ -20,14 +20,14 @@ import { LoginComponent } from './lobby/login/login.component';
 import { LobbyMainComponent } from './lobby/lobby-main.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatGridListModule } from '@angular/material/grid-list'; //zmena
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
   MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule
 } from '@angular/material';
-import { AlertComponent } from './lobby/login/alert/alert.component';
+import { AlertComponent } from './lobby/login/alert/alert.component'; //not used
 import { MatListModule } from '@angular/material/list'; 
 @NgModule({
   declarations: [
