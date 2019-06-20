@@ -12,10 +12,10 @@
 <div  class="loginWrapper">
   <div id="cardsMain" (window:resize)="onResize($event)" [style.transform]="scaling">
   <div class="cardsRight" [style.width]="currentW" [style.right]="marginSize" [style.top]="marginTB">
-    <mat-card *ngIf="this.authenticationService.currentUserValue || true" class="loginCard" [style.height]="H45">
+    <mat-card *ngIf="this.authenticationService.currentUserValue" class="loginCard" [style.height]="H45">
       <h1 class="wlcmsg">{{randomWelcome}}</h1>
       <div id="playerPictureWrapper">xx</div>
-      <span id="playerName">NameIsNotImportant</span>
+      <span id="playerName">{{currentUser.firstName}}</span>
       <div id="titlePicker">
           <div id="tP_left" class="tP_arrow" *ngClass="'allowed' == leftAllowed"></div>
           <span id="playerTitle">Newbie</span>
@@ -24,7 +24,7 @@
       <div class="bar" id="xpBar"></div>
 
     </mat-card>
-    <mat-card *ngIf="(this.authenticationService.currentUserValue == null) && false" class="loginCard" [style.height]="H45">
+    <mat-card *ngIf="this.authenticationService.currentUserValue == null" class="loginCard" [style.height]="H45">
       <h1 class="wlcmsg">Welcome, guest!</h1>
       <div id="labmsgWrapper">
          Login to access friendlist, custom avatars and much more!
@@ -83,6 +83,23 @@
            {{RP_caption}}
          </button>
       </div>
+      <div id="gmstls">
+        <mat-grid-list cols="3" rowHeight="7vh" gutterSize="5px" >
+            <mat-grid-tile 
+                 *ngFor="let SBTN of localSBTNS">
+                 <button 
+                 class="styleBtn"
+                 [class.selectedSBtn0]="SBTN.selected && (SBTN.id == 0)"
+                 [class.selectedSBtn1]="SBTN.selected && (SBTN.id == 1)"
+                 [class.selectedSBtn2]="SBTN.selected && (SBTN.id == 2)"
+                 [class.notSelectedSBtn]="!SBTN.selected"
+                 (click)="onStyleModeSelect(SBTN.id)"
+                 mat-raised-button>
+                  {{SBTN.caption}}
+                </button>
+            </mat-grid-tile>
+          </mat-grid-list>
+    </div>
     </mat-card>
   </div>
   

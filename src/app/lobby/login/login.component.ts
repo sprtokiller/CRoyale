@@ -1,27 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
+import { User } from './user';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { AlertService } from '../../_services/alert.service';
+import { UserService } from '../../_services/user.service';
 import { W_MESSAGES } from './localResx/textResx';
 import { GBTNS } from './localResx/GBTNS';
 import { GBtn } from './localResx/gBtn';
+import { SBTNS } from './localResx/SBTNS';
+import { SBtn } from './localResx/sBtn';
 declare var FB: any;
+
+
+ /* deleteUser(id: number) {
+    this.userService.delete(id).pipe(first()).subscribe(() => {
+      this.loadAllUsers()
+    });
+  }
+
+  private loadAllUsers() {
+    this.userService.getAll().pipe(first()).subscribe(users => {
+      this.users = users;
+    });
+  }*/
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  leftAllowed : boolean = true;
-  RP_caption : string = "Play Now"
-  localGBTNS : GBtn[] = GBTNS;
-  randomWelcome : string;
-  tooSmall : boolean;
+export class LoginComponent implements OnInit, OnDestroy {
+  currentUser: User;
+  currentUserSubscription: Subscription;
+  users: User[] = [];
+
+  leftAllowed: boolean = true;
+  RP_caption: string = "Play Now"
+  localGBTNS: GBtn[] = GBTNS;
+  localSBTNS: SBtn[] = SBTNS;
+  randomWelcome: string;
+  tooSmall: boolean;
   loginForm: FormGroup;
   loading = false;
   submitted = false;
@@ -29,20 +52,25 @@ export class LoginComponent implements OnInit {
   full = false;
   scalNum = 1.0;
   scaling = "scale(1.0)";
-  minW : string;
-  minH : string;
-  H45 : string;
+  minW: string;
+  minH: string;
+  H45: string;
   H25: string;
   currentW = "30vw";
   marginSize = "20vw";
   marginTB = "15vh";
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private userService: UserService
   ) {
+    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+      this.currentUser = user;
+    });
     // redirect to home if already logged in
     //  if (this.authenticationService.currentUserValue) { //jen zmenit zobrazeni
     //      this.router.navigate(['/']);
@@ -65,7 +93,7 @@ export class LoginComponent implements OnInit {
     this.minW = (0.24 * screen.width).toString() + "px";
     this.minH = (0.7 * screen.height).toString() + "px";
     this.H45 = (0.45 * screen.height - 10).toString() + "px";
-    this.H25 = (0.25* screen.height - 10).toString() + "px";
+    this.H25 = (0.25 * screen.height - 10).toString() + "px";
     //FB
     (window as any).fbAsyncInit = function () {
       FB.init({
@@ -94,6 +122,10 @@ export class LoginComponent implements OnInit {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.currentUserSubscription.unsubscribe();
   }
   onResize(event: Event): void {
     //responz. vyska
@@ -144,7 +176,7 @@ export class LoginComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
-  onSubmit() : void {
+  onSubmit(): void {
     this.submitted = true;
 
     // stop here if form is invalid
@@ -164,7 +196,7 @@ export class LoginComponent implements OnInit {
           this.loading = false;
         });
   }
-  onGameModeSelect(idX: number) : void {
+  onGameModeSelect(idX: number): void {
     switch (idX) {
       case 0:
         this.localGBTNS[0].selected = true;
@@ -176,14 +208,14 @@ export class LoginComponent implements OnInit {
         this.localGBTNS[0].selected = false;
         this.localGBTNS[1].selected = true;
         this.localGBTNS[2].selected = false;
-        break;  
+        break;
 
       case 2:
         this.localGBTNS[0].selected = false;
         this.localGBTNS[1].selected = false;
         this.localGBTNS[2].selected = true;
-        break;   
-    
+        break;
+
       default:
         break;
     }
