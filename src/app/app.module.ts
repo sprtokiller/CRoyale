@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 
@@ -29,6 +29,7 @@ import {
 } from '@angular/material';
 import { AlertComponent } from './lobby/login/alert/alert.component'; //not used
 import { MatListModule } from '@angular/material/list'; 
+import { JwtInterceptor, ErrorInterceptor, fakeBackendProvider } from './_helpers';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +64,11 @@ import { MatListModule } from '@angular/material/list';
     MatProgressSpinnerModule,
     MatListModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    fakeBackendProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

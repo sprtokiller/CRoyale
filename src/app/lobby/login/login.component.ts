@@ -38,7 +38,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   currentUser: User;
   currentUserSubscription: Subscription;
   users: User[] = [];
-
+  //debug
+  fakeAdmin: User = {
+    id:0,
+    username: "admin",
+    password: "pass123",
+    firstName: "Victor",
+    lastName: "Kriezl",
+    token: "fake-jwt-token"
+  }
+  //debug
   leftAllowed: boolean = true;
   RP_caption: string = "Play Now"
   localGBTNS: GBtn[] = GBTNS;
@@ -79,6 +88,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   elem;
 
   ngOnInit() {
+    //debug 
+
+    this.users.push(this.fakeAdmin);
+    localStorage.setItem('users', JSON.stringify(this.users));
+
+    //debug
     //rng text
     this.randomWelcome = W_MESSAGES[Math.floor(Math.random() * W_MESSAGES.length)];
     //prekryti pri male vysce okna
@@ -219,5 +234,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       default:
         break;
     }
+  }
+  onReadyClick(){
+    console.log(localStorage.getItem('users'));
   }
 }
