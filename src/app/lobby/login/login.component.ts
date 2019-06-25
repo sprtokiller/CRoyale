@@ -212,6 +212,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         });
   }
   onGameModeSelect(idX: number): void {
+    console.log("owo");
     switch (idX) {
       case 0:
         this.localGBTNS[0].selected = true;
@@ -229,6 +230,30 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.localGBTNS[0].selected = false;
         this.localGBTNS[1].selected = false;
         this.localGBTNS[2].selected = true;
+        break;
+
+      default:
+        break;
+    }
+  }
+  onStyleModeSelect(idX: number): void {
+    switch (idX) {
+      case 0:
+        this.localSBTNS[0].selected = true;
+        this.localSBTNS[1].selected = false;
+        this.localSBTNS[2].selected = false;
+        break;
+
+      case 1:
+        this.localSBTNS[0].selected = false;
+        this.localSBTNS[1].selected = true;
+        this.localSBTNS[2].selected = false;
+        break;
+
+      case 2:
+        this.localSBTNS[0].selected = false;
+        this.localSBTNS[1].selected = false;
+        this.localSBTNS[2].selected = true;
         break;
 
       default:

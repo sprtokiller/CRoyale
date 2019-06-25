@@ -14,15 +14,23 @@
   <div class="cardsRight" [style.width]="currentW" [style.right]="marginSize" [style.top]="marginTB">
     <mat-card *ngIf="this.authenticationService.currentUserValue" class="loginCard" [style.height]="H45">
       <h1 class="wlcmsg">{{randomWelcome}}</h1>
-      <div id="playerPictureWrapper">xx</div>
+      <div id="playerPictureWrapper"><br>REEEEEEE</div>
       <span id="playerName">{{currentUser.firstName}}</span>
       <div id="titlePicker">
-          <div id="tP_left" class="tP_arrow" *ngClass="'allowed' == leftAllowed"></div>
-          <span id="playerTitle">Newbie</span>
-          <div id="tP_right" class="tP_arrow"></div>
+          <div id="tP_left" class="tP_arrow" *ngClass="'allowedArrow' == leftAllowed">
+            <span>L</span>
+          </div>
+          <div id="playerTitleWrapper">
+            <span id="playerTitle">Newbie</span>
+          </div>
+          <div id="tP_right" class="tP_arrow" *ngClass="'allowedArrow' == rightAllowed">
+            <span>R</span>
+          </div>
       </div>
       <div class="bar" id="xpBar"></div>
-
+      <div id="logOutWrapper">
+        <button class="formBtn" id="logOutBtn" mat-raised-button>Log out</button>
+      </div>
     </mat-card>
     <mat-card *ngIf="this.authenticationService.currentUserValue == null" class="loginCard" [style.height]="H45">
       <h1 class="wlcmsg">Welcome, guest!</h1>
@@ -58,7 +66,7 @@
     </mat-card>
     <mat-card class="playCard" [style.height]="H25">
       <div id="gmmds">
-          <mat-grid-list cols="3" rowHeight="7vh" gutterSize="5px" >
+          <mat-grid-list cols="3" rowHeight="5vh" gutterSize="5px" >
               <mat-grid-tile 
                    *ngFor="let GBTN of localGBTNS">
                    <button 
