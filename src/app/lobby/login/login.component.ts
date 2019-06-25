@@ -97,6 +97,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     //rng text
     this.randomWelcome = W_MESSAGES[Math.floor(Math.random() * W_MESSAGES.length)];
     //prekryti pri male vysce okna
+    this.onResize();
     if ((window.innerHeight / screen.height) < 0.7) {
       this.tooSmall = true;
     } else {
@@ -142,7 +143,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     // unsubscribe to ensure no memory leaks
     this.currentUserSubscription.unsubscribe();
   }
-  onResize(event: Event): void {
+  onResize(): void {
     //responz. vyska
     if ((window.innerHeight / screen.height) < 0.7) {
       this.tooSmall = true;
@@ -191,6 +192,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
+  logOut() : void{
+    this.authenticationService.logout();
+  }
   onSubmit(): void {
     this.submitted = true;
 
@@ -205,6 +209,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
+          this.loading = false;
         },
         error => {
           this.alertService.error(error);

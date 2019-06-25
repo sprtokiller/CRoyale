@@ -298,7 +298,11 @@ div.cardsLeft{
     margin-bottom: 0px;
     height: calc(45vh - 10px);
 }
-
+#loader{
+    position: absolute;
+    left: calc(50% - 5px);
+    top: 18vh;
+}
 .gameBtn{
 
    width: 100%;
