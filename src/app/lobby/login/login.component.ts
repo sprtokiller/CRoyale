@@ -204,7 +204,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
     console.log(this.f.username.value, this.f.password.value);
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login("NATIVE", "", this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {
