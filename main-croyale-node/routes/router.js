@@ -1,36 +1,50 @@
 var express = require('express');
 var router = express.Router();
 var Login = require('../models/model.login');
+var User = require('../models/model.user');
+var tokens = require('../auth/tokens');
 
 // GET route for reading data
 router.get('/', function (req, res, next) {
   return res.sendFile(path.join(__dirname + '/templateLogReg/index.html'));
 });
 
-
 router.post('/login', function (req, res, next) {
-  //  console.log(req);
-    res.header("Access-Control-Allow-Origin", "http://localhost:4200");
-    if (req.body.username &&
-        req.body.password &&
-        req.body.externalType &&
-        req.body.externalID){
-            console.log("je platny json");
-        //jdeme overovat
-        Login.authenticate(req.body.externalType, req.body.externalID, req.body.username, req.body.password, function (error, user) {
-            if (error || !user) {
-              var err = new Error('Wrong username or password.');
-              err.status = 401;
-              return next(err);
-            } else {
-                console.log("Přihlášeno!"); 
-              req.session.userId = user._id;
-              return res.send('signed in') 
-            }
-          });
-    } else {
-        return res.send('Hello there, from the server. U sux')
-    }
+  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+  if (req.body.username &&
+    req.body.password &&
+    req.body.externalType &&
+    req.body.externalID) {
+    //jdeme overovat
+    Login.authenticate(req.body.externalType, req.body.externalID, req.body.username, req.body.password, function (error, login) {
+      if (error || !login) {
+        res.status(401);
+        var err = new Error();
+        err.reason = "Wrong username or password.";
+        return res.send(err);
+      } else {
+        User.getBasicUserInfoBy_id(login.relatedUser_index, function (error2, user) { 
+          if (error2 || !user) {
+            res.status(401);
+            var err2 = new Error();
+            err2.reason = "Account does not exist.";
+            return res.send(err2);
+          } else { //every login, create a different jwt token from _id hash
+            var audience = "";
+            if (!req.headers.origin) {audience = "anonymous"} else {audience = req.headers.origin}
+            user.token = tokens.generateJWT("CRoyale", user.oid, audience);
+            user.username = req.body.username;
+            return res.send(user); 
+          }
+        })
+      }
+    });
+  } else {
+        res.status(400);
+        var err3 = new Error();
+        err3.reason = "Invalid JSON data. Go away.";
+        return res.send(err3)
+  }
 })
 
 

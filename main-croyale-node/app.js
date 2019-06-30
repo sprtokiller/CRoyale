@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var croyaledbpath = "mongodb://localhost:27017/croyaledb";
-var db_Logins = "Logins";
+var appurl = "http://localhost:4200";
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useCreateIndex', true);
 mongoose.connect(croyaledbpath);
@@ -70,7 +70,9 @@ app.use('/', routes);
 //   res.status(err.status || 500);
 //   res.send(err.message);
 // });
-port = 3000
-app.listen(port)
-console.log(`Listening at http://localhost:${port}`)
+port = 3000;
+app.listen(port);
+console.log(`Listening at: http://localhost:${port}`);
+console.log(`Front-end is: ${appurl}`);
+
 module.exports = app;

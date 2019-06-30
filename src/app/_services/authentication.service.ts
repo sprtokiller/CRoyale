@@ -36,7 +36,6 @@ export class AuthenticationService {
 
 
     login(externalType: string, externalID: string, username: string, password: string, ) {
-        console.log("me here")
         return this.http.post<any>(`${this.config.apiUrl}/login`, { externalType, externalID, username, password }, httpOptions )
             .pipe(map(user => {
                 
