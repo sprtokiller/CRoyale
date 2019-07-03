@@ -9,6 +9,10 @@ var UserSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
+  role: {
+    type: String,
+    required: true
+  },
   isActive: {
     type: Boolean,
     unique: false,
@@ -73,6 +77,7 @@ UserSchema.statics.getBasicUserInfoBy_id = function (searchIndex, callback) {
       return callback(err)
        }
     var userSimpleData = {
+      role: user.role,
       oid: user._id,
       index: searchIndex,
       level: user.level,

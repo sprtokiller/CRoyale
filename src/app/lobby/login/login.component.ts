@@ -53,7 +53,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   localGBTNS: GBtn[] = GBTNS;
   localSBTNS: SBtn[] = SBTNS;
   randomWelcome: string;
-  tooSmall: boolean;
+  tooSmallW: boolean;
+  tooSmallH: boolean;
   loginForm: FormGroup;
   loading = false;
   submitted = false;
@@ -98,12 +99,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.randomWelcome = W_MESSAGES[Math.floor(Math.random() * W_MESSAGES.length)];
     //prekryti pri male vysce okna
     this.onResize();
-    if ((window.innerHeight / screen.height) < 0.7) {
-      this.tooSmall = true;
-    } else {
-      this.marginTB = ((window.innerHeight - (0.7 * screen.height)) / 2).toString() + "px";
-      this.tooSmall = false;
-    }
 
     this.elem = document.documentElement;
     this.minW = (0.24 * screen.width).toString() + "px";
@@ -146,22 +141,28 @@ export class LoginComponent implements OnInit, OnDestroy {
   onResize(): void {
     //responz. vyska
     if ((window.innerHeight / screen.height) < 0.7) {
-      this.tooSmall = true;
+      this.tooSmallH = true;
     } else {
       this.marginTB = ((window.innerHeight - (0.7 * screen.height)) / 2).toString() + "px";
-      this.tooSmall = false;
+      this.tooSmallH = false;
     }
     //responz sirka
+    if ((window.innerWidth / screen.width) < 0.30) {
+      this.tooSmallW = true;
+    } else
     if ((window.innerWidth / screen.width) < 0.48) {
+      this.tooSmallW = false;
       this.currentW = this.minW;
       this.marginSize = ((0.16 * screen.width) - ((0.8 * screen.width - window.innerWidth) / 2)).toString() + "px";
       this.scaling = "scale(" + ((window.innerWidth / screen.width) / 0.48).toString() + ")";
     } else
       if ((window.innerWidth / screen.width) < 0.8) {
+        this.tooSmallW = false;
         this.currentW = this.minW;
         this.marginSize = ((0.16 * screen.width) - ((0.8 * screen.width - window.innerWidth) / 2)).toString() + "px";
         this.scaling = "scale(1.0)";
       } else {
+        this.tooSmallW = false;
         this.currentW = "30vw";
         this.marginSize = "20vw";
         this.scaling = "scale(1.0)";
@@ -208,12 +209,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate([this.returnUrl]);
-          this.loading = false;
+    //      this.alertService.success("Success!");
+        //  this.router.navigate([this.returnUrl]);
+    //      this.loading = false;
         },
         error => {
-          this.alertService.error(error);
-          this.loading = false;
+    //      this.alertService.error(error);
+    //      this.loading = false;
         });
   }
   onGameModeSelect(idX: number): void {

@@ -313,6 +313,12 @@ div.cardsLeft{
    z-index: 42;
 }
 
+#profilePicture{
+    object-fit: cover;
+    width: calc(4vh + 6vw);
+    height: calc(4vh + 6vw);
+}
+
 .styleBtn{
     margin-top: 2vh;
     width: 100%;

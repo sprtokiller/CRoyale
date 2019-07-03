@@ -8,17 +8,20 @@ var privateKEY = fs.readFileSync('D:/Documents/Visual Studio 2017/cookie/main-cr
 var publicKEY = fs.readFileSync('D:/Documents/Visual Studio 2017/cookie/main-croyale-node/auth/public.key', 'utf8');
 
 module.exports = {
-    generateJWT: function (i, s, a) {
+    generateJWT: function (i, s, a, ind, r) {
         // PAYLOAD
         var payload = {
-            theTruth: "Oranges>Mandarines"
+            theTruth: "Oranges>Mandarines",
+            role: r,
+            uID : ind
         };
         // SIGNING OPTIONS
         var signOptions = {
             issuer: i,        //issuer
             subject: s,        //subject
             audience: a,        //audience
-            algorithm: "HS256"   //algorithm
+            algorithm: "HS256",   //algorithm
+            expiresIn: "24h"
         };
         return jwt.sign(payload, privateKEY, signOptions);
     },

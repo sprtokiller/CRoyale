@@ -31,8 +31,8 @@ router.post('/login', function (req, res, next) {
             return res.send(err2);
           } else { //every login, create a different jwt token from _id hash
             var audience = "";
-            if (!req.headers.origin) {audience = "anonymous"} else {audience = req.headers.origin}
-            user.token = tokens.generateJWT("CRoyale", user.oid, audience);
+            if (!req.headers.origin) {audience = "anonymous"} else {audience = req.headers.origin} //something like http://croyale.net
+            user.token = tokens.generateJWT("CRoyale", user.oid, audience, user.index, user.role);
             user.username = req.body.username;
             return res.send(user); 
           }

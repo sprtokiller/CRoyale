@@ -1,4 +1,4 @@
-<div id="protect" *ngIf="tooSmall">Please resize your window</div>
+<div id="protect" *ngIf="tooSmallW || tooSmallH">Please resize your window</div>
 
 <button style="padding-right: 1vh" id="goFullScreen" class="formBtn" mat-raised-button (click)="openFullscreen()" *ngIf="!full">
     <div id="fullIcon">
@@ -14,7 +14,7 @@
   <div class="cardsRight" [style.width]="currentW" [style.right]="marginSize" [style.top]="marginTB">
     <mat-card *ngIf="this.authenticationService.currentUserValue" class="loginCard" [style.height]="H45">
       <h1 class="wlcmsg">{{randomWelcome}}</h1>
-      <div id="playerPictureWrapper"><br>REEEEEEE</div>
+      <div id="playerPictureWrapper"><img id="profilePicture" src="http://via.placeholder.com/256" alt="Profile picture"></div>
       <span id="playerName">{{currentUser.firstName}}</span>
       <div id="titlePicker">
           <div id="tP_left" class="tP_arrow" *ngClass="'allowedArrow' == leftAllowed">
