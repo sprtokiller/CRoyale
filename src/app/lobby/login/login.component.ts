@@ -211,11 +211,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         data => {
     //      this.alertService.success("Success!");
         //  this.router.navigate([this.returnUrl]);
-    //      this.loading = false;
+          this.loading = false;
         },
         error => {
     //      this.alertService.error(error);
-    //      this.loading = false;
+          this.loading = false;
         });
   }
   onGameModeSelect(idX: number): void {

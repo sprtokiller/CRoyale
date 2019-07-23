@@ -19,6 +19,8 @@ import { GameMainComponent } from './game/game-main.component';
 import { LoginComponent } from './lobby/login/login.component';
 import { LobbyMainComponent } from './lobby/lobby-main.component';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io'; //hell yea, lets succ those data
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -29,7 +31,10 @@ import {
 } from '@angular/material';
 import { AlertComponent } from './lobby/login/alert/alert.component'; //not used
 import { MatListModule } from '@angular/material/list'; 
-import { JwtInterceptor, ErrorInterceptor, fakeBackendProvider } from './_helpers';
+import { JwtInterceptor, ErrorInterceptor, fakeBackendProvider } from './_helpers'; //tokens from tutorial
+
+const Sconfig: SocketIoConfig = { url: 'http://localhost:3001, options: {} }'};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +67,8 @@ import { JwtInterceptor, ErrorInterceptor, fakeBackendProvider } from './_helper
     MatMenuModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatListModule
+    MatListModule,
+    SocketIoModule.forRoot(Sconfig)
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
