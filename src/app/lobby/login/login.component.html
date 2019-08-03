@@ -87,7 +87,10 @@
           class="gameBtn"
           id="readyBtn"
           (click)="onReadyClick()"
-          mat-raised-button>
+          mat-raised-button
+          routerLink="/play"
+          routerLinkActive="active"
+          >
            {{RP_caption}}
          </button>
       </div>

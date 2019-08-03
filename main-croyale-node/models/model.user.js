@@ -14,7 +14,7 @@ var UserSchema = new mongoose.Schema({
     required: true
   },
   isActive: {
-    type: Boolean,
+    type: Number, //0=No, 1=Yes, 2=InGame
     unique: false,
     required: false
   },
@@ -69,7 +69,7 @@ var UserSchema = new mongoose.Schema({
 
 //authenticate input against database
 UserSchema.statics.getBasicUserInfoBy_id = function (searchIndex, callback) {
-  User.findOne({index : searchIndex}, function (error, user) {
+ User.findOne({index : searchIndex}, function (error, user) {
     if (error || !user) {
       console.log(error);
       console.log(user);
@@ -86,6 +86,14 @@ UserSchema.statics.getBasicUserInfoBy_id = function (searchIndex, callback) {
  // console.log(userSimpleData);
   return callback(null, userSimpleData);
   });
+}
+
+//Update user active status
+UserSchema.statics.updateStatus = function (searchIndex, activeStatus) {
+   var myUser =  User.findOne().where("index").equals(searchIndex)
+  .exec();
+  myUser.isActive = activeStatus;
+  myUser.save();
 }
 
 var User = mongoose.model('User', UserSchema, "Users");

@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LobbyMainComponent },
  // { path: 'play/:id', component: GameMainComponent }, dodělat až bude víc zápasů --> server
-  { path: 'play', component: GameMainComponent, canActivate: [AuthGuard] },
+  { path: 'play', component: GameMainComponent /*, canActivate: [AuthGuard] */ },
   { path: '**', redirectTo: '/login' }
 ];
 

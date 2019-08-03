@@ -38,16 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   currentUser: User;
   currentUserSubscription: Subscription;
   users: User[] = [];
-  //debug
-  fakeAdmin: User = {
-    id:0,
-    username: "admin",
-    password: "pass123",
-    firstName: "Victor",
-    lastName: "Kriezl",
-    token: "fake-jwt-token"
-  }
-  //debug
+
   leftAllowed: boolean = true;
   RP_caption: string = "Play Now"
   localGBTNS: GBtn[] = GBTNS;
@@ -89,12 +80,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   elem;
 
   ngOnInit() {
-    //debug 
-
-    this.users.push(this.fakeAdmin);
-    localStorage.setItem('users', JSON.stringify(this.users));
-
-    //debug
+    //load, popřípadě generování localStorage
+    if (!(localStorage.getItem('localGameMode'))) {
+      localStorage.setItem('localGameMode', '0');
+    };
+    if (!(localStorage.getItem('localStyleMode'))) {
+      localStorage.setItem('localStyleMode', '0');
+    };
+    this.onGameModeSelect(Number(localStorage.getItem('localGameMode')))
+    this.onStyleModeSelect(Number(localStorage.getItem('localStyleMode')))
     //rng text
     this.randomWelcome = W_MESSAGES[Math.floor(Math.random() * W_MESSAGES.length)];
     //prekryti pri male vysce okna
@@ -209,17 +203,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe(
         data => {
-    //      this.alertService.success("Success!");
-        //  this.router.navigate([this.returnUrl]);
           this.loading = false;
         },
         error => {
-    //      this.alertService.error(error);
           this.loading = false;
         });
   }
   onGameModeSelect(idX: number): void {
-    console.log("owo");
+    localStorage.setItem('localGameMode', idX.toString());
     switch (idX) {
       case 0:
         this.localGBTNS[0].selected = true;
@@ -244,6 +235,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
   onStyleModeSelect(idX: number): void {
+    localStorage.setItem('localStyleMode', idX.toString());
     switch (idX) {
       case 0:
         this.localSBTNS[0].selected = true;
@@ -268,6 +260,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
   onReadyClick(){
-    console.log(localStorage.getItem('users'));
+    if (this.currentUser) {
+      console.log("Y")
+    } else {
+      console.log("N")
+    }
+
   }
 }

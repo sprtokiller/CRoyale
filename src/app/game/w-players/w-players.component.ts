@@ -3,6 +3,7 @@ import { PLAYERTILES } from './srcPlayers/MOCK_PLAYER_TILES';
 import { PlayerTile } from './srcPlayers/playerTile';
 import { CestyService } from '../commonServices/cesty.service';
 import { StatsService } from '../../_services/stats.service';
+import { IngamesocketService } from '../../_services/ingamesocket.service';
 import { Zprava } from '../w-stats/zprava';
 
 @Component({
@@ -12,8 +13,8 @@ import { Zprava } from '../w-stats/zprava';
 })
 export class WPlayersComponent implements OnInit {
   pTiles = PLAYERTILES;
-  constructor(private cestyService: CestyService, private statsService: StatsService) { }  //implementace servisu
-  alive = PLAYERTILES.length;
+  constructor(private cestyService: CestyService, private statsService: StatsService, private socketService: IngamesocketService) { }  //implementace servisu
+  alive = 0;
   visible = PLAYERTILES.length;
   columnCount: string = "5";
   sortMode : number;
@@ -32,8 +33,18 @@ export class WPlayersComponent implements OnInit {
       }
     return(`${r}, ${g}, ${b}`);
   }
-
+  interval: any;
   ngOnInit() {
+    //bind services
+    this.socketService.onAliveUpdate().subscribe(aliveData => {
+      this.alive = aliveData;
+    });
+    //bind services
+    //bind timed ask
+    this.interval = setInterval(() => {
+  //    this.checkUpdate();
+    }, 1000);
+    //bind timed ask
     this.pTiles.sort((a, b) => a.nick > b.nick ? 1 : -1 );
     this.sortMode = 0;
     this.asc = false;
