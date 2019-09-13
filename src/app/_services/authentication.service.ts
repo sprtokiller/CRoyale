@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
+import { of } from 'rxjs';
 import { User } from '../lobby/login/user';
 
 const httpOptions = {
@@ -65,12 +65,14 @@ export class AuthenticationService {
             userToken = user.token;
             return this.http.post<any>(`${this.config.apiUrl}/check`, {userToken}, httpOptions )
             .pipe(map(response =>{
+                console.log("response:");
+                console.log(response);
                 return response
                 }));
         
         } else { 
             console.log("as guest");
-            return; }
+            return of({response: "OK"}); }
 
     }
 }

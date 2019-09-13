@@ -1,0 +1,66 @@
+<div id="protect" *ngIf="tooSmallW || tooSmallH">Please resize your window</div>
+
+<div id="registerWrapper" (window:resize)="onResize()">
+  <div *ngIf="!(tooSmallW || tooSmallH)" id="cardsMain" [style.width]="minW" [style.height]="minH"
+    [style.right]="rightSize" [style.top]="marginTB">
+    <mat-card class="registerCard">
+
+      <div id="formWrapper">
+        <h2 class="title">Register form</h2>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" id="formRegister">
+          <div class="form-group">
+            <input autocomplete="off" type="text" formControlName="username" placeholder="Username..."
+              class="form-control userLabel" />
+            <div class="redErr userErr" *ngIf="f.username.hasError('minlength')">Username should contain at least 6
+              characters</div>
+            <div class="redErr userErr" *ngIf="f.username.hasError('maxlength')">Username should contain at most 25
+              characters</div>
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+              <div class="redErr userErr" *ngIf="f.username.errors.required">Username is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input autocomplete="off" type="password" formControlName="password" placeholder="Password..."
+              class="form-control passLabel" />
+            <div class="redErr userErr" *ngIf="f.password.hasError('minlength')">Password should contain at least 6
+              characters</div>
+            <div class="redErr userErr" *ngIf="f.password.hasError('maxlength')">Password should contain at most 40
+              characters</div>
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div class="redErr passErr" *ngIf="f.password.errors.required">Password is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input autocomplete="off" type="password" formControlName="passwordControl"
+              placeholder="Confirm password..." class="form-control passConfLabel" />
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div class="redErr passErr" *ngIf="f.passwordControl.errors.required">This field is required</div>
+              <div class="redErr passErr" *ngIf="notMatching">The password doesn't match</div>
+            </div>
+          </div>
+
+          <div class="re-captcha-div-outside">
+            <div class="re-captcha-div-inside">
+              <re-captcha (resolved)="resolved($event)" formControlName="captcha"
+                siteKey="6LfGXLIUAAAAAHvSGjx4pGNqGhdcZXZXSUKpAros">
+              </re-captcha>
+            </div>
+          </div>
+          <div *ngIf="submitted && f.captcha.errors" class="invalid-feedback">
+            <div class="redErr passErr" style="text-align: center">ReCaptcha failed</div>
+          </div>
+          <div class="form-group" id="loader">
+            <img *ngIf="loading" class="pl-3"
+              src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          </div>
+        </form>
+        <button id="registerBtn" class="formBtn form-control" routerLink="/register" mat-raised-button
+          (click)="onSubmit()" [disabled]="loading">Register now!</button>
+
+      </div>
+      <button id="homeBtn" class="formBtn form-control" mat-raised-button routerLink="/login">Go back</button>
+    </mat-card>
+  </div>
+</div>

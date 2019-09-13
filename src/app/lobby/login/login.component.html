@@ -9,7 +9,7 @@
     
 </button>
 
-<div  class="loginWrapper">
+<div class="loginWrapper">
   <div id="cardsMain" (window:resize)="onResize()" [style.transform]="scaling">
   <div class="cardsRight" [style.width]="currentW" [style.right]="marginSize" [style.top]="marginTB">
     <mat-card *ngIf="this.authenticationService.currentUserValue" class="loginCard" [style.height]="H45">
@@ -35,7 +35,8 @@
     <mat-card *ngIf="this.authenticationService.currentUserValue == null" class="loginCard" [style.height]="H45">
       <h1 class="wlcmsg">Welcome, guest!</h1>
       <div id="labmsgWrapper">
-         Login to access friendlist, custom avatars and much more!
+         Login to access friendlist, custom avatars and much more!<br>
+         <span style="font-size: 0.8em; color: rgb(65, 65, 65)">By using our website, you hereby consent to our <a routerLink="/privacy" >Privacy Policy</a></span> 
       </div>
       <div id="classicLogin">
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" id="formLoginX">
@@ -56,7 +57,8 @@
               </div>
           </form>
           <button id="loginBtn" class="formBtn form-control" mat-raised-button [disabled]="loading" (click)="onSubmit()">Login</button>
-          <button id="registerBtn" class="formBtn form-control" routerLink="/register" (click)="scaleMe()" mat-raised-button>Register</button>
+          <button id="registerBtn" class="formBtn form-control" routerLink="/register" 
+          mat-raised-button>Register</button>
 
       </div>
       <div id="outerLogin">
@@ -89,7 +91,6 @@
           (click)="onReadyClick()"
           mat-raised-button
           routerLink="/play"
-          routerLinkActive="active"
           >
            {{RP_caption}}
          </button>

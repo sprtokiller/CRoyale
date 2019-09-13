@@ -10,7 +10,10 @@ export class IngamesocketService {
 
   private url = 'http://localhost:3001';
   socket: SocketIOClient.Socket;
-  constructor() { 
+  constructor() {
+
+  }
+  connect(){
     var user = JSON.parse(localStorage.getItem('currentUser'));
     var userToken;
     var myUsername;
@@ -19,48 +22,53 @@ export class IngamesocketService {
     var localStyleMode;
     if (localStorage.getItem('localGameMode')) {
       localGameMode = Number(localStorage.getItem('localGameMode'));
-    } else { localGameMode = 0;
+    } else {
+      localGameMode = 0;
     }
     if (localStorage.getItem('localStyleMode')) {
       localStyleMode = Number(localStorage.getItem('localStyleMode'));
-    } else { localStyleMode = 0;
+    } else {
+      localStyleMode = 0;
     }
     if (user) {
       isRegistered = true;
       userToken = user.token;
-      myUsername = user.username } else {
+      myUsername = user.username;
+      console.log("Connection as:");
+      console.log(user);
+      console.log(myUsername);
+    } else {
       isRegistered = false;
       userToken = "guest";
-      myUsername = ""}
-    this.socket = io(this.url, {
-    query: {
-      token: userToken,
-      username: myUsername,
-      title: "Tester",
-      skinID: 1,
-      registred: isRegistered,
-      styleMode: localStyleMode,
-      gameMode: localGameMode
+      myUsername = ""
     }
-   
+    this.socket = io(this.url, {
+      query: {
+        token: userToken,
+        username: myUsername,
+        title: "Tester", //TODO: connect this to actual skin/title picking
+        skinID: 1,
+        registred: isRegistered,
+        styleMode: localStyleMode,
+        gameMode: localGameMode
+      }
+
     });
   }
+  disconnect(){
+    this.socket.disconnect();
+  }
   //EMITTERS
-  getGameData(id: number) {
-    
-    this.socket.emit('getGameData', id);
+  getGameData(isOnInit: boolean) {
+
+    this.socket.emit('getGameData', isOnInit);
   }
   eventName1(id: number) {
-    
+
     this.socket.emit('eventName1', id);
   }
   //EMITTERS
-  //binds to server emits
-//  otherPlayerData = this.socket.addEventListener("otherPlayerData", function(e) {
-//    var returnedData = JSON.parse(e);
-//    console.log(returnedData);
-//});
-  //binds to server emits
+
 
   //HANDLER
   onTokenExpired() {
@@ -78,6 +86,12 @@ export class IngamesocketService {
       });
     });
   }
+  onTileDataUpdate() {
+    return Observable.create(observer => {
+      this.socket.on('tileDataUpdate', tiles => {
+        observer.next(tiles);
+      });
+    });
+  }
   //HANDLER
 }
- 

@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class CestyService {
 
   getAvatarPath(aID:number) : string{
-    return("assets/resx/cookie" + aID.toString() + ".png");
+    return("assets/resx/skins/cookie" + aID.toString() + ".png");
   }
   constructor() { }
 }

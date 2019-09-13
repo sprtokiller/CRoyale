@@ -17,7 +17,6 @@ import { PlayerDetailComponent } from './game/w-players/player-detail/player-det
 import { GameMainComponent } from './game/game-main.component';
 
 import { LoginComponent } from './lobby/login/login.component';
-import { LobbyMainComponent } from './lobby/lobby-main.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io'; //hell yea, lets succ those data
 
@@ -30,10 +29,13 @@ import {
   MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule
 } from '@angular/material';
 import { AlertComponent } from './lobby/login/alert/alert.component'; //not used
-import { MatListModule } from '@angular/material/list'; 
+import { MatListModule } from '@angular/material/list';
 import { JwtInterceptor, ErrorInterceptor, fakeBackendProvider } from './_helpers'; //tokens from tutorial
+import { RegisterComponent } from './lobby/register/register.component';
+import { PrivacyPolicyComponent } from './lobby/privacy-policy/privacy-policy.component';
+import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 
-const Sconfig: SocketIoConfig = { url: 'http://localhost:3001, options: {} }'};
+const Sconfig: SocketIoConfig = { url: 'http://localhost:3001, options: {} }' };
 
 @NgModule({
   declarations: [
@@ -44,8 +46,10 @@ const Sconfig: SocketIoConfig = { url: 'http://localhost:3001, options: {} }'};
     WStatsComponent,
     PlayerDetailComponent,
     LoginComponent,
-    GameMainComponent,  
-    LobbyMainComponent, AlertComponent  
+    GameMainComponent,
+    AlertComponent,
+    RegisterComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,
@@ -57,9 +61,9 @@ const Sconfig: SocketIoConfig = { url: 'http://localhost:3001, options: {} }'};
     MatExpansionModule,
     MatDividerModule,
     HttpClientModule,
-    CommonModule, 
+    CommonModule,
     MatToolbarModule,
-    MatButtonModule, 
+    MatButtonModule,
     MatCardModule,
     MatInputModule,
     MatDialogModule,
@@ -68,10 +72,12 @@ const Sconfig: SocketIoConfig = { url: 'http://localhost:3001, options: {} }'};
     MatIconModule,
     MatProgressSpinnerModule,
     MatListModule,
-    SocketIoModule.forRoot(Sconfig)
+    SocketIoModule.forRoot(Sconfig),
+    RecaptchaModule,
+    RecaptchaFormsModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     fakeBackendProvider
   ],

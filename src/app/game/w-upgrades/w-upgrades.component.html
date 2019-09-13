@@ -34,15 +34,21 @@
   <section id="content2">
     <mat-grid-list cols="3" rowHeight="0.5vh" gutterSize="5px">
       <div class="generatedSkillRow" *ngFor="let sTR of sTierTiles">
-        <mat-grid-tile rowspan="8" class="generatedSkillTile" *ngFor="let sT of sTR; let j = index">
-          <div [class.locked]="isLocked == false" [class.unlocked]="isLocked == true">
-            {{sT.skillName}}
-          </div>
+
+        <mat-grid-tile rowspan="12" class="generatedSkillTile" *ngFor="let sT of sTR; let j = index">
+            <img class="skillImg" src="assets/resx/svg/skills/pic1.svg" alt="Owo">
         </mat-grid-tile>
+        
         <mat-grid-tile colspan="3" class="dividerTile">
           <hr class="divider">
         </mat-grid-tile>
       </div>
     </mat-grid-list>
   </section>
+  <div id="patreonWrapper">
+    <a href="https://www.patreon.com/CRoyale" target="_blank" rel="noopener noreferrer">
+        <img id="patreonImg" src="assets/resx/social/become_a_patron_button.png" alt="Become a Patron!">
+    </a>
+  </div>
+
 </div>

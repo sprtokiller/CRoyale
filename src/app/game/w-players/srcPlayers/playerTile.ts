@@ -1,5 +1,4 @@
 export class PlayerTile {
-    id: number;
     nick: string;
     alive: boolean;
     hp: number;

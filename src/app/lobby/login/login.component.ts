@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
+    public authenticationService: AuthenticationService,
     private alertService: AlertService,
     private userService: UserService
   ) {
@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     //rng text
     this.randomWelcome = W_MESSAGES[Math.floor(Math.random() * W_MESSAGES.length)];
     //prekryti pri male vysce okna
-    this.onResize();
+    
 
     this.elem = document.documentElement;
     this.minW = (0.24 * screen.width).toString() + "px";
@@ -127,6 +127,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.onResize();
   }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
@@ -164,10 +165,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
   }
 
-  scaleMe() {
-    this.scalNum = this.scalNum - 0.05;
-    this.scaling = "scale(" + this.scalNum.toString() + ")"
-  }
   openFullscreen() {
     this.full = true;
     if (this.elem.requestFullscreen) {
@@ -185,7 +182,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  public get f() { return this.loginForm.controls; }
 
   logOut() : void{
     this.authenticationService.logout();

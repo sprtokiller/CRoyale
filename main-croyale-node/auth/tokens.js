@@ -13,7 +13,7 @@ module.exports = {
             theTruth: "Oranges>Mandarines",
             role: r,
             nick: n,
-            uID : ind
+            uID: ind
         };
         // SIGNING OPTIONS
         var signOptions = {
@@ -25,20 +25,20 @@ module.exports = {
         return jwt.sign(payload, privateKEY, signOptions);
     },
     verifyJWT: function (token) {
-        var verifyOptions  = {
+        var verifyOptions = {
             issuer: "CRoyale",                     //issuer
             audience: "http://croyale.net",        //audience
             algorithm: ["HS256"],                  //algorithm
             expiresIn: "24h"
         };
-        try{
+        try {
             return jwt.verify(token, privateKEY, verifyOptions);
-          }catch (err){
-              console.log(err);
+        } catch (err) {
+            //console.log(err);
             return false;
-          }
+        }
     },
     decodeJWT: function (token) {
-        return jwt.decode(token, {complete: true});
+        return jwt.decode(token, { complete: true });
     }
 }; 

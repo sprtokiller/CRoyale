@@ -23,7 +23,7 @@ router.post('/login', function (req, res, next) {
         err.reason = "Wrong username or password.";
         return res.send(err);
       } else {
-        User.getBasicUserInfoBy_id(login.relatedUser_index, function (error2, user) { 
+        User.getBasicUserInfoBy_id(login.relatedUser_index, function (error2, user) {
           if (error2 || !user) {
             res.status(401);
             var err2 = new Error();
@@ -32,16 +32,16 @@ router.post('/login', function (req, res, next) {
           } else { //every login, create a different jwt token from _id hash SUCCESS
             user.username = req.body.username;
             user.token = tokens.generateJWT(user.username, user.index, user.role);
-            return res.send(user); 
+            return res.send(user);
           }
         })
       }
     });
   } else {
-        res.status(400);
-        var err3 = new Error();
-        err3.reason = "Invalid JSON data. Go away.";
-        return res.send(err3)
+    res.status(400);
+    var err3 = new Error();
+    err3.reason = "Invalid JSON data. Go away.";
+    return res.send(err3)
   }
 })
 
@@ -65,25 +65,25 @@ router.post('/login', function (req, res, next) {
 
 // POST for checking jwt while login and rerouting
 router.post('/check', function (req, res, next) {
- // console.log(req.body);
+  // console.log(req.body);
   if (req.body.userToken) {
     try {
       if (tokens.decodeJWT(req.body.userToken))
-      if (tokens.verifyJWT(req.body.userToken, "CRoyale", "http://croyale.net")) {
-   //     console.log("Success as User");
-    //    console.log("sending OK");
-        return res.send({response: "OK"});
-      } else {
-   //     console.log("sending /login1");
-        return res.send({response: "/login"});
-      }
+        if (tokens.verifyJWT(req.body.userToken, "CRoyale", "http://croyale.net")) {
+          //     console.log("Success as User");
+          //    console.log("sending OK");
+          return res.send({ response: "OK" });
+        } else {
+          //     console.log("sending /login1");
+          return res.send({ response: "/login" });
+        }
     } catch (error) {
-  //    console.log("sending /login2");
-      return res.send({response: "/login"});
+      //    console.log("sending /login2");
+      return res.send({ response: "/login" });
     }
-  } 
- // console.log("sending /login3");
-  return res.send({response: "/login"});
+  }
+  // console.log("sending /login3");
+  return res.send({ response: "/login" });
 });
 
 module.exports = router;

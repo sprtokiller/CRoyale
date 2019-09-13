@@ -91,20 +91,39 @@ input:not(:checked)+label {
   display: block;
 }
 
-/*
-@media screen and (max-width: 800px) {
-  label {
-    font-size: 0;
-  }
-  label:before {
-    margin: 0;
-    font-size: 18px;
-  }
+#patreonWrapper{
+  position: absolute;
+  bottom: 5px;
+  align-content: center;
+  width: 50%;
+  left: 25%;
 }
 
-@media screen and (max-width: 500px) {
-  label {
-    padding: 15px;
-  }
+#patreonImg{
+  width: 100%;
+  border-style: none;
+  border-radius: 9999px;
 }
-*/
+
+.skillImg{
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  background-color: azure;
+  border-radius: 3px 15px 3px 15px;
+}
+
+.skillImgWrapper{
+  width: 100%;
+  background-color: aqua;
+}
+
+.skillImgWrapper:after{
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.generatedSkillTile{
+}
