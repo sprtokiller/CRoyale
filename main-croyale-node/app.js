@@ -203,7 +203,7 @@ io.on("connection", socket => {
       for (let i = 0; i < allGames[data.returnIndex - 1].groups[0].players.length; i++) { //iterate over players to find empty guest numbers
         if ((allGames[data.returnIndex - 1].groups[0].players[i].PLAYER_registred) && (allGames[data.returnIndex - 1].groups[0].players[i].PLAYER_nickName != "")){
           //je guest a ma uz i cislo
-          if (parseInt(allGames[data.returnIndex - 1].groups[0].players[i].PLAYER_nickName.slice(5)) == min){ //TODO Try?
+          if (parseInt(allGames[data.returnIndex - 1].groups[0].players[i].PLAYER_nickName.slice(5)) == min){ //TODO Try? - někdo by mohl zaútočit
            min++;
           }
         } 

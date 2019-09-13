@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
         username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(25)]],
         password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(40)]],
         passwordControl: ['', Validators.required],
-        captcha: ['', Validators.required]
+        captcha: ['', []]
       });
   }
   public get f() { return this.registerForm.controls; }
@@ -65,25 +65,21 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    console.log(this.f.password.value);
-    console.log(this.f.passwordControl.value);
     if (this.f.password.value != this.f.passwordControl.value) {
-      console.log("not matching");
       this.notMatching = true;
       return;
     } else {
-      console.log("matching");
       this.notMatching = false;
     }
     // stop here if form is invalid
-    if (this.registerForm.invalid) {
+    if ((this.registerForm.invalid) || (this.fakeReCaptcha == null)) {
       return;
     }
-
+    
     console.log(this.f.username.value, this.f.password.value);
     this.loading = true;
     console.log("you shouldnt be here");
-    this.authenticationService.login("NATIVE", "no-id", this.f.username.value, this.f.password.value)
+    this.authenticationService.register("NATIVE", "no-id", this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {

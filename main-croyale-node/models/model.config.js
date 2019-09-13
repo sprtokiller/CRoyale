@@ -8,6 +8,10 @@ var ConfigSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  nextUserIndex: {
+    type: Number,
+    required: true
+  },
   docID: {
     type: Number,
     required: true
@@ -30,6 +34,25 @@ ConfigSchema.statics.getAndIncreaseNextGamesIndex = function (callback) {
     }
 
 return callback(null, config.nextGamesIndex); //tedy vrátit ID
+});
+}
+
+//called when registring new user 
+ConfigSchema.statics.getAndIncreaseNextUserIndex = function (callback) {
+  Config.findOne({docID : 42069}, function (error, config) {
+  if (error || !config) { //well rip, config gone
+    err = new Error();
+    return callback(err, null)
+    } else {
+      Config.updateOne({docID : 42069}, { "$set": { "nextUserIndex": (config.nextUserIndex + 1) } }, function (error, succ) {
+        if (error || !succ) {
+          err = new Error();
+          return callback(err, null) //if it was there, now it gone
+          }
+      });
+    }
+
+return callback(null, config.nextUserIndex); //tedy vrátit ID
 });
 }
 

@@ -45,6 +45,41 @@ router.post('/login', function (req, res, next) {
   }
 })
 
+router.post('/register', function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+  if (req.body.username &&
+    req.body.password &&
+    req.body.externalType &&
+    req.body.externalID) {
+    //jdeme registrovat
+    Login.checkMateExists(req.body.externalType, req.body.externalID, req.body.username, function (exists) {
+      if (exists) {
+        res.status(401); 
+        var err = new Error();
+        err.reason = "Registration unsuccesfull - user exists.";
+        return res.send(err);
+      } else { //can register now
+        Login.register(req.body.externalType, req.body.externalID, req.body.username, req.body.password, function (isErr, error){
+          if (isErr){
+            res.status(401); 
+            var err = new Error();
+            err.reason = "Registration unsuccesfull.";
+            return res.send(err);
+          } else {
+            console.log("now login");
+            //hurray, now login
+          }
+        })
+      }
+    });
+  } else {
+    res.status(400);
+    var err3 = new Error();
+    err3.reason = "Invalid JSON data. Go away.";
+    return res.send(err3)
+  }
+})
+
 // GET route after registering
 //router.get('/profile', function (req, res, next) {
 //  Login.findById(req.session.userId)

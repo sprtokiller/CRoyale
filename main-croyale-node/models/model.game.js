@@ -103,7 +103,7 @@ GameSchema.statics.getGameForPlayer = function (gameMode, styleMode, callback) {
           sn = sn + String(newGameIndex);
           //  console.log(sn);
           var newGame = new Game({ _id: new mongoose.mongo.ObjectId(), index: newGameIndex, shortname: sn, isRunning: false, connections: 1, gameMode: gameMode, styleMode: styleMode, gameCreationTime: Date.now(), gameStartTime: -1 });
-          newGame.save(function (err, newGame) {
+          newGame.save(function (err, newGame) { //TODO - bcrypt hází error pls hotfix
             if (err) return console.error(err);
           });
           returnIndex = newGameIndex;
