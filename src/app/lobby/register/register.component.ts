@@ -83,9 +83,12 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          console.log("got data");
           this.loading = false;
         },
         error => {
+          console.log("got error");
+          
           this.loading = false;
         });
   }

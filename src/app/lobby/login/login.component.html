@@ -1,5 +1,6 @@
 <div id="protect" *ngIf="tooSmallW || tooSmallH">Please resize your window</div>
 
+
 <button style="padding-right: 1vh" id="goFullScreen" class="formBtn" mat-raised-button (click)="openFullscreen()" *ngIf="!full">
     <div id="fullIcon">
     </div>
@@ -139,3 +140,4 @@
 </div>
 </div>
 
+<app-alert></app-alert>

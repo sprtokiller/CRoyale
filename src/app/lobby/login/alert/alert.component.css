@@ -1,10 +1,14 @@
 #alertBox{
+    background-color: rgba(110, 253, 110, 0.6);
     position: absolute;
     top: 30px;
-    left: 500px;
-    border-top: 100px solid rgb(240, 185, 185);
-    border-left: 25px solid transparent;
-    border-right: 25px solid transparent;
-    height: 0;
-    width: 100px;
+    left: 50%;
+    border-radius: 999px;
+    height: 1.3em;
+    font-size: 0.8em;
+    line-height: 1.3em;
+    margin-left: -200px;
+    width: 400px;
+    text-align: center;
+    
 }

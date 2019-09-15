@@ -54,6 +54,7 @@ router.post('/register', function (req, res, next) {
     //jdeme registrovat
     Login.checkMateExists(req.body.externalType, req.body.externalID, req.body.username, function (exists) {
       if (exists) {
+        console.log("Registration unsuccesfull - user exists.")
         res.status(401); 
         var err = new Error();
         err.reason = "Registration unsuccesfull - user exists.";
@@ -61,6 +62,7 @@ router.post('/register', function (req, res, next) {
       } else { //can register now
         Login.register(req.body.externalType, req.body.externalID, req.body.username, req.body.password, function (isErr, error){
           if (isErr){
+            console.log("Registration unsuccesfull.")
             res.status(401); 
             var err = new Error();
             err.reason = "Registration unsuccesfull.";
