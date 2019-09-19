@@ -1,0 +1,4 @@
+<div id="outerAlertBox" *ngIf="visible">
+<!-- *ngIf="visible" -->
+    <div id="alertBox" [ngClass]="{'error':message.isError, 'success':!message.isError}"><span id="msgSpan">{{message.text}}</span></div>
+</div>

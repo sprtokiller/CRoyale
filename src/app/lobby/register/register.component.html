@@ -11,7 +11,7 @@
           <div class="form-group">
             <input autocomplete="off" type="text" formControlName="username" placeholder="Username..."
               class="form-control userLabel" />
-            <div class="redErr userErr" *ngIf="f.username.hasError('minlength')">Username should contain at least 6
+            <div class="redErr userErr" *ngIf="f.username.hasError('minlength')">Username should contain at least 4
               characters</div>
             <div class="redErr userErr" *ngIf="f.username.hasError('maxlength')">Username should contain at most 25
               characters</div>
@@ -56,11 +56,13 @@
               src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
           </div>
         </form>
-        <button id="registerBtn" class="formBtn form-control" routerLink="/register" mat-raised-button
-          (click)="onSubmit()" [disabled]="loading">Register now!</button>
+        <button id="registerBtn" class="formBtn form-control" mat-raised-button
+          (click)="onSubmit($event)" [disabled]="loading">Register now!</button>
 
       </div>
       <button id="homeBtn" class="formBtn form-control" mat-raised-button routerLink="/login">Go back</button>
     </mat-card>
   </div>
 </div>
+
+<app-alert></app-alert>

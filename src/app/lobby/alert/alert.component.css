@@ -1,0 +1,31 @@
+#alertBox{
+    border-radius: 999px;
+    height: 1.3em;
+    font-size: 0.8em;
+    line-height: 1.3em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display:inline-block;
+}
+
+.success{
+    background-color: rgba(110, 253, 110, 0.6);
+}
+
+.error{
+    background-color: rgba(255, 73, 73, 0.6);
+}
+
+#msgSpan{
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+#outerAlertBox{
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+}

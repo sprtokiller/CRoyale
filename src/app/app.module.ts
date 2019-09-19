@@ -28,7 +28,7 @@ import {
   MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
   MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule
 } from '@angular/material';
-import { AlertComponent } from './lobby/login/alert/alert.component'; //not used
+import { AlertComponent } from './lobby/alert/alert.component'; //not used
 import { MatListModule } from '@angular/material/list';
 import { JwtInterceptor, ErrorInterceptor, fakeBackendProvider } from './_helpers'; //tokens from tutorial
 import { RegisterComponent } from './lobby/register/register.component';

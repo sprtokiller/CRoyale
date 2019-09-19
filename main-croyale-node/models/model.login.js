@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var saltRounds = 10;
 var Config = require('../models/model.config');
+var User = require('../models/model.user');
 
 var LoginSchema = new mongoose.Schema({
   username: {
@@ -39,29 +40,21 @@ var LoginSchema = new mongoose.Schema({
 
 //register
 LoginSchema.statics.register = function (externalType, externalID, username, password, callback) {
-  console.log("model login register");
   Config.getAndIncreaseNextUserIndex(function (error, newUserIndex) {
     if (error || !newUserIndex) {
-      return console.error();
+      return callback(err, null);
     } else {
       bcrypt.hash(password, saltRounds, function(err, hash) { //TODO: what if not NATIVE
-        if (err) return console.error(err); else {
+        if (err) return callback(err, null); else {
           var newLogin = new Login({ _id: new mongoose.mongo.ObjectId(), username: username, passwordHash: hash, relatedUser_index: newUserIndex, externalType: externalType, externalID: externalID });
           newLogin.save(function (err, returnLogin) {
-            if (err) return console.error(err);
-            else {
-              console.log(returnLogin);
-              return returnLogin;
-            }
+              User.createDefaultUser(newUserIndex, "user")
+              return callback(null, returnLogin);
           });
         }
       });
     }
   })
-
-
-
- 
 }
 
 //authenticate input against database

@@ -12,7 +12,10 @@ var croyaledbpath = "mongodb://localhost:27017/croyaledb";
 var appurl = "http://localhost:4200";
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useCreateIndex', true);
-mongoose.connect(croyaledbpath);
+mongoose.connect(croyaledbpath, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 var db = mongoose.connection;
 var tokens = require('./auth/tokens');
 var Game = require('./models/model.game');
