@@ -18,16 +18,17 @@
       <div id="playerPictureWrapper"><img id="profilePicture" src="http://via.placeholder.com/256" alt="Profile picture"></div>
       <span id="playerName">{{currentUser.firstName}}</span>
       <div id="titlePicker">
-          <div id="tP_left" class="tP_arrow" *ngClass="'allowedArrow' == leftAllowed">
+          <div id="tP_left" class="tP_arrow" (click)="onTitleArrow(false)">
             <span>L</span>
           </div>
           <div id="playerTitleWrapper">
-            <span id="playerTitle">Newbie</span>
+            <span id="playerTitle">{{currentTitle}}</span>
           </div>
-          <div id="tP_right" class="tP_arrow" *ngClass="'allowedArrow' == rightAllowed">
+          <div id="tP_right" class="tP_arrow" (click)="onTitleArrow(true)">
             <span>R</span>
           </div>
       </div>
+     
       <div class="bar" id="xpBar"></div>
       <div id="logOutWrapper">
         <button class="formBtn" id="logOutBtn" mat-raised-button (click)="logOut()">Log out</button>
@@ -91,7 +92,6 @@
           id="readyBtn"
           (click)="onReadyClick()"
           mat-raised-button
-          routerLink="/play"
           >
            {{RP_caption}}
          </button>

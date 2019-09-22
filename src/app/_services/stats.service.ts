@@ -19,7 +19,7 @@ export class StatsService {
     this.msg1 = this.msg2;
     this.msg2 = this.msg3;
     this.msg3 = msgIn;
-    console.log(msgIn.text);
+    //console.log(msgIn.text);
     this.messagesSource.next();
   }
   msgObservable() {

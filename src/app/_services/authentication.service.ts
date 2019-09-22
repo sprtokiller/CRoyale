@@ -75,7 +75,6 @@ export class AuthenticationService {
                 }));
         
         } else { 
-            console.log("as guest");
             return of({response: "OK"}); }
 
     }

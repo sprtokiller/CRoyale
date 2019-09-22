@@ -38,6 +38,11 @@ var UserSchema = new mongoose.Schema({
     unique: false,
     required: true
   },
+  lastTitle: {
+    type: String,
+    unique: false,
+    required: true
+  },
   picture: {
     type: String,
     unique: false,
@@ -81,7 +86,11 @@ UserSchema.statics.getBasicUserInfoBy_id = function (searchIndex, callback) {
       oid: user._id,
       index: searchIndex,
       level: user.level,
-      xp: user.xp
+      xp: user.xp,
+      lastSkinID: user.lastSkinID,
+      skinsAccesible: user.skinsAccesible,
+      titlesAccesible: user.titlesAccesible,
+      lastTitle: user.lastTitle
   };
  // console.log(userSimpleData);
   return callback(null, userSimpleData);
@@ -106,6 +115,7 @@ UserSchema.statics.createDefaultUser = function (index, role) {
     lastSkinID: 1,
     skinsAccesible: [0, 1, 2, 3],
     titlesAccesible: ["Newbie", "Greenhorn", "Begginer"],
+    lastTitle: "Newbie",
     picture: "http://placehold.it/32x32",
     level: 1,
     xp: 0,

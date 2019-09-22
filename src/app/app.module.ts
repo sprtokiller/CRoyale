@@ -26,7 +26,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
-  MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule
+  MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule 
 } from '@angular/material';
 import { AlertComponent } from './lobby/alert/alert.component'; //not used
 import { MatListModule } from '@angular/material/list';

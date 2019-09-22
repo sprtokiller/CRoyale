@@ -68,7 +68,7 @@ function putToGame(socket, gameIndex, sn) {
   } else {
     allGames[gameIndex - 1].groups[socket.PLAYER_visibleGroup].players.push(socket);
   }
-  console.log("(added): ");
+  console.log("(added): game ID = " + gameIndex);
   console.log(allGames);
   if (allGames[gameIndex - 1].groups[socket.PLAYER_visibleGroup].players.length > PLAYERS_NEEDED) {
     allGames[gameIndex - 1].starting = true;
@@ -194,6 +194,11 @@ io.on("connection", socket => {
       
       
       setTimeout(function () { //actively handles the "lobby" part of the game, rooms take time to write sockets in them
+
+      if (socket.handshake.query.isFromMenu == 0) {
+        socket.emit("disconnectPromise", false);
+      } else {
+        socket.emit("disconnectPromise", true);
         Object.keys(socket.rooms).forEach(function (room, idx) {
           if (idx != 0) {
             socket.gameRoom = room; //only default and then something like AA1 groups, so it sets it to our group
@@ -213,17 +218,18 @@ io.on("connection", socket => {
       }
       var s = "0000" + min.toString();
       socket.PLAYER_nickName = "Guest" + s.substr(s.length - 3);
-      console.log(socket.PLAYER_nickName);
 
         //editInGame(socket, data.returnIndex);
         //createData(socket.gameRoom);
-        console.log("Hra nalezena/vytvorena: {id: " + data.returnIndex + ", sn: " + data.shortname + ", pl: " + io.sockets.adapter.rooms[data.shortname].length + " }");
+        console.log("Hra nalezena/vytvorena: {id: " + data.returnIndex + ", sn: " + data.shortname + ", pl: " + io.sockets.adapter.rooms[data.shortname].length + " } pro hráče: " + socket.PLAYER_nickName);
 
         socket.emit('aliveUpdate', io.sockets.adapter.rooms[data.shortname].length);
         socket.to(data.shortname).emit('aliveUpdate', io.sockets.adapter.rooms[data.shortname].length);
-
         createTileData(socket.GAME_id);
         //emit data to its respective socket
+
+      }
+
       }, 3);
 
     }
@@ -247,6 +253,7 @@ io.on("connection", socket => {
     allClients.splice(i, 1);
   })
   require('./routes/routerSocket.js')(socket, io);
+
 });
 
 app.use(cors());

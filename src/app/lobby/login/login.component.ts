@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -8,7 +7,6 @@ import { Subscription } from 'rxjs';
 import { User } from './user';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { AlertService } from '../../_services/alert.service';
-import { UserService } from '../../_services/user.service';
 import { W_MESSAGES } from './localResx/textResx';
 import { GBTNS } from './localResx/GBTNS';
 import { GBtn } from './localResx/gBtn';
@@ -17,17 +15,17 @@ import { SBtn } from './localResx/sBtn';
 declare var FB: any;
 
 
- /* deleteUser(id: number) {
-    this.userService.delete(id).pipe(first()).subscribe(() => {
-      this.loadAllUsers()
-    });
-  }
+/* deleteUser(id: number) {
+   this.userService.delete(id).pipe(first()).subscribe(() => {
+     this.loadAllUsers()
+   });
+ }
 
-  private loadAllUsers() {
-    this.userService.getAll().pipe(first()).subscribe(users => {
-      this.users = users;
-    });
-  }*/
+ private loadAllUsers() {
+   this.userService.getAll().pipe(first()).subscribe(users => {
+     this.users = users;
+   });
+ }*/
 
 @Component({
   selector: 'app-login',
@@ -40,6 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   users: User[] = [];
 
   leftAllowed: boolean = true;
+  rightAllowed: boolean = true;
   RP_caption: string = "Play Now"
   localGBTNS: GBtn[] = GBTNS;
   localSBTNS: SBtn[] = SBTNS;
@@ -49,7 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
-  returnUrl: string;
+  //returnUrl: string;
   full = false;
   scalNum = 1.0;
   scaling = "scale(1.0)";
@@ -58,8 +57,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   H45: string;
   H25: string;
   currentW = "30vw";
-  marginSize = "20vw";
+  marginSize = "19.6vw";
   marginTB = "15vh";
+  currentTitle = "???";
+  allTitles = [];
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,10 +69,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     public authenticationService: AuthenticationService,
     private alertService: AlertService,
-    private userService: UserService
   ) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
+      if (this.currentUser) {
+        this.allTitles = [];
+        this.currentUser.titlesAccesible.map(x => this.allTitles.push(x));
+
+        this.allTitles.includes(this.currentUser.lastTitle) ?
+          this.currentTitle = this.currentUser.lastTitle :
+          this.currentTitle = this.allTitles[0];
+
+      }
     });
     // redirect to home if already logged in
     //  if (this.authenticationService.currentUserValue) { //jen zmenit zobrazeni
@@ -92,7 +102,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     //rng text
     this.randomWelcome = W_MESSAGES[Math.floor(Math.random() * W_MESSAGES.length)];
     //prekryti pri male vysce okna
-    
+
 
     this.elem = document.documentElement;
     this.minW = (0.24 * screen.width).toString() + "px";
@@ -126,12 +136,21 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.onResize();
   }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.currentUserSubscription.unsubscribe();
+  }
+  onTitleArrow(toRight: boolean) {
+    if ((toRight == true) && (this.allTitles.indexOf(this.currentTitle) < (this.allTitles.length - 1))) {
+      this.currentTitle = this.allTitles[this.allTitles.indexOf(this.currentTitle) + 1];
+    }
+    if ((toRight == false) && (this.allTitles.indexOf(this.currentTitle) > 0)) {
+      this.currentTitle = this.allTitles[this.allTitles.indexOf(this.currentTitle) - 1];
+    }
+    localStorage.setItem('playerTitle', this.currentTitle);
   }
   onResize(): void {
     //responz. vyska
@@ -145,24 +164,24 @@ export class LoginComponent implements OnInit, OnDestroy {
     if ((window.innerWidth / screen.width) < 0.30) {
       this.tooSmallW = true;
     } else
-    if ((window.innerWidth / screen.width) < 0.48) {
-      this.tooSmallW = false;
-      this.currentW = this.minW;
-      this.marginSize = ((0.16 * screen.width) - ((0.8 * screen.width - window.innerWidth) / 2)).toString() + "px";
-      this.scaling = "scale(" + ((window.innerWidth / screen.width) / 0.48).toString() + ")";
-    } else
-      if ((window.innerWidth / screen.width) < 0.8) {
+      if ((window.innerWidth / screen.width) < 0.48) {
         this.tooSmallW = false;
         this.currentW = this.minW;
         this.marginSize = ((0.16 * screen.width) - ((0.8 * screen.width - window.innerWidth) / 2)).toString() + "px";
-        this.scaling = "scale(1.0)";
-      } else {
-        this.tooSmallW = false;
-        this.currentW = "30vw";
-        this.marginSize = "20vw";
-        this.scaling = "scale(1.0)";
+        this.scaling = "scale(" + ((window.innerWidth / screen.width) / 0.48).toString() + ")";
+      } else
+        if ((window.innerWidth / screen.width) < 0.8) {
+          this.tooSmallW = false;
+          this.currentW = this.minW;
+          this.marginSize = ((0.16 * screen.width) - ((0.8 * screen.width - window.innerWidth) / 2)).toString() + "px";
+          this.scaling = "scale(1.0)";
+        } else {
+          this.tooSmallW = false;
+          this.currentW = "30vw";
+          this.marginSize = "19.6vw";
+          this.scaling = "scale(1.0)";
 
-      }
+        }
   }
 
   openFullscreen() {
@@ -184,7 +203,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   // convenience getter for easy access to form fields
   public get f() { return this.loginForm.controls; }
 
-  logOut() : void{
+  logOut(): void {
     this.authenticationService.logout();
   }
   onSubmit(): void {
@@ -199,69 +218,27 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authenticationService.login("NATIVE", "no-id", this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
-        data => {
+        () => {
           this.loading = false;
         },
-        error => {
+        () => {
           this.loading = false;
         });
   }
   onGameModeSelect(idX: number): void {
     localStorage.setItem('localGameMode', idX.toString());
-    switch (idX) {
-      case 0:
-        this.localGBTNS[0].selected = true;
-        this.localGBTNS[1].selected = false;
-        this.localGBTNS[2].selected = false;
-        break;
-
-      case 1:
-        this.localGBTNS[0].selected = false;
-        this.localGBTNS[1].selected = true;
-        this.localGBTNS[2].selected = false;
-        break;
-
-      case 2:
-        this.localGBTNS[0].selected = false;
-        this.localGBTNS[1].selected = false;
-        this.localGBTNS[2].selected = true;
-        break;
-
-      default:
-        break;
-    }
+    this.localGBTNS[idX].selected = true;
+    this.localGBTNS[(idX + 1) % 3].selected = false;
+    this.localGBTNS[(idX + 2) % 3].selected = false;
   }
   onStyleModeSelect(idX: number): void {
     localStorage.setItem('localStyleMode', idX.toString());
-    switch (idX) {
-      case 0:
-        this.localSBTNS[0].selected = true;
-        this.localSBTNS[1].selected = false;
-        this.localSBTNS[2].selected = false;
-        break;
-
-      case 1:
-        this.localSBTNS[0].selected = false;
-        this.localSBTNS[1].selected = true;
-        this.localSBTNS[2].selected = false;
-        break;
-
-      case 2:
-        this.localSBTNS[0].selected = false;
-        this.localSBTNS[1].selected = false;
-        this.localSBTNS[2].selected = true;
-        break;
-
-      default:
-        break;
-    }
+    this.localSBTNS[idX].selected = true;
+    this.localSBTNS[(idX + 1) % 3].selected = false;
+    this.localSBTNS[(idX + 2) % 3].selected = false;
   }
-  onReadyClick(){
-    if (this.currentUser) {
-      console.log("Y")
-    } else {
-      console.log("N")
-    }
-
+  onReadyClick() {
+    localStorage.setItem('isFromMenu', '1');
+    this.router.navigateByUrl('/play');
   }
 }

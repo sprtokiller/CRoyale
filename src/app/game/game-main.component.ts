@@ -11,13 +11,19 @@ import { first } from 'rxjs/operators';
 })
 export class GameMainComponent implements OnInit, OnDestroy {
 
-  constructor(private socketService : IngamesocketService, private router: Router, private authService: AuthenticationService) { }
+  constructor(
+    private socketService : IngamesocketService,
+    private router: Router,
+    private authService: AuthenticationService
+    
+    ) { }
   tooSmallW: boolean;
   tooSmallH: boolean;
   ngOnDestroy() {
     this.socketService.disconnect();
   }
   ngOnInit() {
+
     this.socketService.connect();
     this.authService.check().pipe(first())
     .subscribe(
@@ -31,7 +37,15 @@ export class GameMainComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/login');
       });
       this.onResize();
-      
+
+      this.socketService.onDisconnectPromise().subscribe(ans => {
+        if (ans == true) {
+          localStorage.setItem('isFromMenu', '0');
+        } else {
+          this.socketService.disconnect();
+          this.router.navigateByUrl('/login');
+        }
+      });  
   }
   onResize(): void {
     //responz. vyska

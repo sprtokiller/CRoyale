@@ -11,15 +11,17 @@ export class IngamesocketService {
   private url = 'http://localhost:3001';
   socket: SocketIOClient.Socket;
   constructor() {
-
   }
   connect(){
+    
     var user = JSON.parse(localStorage.getItem('currentUser'));
     var userToken;
     var myUsername;
     var isRegistered;
     var localGameMode;
     var localStyleMode;
+    var isFromMenu;
+    var playerTitle;
     if (localStorage.getItem('localGameMode')) {
       localGameMode = Number(localStorage.getItem('localGameMode'));
     } else {
@@ -30,7 +32,20 @@ export class IngamesocketService {
     } else {
       localStyleMode = 0;
     }
+    if (localStorage.getItem('isFromMenu')) { //1 == button clicked, 0 == nop, will get redirected by onDisconnectPromise
+      isFromMenu = Number(localStorage.getItem('isFromMenu'));
+    } else {
+      isFromMenu = 0;
+    }
+    
     if (user) {
+
+      if (localStorage.getItem('playerTitle')) {
+        playerTitle = localStorage.getItem('playerTitle');
+      } else {
+        playerTitle = "";
+      }
+
       isRegistered = true;
       userToken = user.token;
       myUsername = user.username;
@@ -38,6 +53,7 @@ export class IngamesocketService {
       console.log(user);
       console.log(myUsername);
     } else {
+      playerTitle = "";
       isRegistered = false;
       userToken = "guest";
       myUsername = ""
@@ -50,13 +66,19 @@ export class IngamesocketService {
         skinID: 1,
         registred: isRegistered,
         styleMode: localStyleMode,
-        gameMode: localGameMode
+        gameMode: localGameMode,
+        isFromMenu: isFromMenu,
+        playerTitle : playerTitle
       }
 
     });
   }
   disconnect(){
-    this.socket.disconnect();
+    try {
+      this.socket.disconnect();
+    } catch {
+
+    }
   }
   //EMITTERS
   getGameData(isOnInit: boolean) {
@@ -90,6 +112,13 @@ export class IngamesocketService {
     return Observable.create(observer => {
       this.socket.on('tileDataUpdate', tiles => {
         observer.next(tiles);
+      });
+    });
+  }
+  onDisconnectPromise() {
+    return Observable.create(observer => {
+      this.socket.on('disconnectPromise', ans => {
+        observer.next(ans);
       });
     });
   }

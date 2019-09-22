@@ -401,27 +401,32 @@ div.cardsLeft{
     vertical-align: middle;
 }
 
+
+
 #titlePicker{
     width: calc(100% - 16px - 4vh - 8vw);
     background-color: orange;
     text-align: center;
 }
-#playerTitleWrapper{
+
+#titlePicker #tP_left{
+    left:0px;
+}
+#titlePicker #tP_right{
+    right:0px;
+}
+#titlePicker .tP_arrow{
+    position: absolute;
+}
+
+#titlePicker #playerTitleWrapper{
     width: 70%;
     background-color: beige;
     margin-left: 15%
 }
-#playerTitle{
+
+#titlePicker #playerTitleWrapper #playerTitle{
     font-size: calc(0.6em + 0.2vw);
     color: rgb(41, 41, 41);
     font-style: italic;
-}
-#tP_left{
-    left:0px;
-}
-#tP_right{
-    right:0px;
-}
-.tP_arrow{
-    position: absolute;
 }
