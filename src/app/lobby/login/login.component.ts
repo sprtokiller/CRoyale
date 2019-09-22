@@ -213,7 +213,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.invalid) {
       return;
     }
-    console.log(this.f.username.value, this.f.password.value);
+    //console.log(this.f.username.value, this.f.password.value);
     this.loading = true;
     this.authenticationService.login("NATIVE", "no-id", this.f.username.value, this.f.password.value)
       .pipe(first())

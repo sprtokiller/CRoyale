@@ -22,11 +22,11 @@ export class AlertService {
         });
     }
 
-    eraseMessage(errBool: boolean){
+    eraseMessage(errBool: boolean) {
         this.subject.next({ isError: errBool, text: "", visible: false });
     }
 
-    setMesseage(message: String, errBool: boolean){
+    setMesseage(message: String, errBool: boolean) {
         this.subject.next({ isError: errBool, text: message, visible: true });
         setTimeout(() => {
             this.eraseMessage(errBool);

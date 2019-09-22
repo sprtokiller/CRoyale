@@ -190,9 +190,11 @@ io.on("connection", socket => {
       socket.GAME_id = data.returnIndex;
       //setup socket player variables
 
-      socket.join(data.shortname); //joins correct room
+      socket.join(data.shortname); //joins correct socket room, so its easy to send mass emits
       
-      
+      //if ((socket.PLAYER_registred == true) && (socket.PLAYER_title != "")) { //checks for title cheaters TODO skin cheaters
+      //
+      //}
       setTimeout(function () { //actively handles the "lobby" part of the game, rooms take time to write sockets in them
 
       if (socket.handshake.query.isFromMenu == 0) {
@@ -246,7 +248,7 @@ io.on("connection", socket => {
     var i = allClients.indexOf(socket);
     removeFromGame(socket, allClients[i].GAME_id);
     createTileData(allClients[i].GAME_id);
-    //console.log("Nekdo se odpojil (index: " + i + ") a jeho roomka byla: " + allClients[i].gameRoom ); //TODO, list of sockets, read from there and then delete 
+    //console.log("Nekdo se odpojil (index: " + i + ") a jeho roomka byla: " + allClients[i].gameRoom );
     if (io.sockets.adapter.rooms[allClients[i].gameRoom]) { //sends new data to group only if there are people in it
       socket.to(allClients[i].gameRoom).emit('aliveUpdate', io.sockets.adapter.rooms[allClients[i].gameRoom].length);
     }

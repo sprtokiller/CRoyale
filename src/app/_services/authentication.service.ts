@@ -19,7 +19,7 @@ const httpOptions = {
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
-    config : any;
+    config: any;
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
@@ -34,26 +34,23 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-
-    login(externalType: string, externalID: string, username: string, password: string ) {
-        return this.http.post<any>(`${this.config.apiUrl}/login`, { externalType, externalID, username, password }, httpOptions )
+    login(externalType: string, externalID: string, username: string, password: string) {
+        return this.http.post<any>(`${this.config.apiUrl}/login`, { externalType, externalID, username, password }, httpOptions)
             .pipe(map(user => {
-                console.log(user);
+                //console.log(user);
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
                     // console.log(user)
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
-                    
                 }
-
-                return user; 
+                return user;
             }));
     }
 
-    register(externalType: string, externalID: string, username: string, password: string ) {
-        return this.http.post<any>(`${this.config.apiUrl}/register`, { externalType, externalID, username, password }, httpOptions );
+    register(externalType: string, externalID: string, username: string, password: string) {
+        return this.http.post<any>(`${this.config.apiUrl}/register`, { externalType, externalID, username, password }, httpOptions);
     }
 
     logout() {
@@ -67,15 +64,16 @@ export class AuthenticationService {
         if (user) {
             console.log("as user");
             userToken = user.token;
-            return this.http.post<any>(`${this.config.apiUrl}/check`, {userToken}, httpOptions )
-            .pipe(map(response =>{
-                console.log("response:");
-                console.log(response);
-                return response
+            return this.http.post<any>(`${this.config.apiUrl}/check`, { userToken }, httpOptions)
+                .pipe(map(response => {
+                    console.log("response:");
+                    console.log(response);
+                    return response
                 }));
-        
-        } else { 
-            return of({response: "OK"}); }
+
+        } else {
+            return of({ response: "OK" });
+        }
 
     }
 }

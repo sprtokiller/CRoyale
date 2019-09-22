@@ -12,11 +12,11 @@ import { first } from 'rxjs/operators';
 export class GameMainComponent implements OnInit, OnDestroy {
 
   constructor(
-    private socketService : IngamesocketService,
+    private socketService: IngamesocketService,
     private router: Router,
     private authService: AuthenticationService
-    
-    ) { }
+
+  ) { }
   tooSmallW: boolean;
   tooSmallH: boolean;
   ngOnDestroy() {
@@ -26,26 +26,26 @@ export class GameMainComponent implements OnInit, OnDestroy {
 
     this.socketService.connect();
     this.authService.check().pipe(first())
-    .subscribe(
-      data => {
-        if (data.response != "OK") {
-          this.authService.logout();
-          this.router.navigateByUrl(data.response);
-        } 
-      },
-      error => {
-        this.router.navigateByUrl('/login');
-      });
-      this.onResize();
-
-      this.socketService.onDisconnectPromise().subscribe(ans => {
-        if (ans == true) {
-          localStorage.setItem('isFromMenu', '0');
-        } else {
-          this.socketService.disconnect();
+      .subscribe(
+        data => {
+          if (data.response != "OK") {
+            this.authService.logout();
+            this.router.navigateByUrl(data.response);
+          }
+        },
+        error => {
           this.router.navigateByUrl('/login');
-        }
-      });  
+        });
+    this.onResize();
+
+    this.socketService.onDisconnectPromise().subscribe(ans => {
+      if (ans == true) {
+        localStorage.setItem('isFromMenu', '0');
+      } else {
+        this.socketService.disconnect();
+        this.router.navigateByUrl('/login');
+      }
+    });
   }
   onResize(): void {
     //responz. vyska

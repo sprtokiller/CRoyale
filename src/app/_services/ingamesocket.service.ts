@@ -62,13 +62,12 @@ export class IngamesocketService {
       query: {
         token: userToken,
         username: myUsername,
-        title: "Tester", //TODO: connect this to actual skin/title picking
+        title: playerTitle,
         skinID: 1,
         registred: isRegistered,
         styleMode: localStyleMode,
         gameMode: localGameMode,
         isFromMenu: isFromMenu,
-        playerTitle : playerTitle
       }
 
     });
