@@ -61,6 +61,16 @@ var GameSchema = new mongoose.Schema({
     });
   }
 
+  GameSchema.statics.getAllGames = function (callback) {
+    Game.find({ isRunning: false }, function (error, games) {
+      if (error || !games) { //nějakej fuck up, neudělám teda nic
+        return callback([]);
+      } else { //našel jsem hry
+        return callback(games);
+      }
+    });
+  }
+
 //find/create game by style and mode
 GameSchema.statics.getGameForPlayer = function (gameMode, styleMode, callback) {
   //console.log("Point A");
