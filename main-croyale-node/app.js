@@ -3,7 +3,6 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
 var cors = require('cors');
 
 var mongoose = require('mongoose');
@@ -19,9 +18,9 @@ mongoose.connect(croyaledbpath, {
 var db = mongoose.connection;
 var tokens = require('./auth/tokens');
 var Game = require('./models/model.game');
-var Config = require('./models/model.config');
 
 PLAYERS_NEEDED = 6;
+SECONDS_TO_START = 20;
 
 //handle mongo error
 // db.on('error', console.error.bind(console, 'connection error:'));
@@ -30,7 +29,6 @@ db.once('open', function () {
   // we're connected!
   serverStartUp();
 });
-
 io.use((socket, next) => { //socket ověřování tokenu, když token, pak join as user, jinak dát temp id v průběhu hry
   //console.log("Query: ", socket.handshake.query);
   let token = socket.handshake.query.token;
@@ -45,6 +43,7 @@ io.use((socket, next) => { //socket ověřování tokenu, když token, pak join 
   socket.disconnect('unauthorized');
   //return next(new Error('authentication error'));
 });
+
 var allGames = [];
 var allClients = []; //Store all sockets so we can properly access them when disconnected
 
@@ -52,32 +51,52 @@ function gameStart(gameID) {
   allGames[gameID].started = true;
   console.log("Game started");
 }
-
 function serverStartUp() {
   Game.getAllGames(function (data) {
     data.forEach(game => {
-      console.log(game);
+      allGames.push(
+        {
+          dbIndex: game.index,
+          starting: false,
+          started: false,
+          shortname: game.shortname,
+          groups: [{
+            players: []
+          }
+          ]
+        }
+      )
     })
   })
-
-  /*allGames.push(
-    {
-      starting: false,
-      started: false,
-      shortname: sn,
-      groups: [{
-        players: [socket]
-      }
-      ]
-    }
-  )*/
 }
+function setGuestName(realIndex, socket){
+  var min = 1;
+  var cheater = false;
+  for (let i = 0; i < allGames[realIndex].groups[0].players.length; i++) { //iterate over players to find empty guest numbers
+    if ((!(allGames[realIndex].groups[0].players[i].PLAYER_registred)) && (allGames[realIndex].groups[0].players[i].PLAYER_nickName != "")) {
+      //je guest a ma uz i cislo
+      try {
+        if (parseInt(allGames[realIndex].groups[0].players[i].PLAYER_nickName.slice(5)) == min) { //TODO Try? - někdo by mohl zaútočit
+          min++;
+        }
+      } catch (error) {
+        cheater = true;
+      }
 
+    }
+  }
+  if (!cheater) {
+    var s = "0000" + min.toString();
+    socket.PLAYER_nickName = "Guest" + s.substr(s.length - 3);
+  } else {
+    socket.PLAYER_nickName = "Cheater";
+  }
+}
 function putToGame(socket, gameIndex, sn) { //TODO, check if works, dbIndex odpovídá indexu z databáze
   realIndex = allGames.findIndex(function (element) {
     return element.dbIndex = gameIndex;
   });
-  if (realIndex > -1) { //vytvori novou hru
+  if (realIndex == -1) { //vytvori novou hru
     allGames.push(
       {
         dbIndex: gameIndex,
@@ -93,10 +112,14 @@ function putToGame(socket, gameIndex, sn) { //TODO, check if works, dbIndex odpo
   } else {
     allGames[realIndex].groups[socket.PLAYER_visibleGroup].players.push(socket);
   }
+
   console.log("(added): game ID = " + gameIndex);
   console.log(allGames);
-  if (allGames[gameIndex - 1].groups[socket.PLAYER_visibleGroup].players.length > PLAYERS_NEEDED) {
-    allGames[gameIndex - 1].starting = true;
+
+  setGuestName(realIndex, socket);
+
+  if (allGames[realIndex].groups[0].players.length > PLAYERS_NEEDED) { //ve hře je víc players than treshold
+    allGames[realIndex].starting = true;
     console.log("Game starting");
     Game.startGame(gameIndex, function (success) {
       if (!success) {
@@ -105,13 +128,12 @@ function putToGame(socket, gameIndex, sn) { //TODO, check if works, dbIndex odpo
         console.log("Game succesfully started");
       }
     })
-    for (let j = 0; j < allGames[gameIndex - 1].groups[0].players.length; j++) { //send everyone info that the game is starting
-      allGames[gameIndex - 1].groups[0].players[j].emit('gameStarting', true);
-      setTimeout(gameStart, 1500, (gameIndex - 1));
+    for (let j = 0; j < allGames[realIndex].groups[0].players.length; j++) { //send everyone info that the game is starting
+      allGames[realIndex].groups[0].players[j].emit('gameStarting', true);
+      setTimeout(gameStart, SECONDS_TO_START * 1000, realIndex);
     }
   }
 
-  // 
   // setTimeout(myFunc, 1500, '1');
   // setTimeout(myFunc, 500, '2');
   // setTimeout(myFunc, 2500, '3');
@@ -142,14 +164,10 @@ function editInGame(socket, gameIndex) { //test
 
 function createTileData(gameIndex) {
   if (gameIndex <= allGames.length) {
-
-
     var gameGroups = allGames[gameIndex - 1].groups;
-
     for (let i = 0; i < gameGroups.length; i++) { //iterate over groups in a game
       var tileData = [];
       for (let j = 0; j < gameGroups[i].players.length; j++) { //iterate over players in groups
-        // console.log("i = " + i + ", j = " + j);
         var myPlayer = gameGroups[i].players[j];
 
         tileData.push({
@@ -170,12 +188,11 @@ function createTileData(gameIndex) {
     }
   }
 };
-
+//outdated
 function createTileDataForOne(gameIndex, groupIndex, socket) {
   var gameGroup = allGames[gameIndex - 1].groups[groupIndex];
   var tileData = [];
   for (let j = 0; j < gameGroup.players.length; j++) { //iterate over players in groups
-    // console.log("i = " + i + ", j = " + j);
     var myPlayer = gameGroup.players[j];
 
     tileData.push({
@@ -221,12 +238,9 @@ io.on("connection", socket => {
 
       socket.join(data.shortname); //joins correct socket room, so its easy to send mass emits
 
-      //if ((socket.PLAYER_registred == true) && (socket.PLAYER_title != "")) { //checks for title cheaters TODO skin cheaters
-      //
-      //}
       setTimeout(function () { //actively handles the "lobby" part of the game, rooms take time to write sockets in them
 
-        if (socket.handshake.query.isFromMenu == 0) {
+        if (socket.handshake.query.isFromMenu == 0) { //kicks the player if it skipped the Login Page
           socket.emit("disconnectPromise", false);
         } else {
           socket.emit("disconnectPromise", true);
@@ -236,19 +250,6 @@ io.on("connection", socket => {
             }
           });
           putToGame(socket, data.returnIndex, socket.gameRoom);
-
-          //guest names
-          var min = 1;
-          for (let i = 0; i < allGames[data.returnIndex - 1].groups[0].players.length; i++) { //iterate over players to find empty guest numbers
-            if ((allGames[data.returnIndex - 1].groups[0].players[i].PLAYER_registred) && (allGames[data.returnIndex - 1].groups[0].players[i].PLAYER_nickName != "")) {
-              //je guest a ma uz i cislo
-              if (parseInt(allGames[data.returnIndex - 1].groups[0].players[i].PLAYER_nickName.slice(5)) == min) { //TODO Try? - někdo by mohl zaútočit
-                min++;
-              }
-            }
-          }
-          var s = "0000" + min.toString();
-          socket.PLAYER_nickName = "Guest" + s.substr(s.length - 3);
 
           //editInGame(socket, data.returnIndex);
           //createData(socket.gameRoom);
