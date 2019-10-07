@@ -110,6 +110,7 @@ export class IngamesocketService {
   onTileDataUpdate() {
     return Observable.create(observer => {
       this.socket.on('tileDataUpdate', tiles => {
+        console.log(tiles);
         observer.next(tiles);
       });
     });

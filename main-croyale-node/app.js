@@ -1,3 +1,7 @@
+console.clear();
+/*
+TODO: číslování guestů vypadlo, pravděpodobně problém s isRegistred
+*/
 var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
@@ -47,6 +51,15 @@ io.use((socket, next) => { //socket ověřování tokenu, když token, pak join 
 var allGames = [];
 var allClients = []; //Store all sockets so we can properly access them when disconnected
 
+function debug(){ 
+  console.log("==============");
+  console.log("all Games[0]:");
+  console.log(allGames[0].groups);
+  console.log("All Clients:");
+  console.log(allClients.length);
+  console.log("==============");
+} 
+ 
 function gameStart(gameID) {
   allGames[gameID].started = true;
   console.log("Game started");
@@ -69,30 +82,9 @@ function serverStartUp() {
     })
   })
 }
-function setGuestName(realIndex, socket){
-  var min = 1;
-  var cheater = false;
-  for (let i = 0; i < allGames[realIndex].groups[0].players.length; i++) { //iterate over players to find empty guest numbers
-    if ((!(allGames[realIndex].groups[0].players[i].PLAYER_registred)) && (allGames[realIndex].groups[0].players[i].PLAYER_nickName != "")) {
-      //je guest a ma uz i cislo
-      try {
-        if (parseInt(allGames[realIndex].groups[0].players[i].PLAYER_nickName.slice(5)) == min) { //TODO Try? - někdo by mohl zaútočit
-          min++;
-        }
-      } catch (error) {
-        cheater = true;
-      }
 
-    }
-  }
-  if (!cheater) {
-    var s = "0000" + min.toString();
-    socket.PLAYER_nickName = "Guest" + s.substr(s.length - 3);
-  } else {
-    socket.PLAYER_nickName = "Cheater";
-  }
-}
 function putToGame(socket, gameIndex, sn) { //TODO, check if works, dbIndex odpovídá indexu z databáze
+
   realIndex = allGames.findIndex(function (element) {
     return element.dbIndex = gameIndex;
   });
@@ -104,39 +96,80 @@ function putToGame(socket, gameIndex, sn) { //TODO, check if works, dbIndex odpo
         started: false,
         shortname: sn,
         groups: [{
-          players: [socket]
+          players: [socket] 
         }
         ]
       }
     )
   } else {
-    allGames[realIndex].groups[socket.PLAYER_visibleGroup].players.push(socket);
+    allGames[realIndex].groups[socket.PLAYER_visibleGroup].players.push(socket); //visible group defaults to 0
+  }
+  //debug();
+  socket.ISPLACED = true;
+  if (socket.PLAYER_registred != "true") {
+    setGuestName();
   }
 
-  console.log("(added): game ID = " + gameIndex);
-  console.log(allGames);
-
-  setGuestName(realIndex, socket);
-
   if (allGames[realIndex].groups[0].players.length > PLAYERS_NEEDED) { //ve hře je víc players than treshold
+    startGame();
+  }
+
+  //emit data to its respective socket
+  var roomSize = io.sockets.adapter.rooms[sn].length;
+  socket.emit('aliveUpdate', roomSize);
+  socket.to(sn).emit('aliveUpdate', roomSize);
+  createTileData(socket.GAME_id);
+
+  //definition of inner functions
+  function startGame() {
     allGames[realIndex].starting = true;
     console.log("Game starting");
     Game.startGame(gameIndex, function (success) {
       if (!success) {
         console.log("Error while starting the game");
-      } else {
+      }
+      else {
         console.log("Game succesfully started");
       }
-    })
+    });
     for (let j = 0; j < allGames[realIndex].groups[0].players.length; j++) { //send everyone info that the game is starting
       allGames[realIndex].groups[0].players[j].emit('gameStarting', true);
       setTimeout(gameStart, SECONDS_TO_START * 1000, realIndex);
     }
   }
+  function setGuestName(){
+    var min = 1;
+    var cheater = false;
+    for (let i = 0; i < allGames[realIndex].groups[0].players.length; i++) { //iterate over players to find empty guest numbers
+      console.log(allGames[realIndex].groups[0].players.length);
+      console.log("na indexu i = " + i + " je: " + allGames[realIndex].groups[0].players[i].PLAYER_nickName);
+      console.log((allGames[realIndex].groups[0].players[i].PLAYER_registred));
+      console.log(allGames[realIndex].groups[0].players[i].PLAYER_nickName != "");
+      if ((!(allGames[realIndex].groups[0].players[i].PLAYER_registred)) && (allGames[realIndex].groups[0].players[i].PLAYER_nickName != "")) {
+        //je guest a ma uz i cislo
+        console.log("lets try"); 
+        try {
+          console.log(parseInt(allGames[realIndex].groups[0].players[i].PLAYER_nickName.slice(5)));
+          if (parseInt(allGames[realIndex].groups[0].players[i].PLAYER_nickName.slice(5)) == min) { 
+            min++;
+          }
+        } catch (error) {
+          cheater = true;
+        }
+  
+      }
+    }
+    if (!cheater) {
+      console.log("min je:" + min.toString());
+      var s = "0000" + min.toString();
+      socket.PLAYER_nickName = "Guest" + s.substr(s.length - 3);
+    } else {
+      socket.PLAYER_nickName = "Cheater";
+    }
+  }
 
-  // setTimeout(myFunc, 1500, '1');
-  // setTimeout(myFunc, 500, '2');
-  // setTimeout(myFunc, 2500, '3');
+  console.log("Hra nalezena/vytvorena: {id: " + realIndex + ", sn: " + sn + ", pl: " + roomSize + " } pro hráče: " + socket.PLAYER_nickName);
+
 };
 
 function removeFromGame(socket, gameIndex) {
@@ -147,8 +180,8 @@ function removeFromGame(socket, gameIndex) {
       allGames[gameIndex - 1].groups[PVG].players.indexOf(socket), 1
     );
   }
-  console.log("(deleted): ");
-  console.log(allGames);
+  //console.log("(deleted): ");
+  //console.log(allGames);
 };
 
 function editInGame(socket, gameIndex) { //test
@@ -158,8 +191,8 @@ function editInGame(socket, gameIndex) { //test
       allGames[gameIndex - 1].groups[PVG].players.indexOf(socket)
     ].PLAYER_money = 100;
   }
-  console.log("(edited): ");
-  console.log(allGames);
+  //console.log("(edited): ");
+  //console.log(allGames);
 };
 
 function createTileData(gameIndex) {
@@ -169,7 +202,6 @@ function createTileData(gameIndex) {
       var tileData = [];
       for (let j = 0; j < gameGroups[i].players.length; j++) { //iterate over players in groups
         var myPlayer = gameGroups[i].players[j];
-
         tileData.push({
           nick: myPlayer.PLAYER_nickName,
           alive: myPlayer.PLAYER_alive,
@@ -234,34 +266,26 @@ io.on("connection", socket => {
       socket.PLAYER_defBranch = -1;
       socket.PLAYER_upgrades = [];
       socket.GAME_id = data.returnIndex;
-      //setup socket player variables
-
-      socket.join(data.shortname); //joins correct socket room, so its easy to send mass emits
+      socket.ISPLACED = false;
+      if (socket.handshake.query.isFromMenu != 0) socket.join(data.shortname); //joins correct socket room, so its easy to send mass emits
 
       setTimeout(function () { //actively handles the "lobby" part of the game, rooms take time to write sockets in them
-
         if (socket.handshake.query.isFromMenu == 0) { //kicks the player if it skipped the Login Page
           socket.emit("disconnectPromise", false);
         } else {
           socket.emit("disconnectPromise", true);
+
           Object.keys(socket.rooms).forEach(function (room, idx) {
             if (idx != 0) {
               socket.gameRoom = room; //only default and then something like AA1 groups, so it sets it to our group
             }
           });
+
+          //console.log(`gameRoom: ${socket.gameRoom}, returnIndex: ${data.returnIndex}, shortname: ${data.shortname}`);
+
           putToGame(socket, data.returnIndex, socket.gameRoom);
 
-          //editInGame(socket, data.returnIndex);
-          //createData(socket.gameRoom);
-          console.log("Hra nalezena/vytvorena: {id: " + data.returnIndex + ", sn: " + data.shortname + ", pl: " + io.sockets.adapter.rooms[data.shortname].length + " } pro hráče: " + socket.PLAYER_nickName);
-
-          socket.emit('aliveUpdate', io.sockets.adapter.rooms[data.shortname].length);
-          socket.to(data.shortname).emit('aliveUpdate', io.sockets.adapter.rooms[data.shortname].length);
-          createTileData(socket.GAME_id);
-          //emit data to its respective socket
-
         }
-
       }, 3);
 
     }
@@ -276,14 +300,16 @@ io.on("connection", socket => {
 
   socket.on('disconnect', function () {
     var i = allClients.indexOf(socket);
-    removeFromGame(socket, allClients[i].GAME_id);
-    createTileData(allClients[i].GAME_id);
-    //console.log("Nekdo se odpojil (index: " + i + ") a jeho roomka byla: " + allClients[i].gameRoom );
-    if (io.sockets.adapter.rooms[allClients[i].gameRoom]) { //sends new data to group only if there are people in it
-      socket.to(allClients[i].gameRoom).emit('aliveUpdate', io.sockets.adapter.rooms[allClients[i].gameRoom].length);
+    if (allClients[i].ISPLACED) {
+      removeFromGame(socket, allClients[i].GAME_id);
+      createTileData(allClients[i].GAME_id);
+      if (io.sockets.adapter.rooms[allClients[i].gameRoom]) { //sends new data to group only if there are people in it
+        socket.to(allClients[i].gameRoom).emit('aliveUpdate', io.sockets.adapter.rooms[allClients[i].gameRoom].length);
+      }
     }
     allClients.splice(i, 1);
   })
+
   require('./routes/routerSocket.js')(socket, io);
 
 });
