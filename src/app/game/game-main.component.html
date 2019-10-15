@@ -1,5 +1,5 @@
 <div id="protect" *ngIf="tooSmallW || tooSmallH">Please resize your window</div>
-<mat-grid-list (window:resize)="onResize()" cols="12" gutterSize="0px" style="height: 100vh"  rowheight="fit">
+<mat-grid-list *ngIf="load" (window:resize)="onResize()" cols="12" gutterSize="0px" style="height: 100vh"  rowheight="fit">
   <mat-grid-tile [colspan]="4" class="fullHeight">
     <div class="cCliSta">
        <div class="cClicker">

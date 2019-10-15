@@ -117,7 +117,7 @@ GameSchema.statics.getGameForPlayer = function (gameMode, styleMode, callback) {
             if (err) return console.error(err);
           });
           returnIndex = newGameIndex;
-          return callback(null, { returnIndex: newGameIndex, shortname: sn }); //tedy vrátit ID
+          return callback(null, { returnIndex: newGameIndex, shortname: sn, isNew : true }); //tedy vrátit ID
         }
       })
     } else { //hra tedy již existuje
@@ -129,7 +129,7 @@ GameSchema.statics.getGameForPlayer = function (gameMode, styleMode, callback) {
           return callback(error);
         } else {
           //     console.log("Point E"); //TODO: neupdatuje to tabulku přes newIngameID
-          return callback(null, { returnIndex: game.index, shortname: game.shortname }); //tedy vrátit ID
+          return callback(null, { returnIndex: game.index, shortname: game.shortname, isNew : false }); //tedy vrátit ID
         }
       })
     }

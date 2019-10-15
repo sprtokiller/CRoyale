@@ -20,8 +20,8 @@ export class IngamesocketService {
     var isRegistered;
     var localGameMode;
     var localStyleMode;
-    var isFromMenu;
     var playerTitle;
+
     if (localStorage.getItem('localGameMode')) {
       localGameMode = Number(localStorage.getItem('localGameMode'));
     } else {
@@ -31,11 +31,6 @@ export class IngamesocketService {
       localStyleMode = Number(localStorage.getItem('localStyleMode'));
     } else {
       localStyleMode = 0;
-    }
-    if (localStorage.getItem('isFromMenu')) { //1 == button clicked, 0 == nop, will get redirected by onDisconnectPromise
-      isFromMenu = Number(localStorage.getItem('isFromMenu'));
-    } else {
-      isFromMenu = 0;
     }
     
     if (user) {
@@ -67,7 +62,6 @@ export class IngamesocketService {
         registred: isRegistered,
         styleMode: localStyleMode,
         gameMode: localGameMode,
-        isFromMenu: isFromMenu,
       }
 
     });
@@ -101,6 +95,7 @@ export class IngamesocketService {
     });
   }
   onAliveUpdate() {
+    console.log(this.socket);
     return Observable.create(observer => {
       this.socket.on('aliveUpdate', alive => {
         observer.next(alive);
@@ -112,13 +107,6 @@ export class IngamesocketService {
       this.socket.on('tileDataUpdate', tiles => {
         console.log(tiles);
         observer.next(tiles);
-      });
-    });
-  }
-  onDisconnectPromise() {
-    return Observable.create(observer => {
-      this.socket.on('disconnectPromise', ans => {
-        observer.next(ans);
       });
     });
   }

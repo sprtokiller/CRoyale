@@ -19,33 +19,37 @@ export class GameMainComponent implements OnInit, OnDestroy {
   ) { }
   tooSmallW: boolean;
   tooSmallH: boolean;
+  load: boolean;
   ngOnDestroy() {
     this.socketService.disconnect();
   }
   ngOnInit() {
-
-    this.socketService.connect();
-    this.authService.check().pipe(first())
-      .subscribe(
-        data => {
-          if (data.response != "OK") {
-            this.authService.logout();
-            this.router.navigateByUrl(data.response);
-          }
-        },
-        error => {
-          this.router.navigateByUrl('/login');
-        });
-    this.onResize();
-
-    this.socketService.onDisconnectPromise().subscribe(ans => {
-      if (ans == true) {
-        localStorage.setItem('isFromMenu', '0');
+    this.load = false;
+    try {
+      if (localStorage.getItem('isFromMenu') != '1') {
+        this.router.navigateByUrl('/login')
       } else {
-        this.socketService.disconnect();
-        this.router.navigateByUrl('/login');
+        this.load = true;
+        localStorage.setItem('isFromMenu', '0');
+        this.socketService.connect();
+        this.authService.check().pipe(first())
+          .subscribe(
+            data => {
+              if (data.response != "OK") {
+                this.socketService.disconnect();
+                this.authService.logout();
+                this.router.navigateByUrl(data.response);
+              }
+            },
+            error => {
+              this.socketService.disconnect();
+              this.router.navigateByUrl('/login');
+            });
+        this.onResize();
       }
-    });
+    } catch (error) {
+      this.router.navigateByUrl('/login');
+    }
   }
   onResize(): void {
     //responz. vyska
