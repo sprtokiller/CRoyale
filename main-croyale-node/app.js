@@ -2,6 +2,7 @@ console.clear();
 /*
 TODO: číslování guestů vypadlo, pravděpodobně problém s isRegistred
 */
+
 var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
@@ -13,12 +14,13 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var croyaledbpath = "mongodb://localhost:27017/croyaledb";
 var appurl = "http://localhost:4200";
+
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useCreateIndex', true);
 mongoose.connect(croyaledbpath, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-})
+});
 var db = mongoose.connection;
 var tokens = require('./auth/tokens');
 var Game = require('./models/model.game');

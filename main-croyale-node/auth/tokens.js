@@ -4,7 +4,7 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 // PRIVATE and PUBLIC key
 
-var privateKEY = fs.readFileSync('D:/Documents/Visual Studio 2017/cookie/main-croyale-node/auth/private.key', 'utf8');
+var privateKEY = fs.readFileSync('./auth/private.key', 'utf8');
 
 module.exports = {
     generateJWT: function (n, ind, r) {
