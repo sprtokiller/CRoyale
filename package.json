@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "^7.2.15",
     "@angular/router": "^7.2.15",
     "core-js": "^2.6.9",
-    "mongoose": "^5.7.1",
+    "mongoose": "^5.7.5",
     "ng-recaptcha": "^5.0.0",
     "ngx-socket-io": "^2.1.1",
     "rxjs": "~6.3.3",
