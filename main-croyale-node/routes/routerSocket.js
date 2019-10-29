@@ -10,4 +10,5 @@ module.exports = function (socket, io) {
     safeJoin(docId);
     socket.emit("document", "You did not cheat");
   });
+  
 };

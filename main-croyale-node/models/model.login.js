@@ -42,13 +42,16 @@ var LoginSchema = new mongoose.Schema({
 LoginSchema.statics.register = function (externalType, externalID, username, password, callback) {
   Config.getAndIncreaseNextUserIndex(function (error, newUserIndex) {
     if (error || !newUserIndex) {
-      return callback(err, null);
+      //console.log("return A");
+      //console.log(newUserIndex);
+      return callback(true, null); //err, data
     } else {
       bcrypt.hash(password, saltRounds, function(err, hash) { //TODO: what if not NATIVE
-        if (err) return callback(err, null); else {
+        if (err) {
+          return callback(err, null);} else {
           var newLogin = new Login({ _id: new mongoose.mongo.ObjectId(), username: username, passwordHash: hash, relatedUser_index: newUserIndex, externalType: externalType, externalID: externalID });
           newLogin.save(function (err, returnLogin) {
-              User.createDefaultUser(newUserIndex, "user")
+              User.createDefaultUser(newUserIndex, "user");
               return callback(null, returnLogin);
           });
         }

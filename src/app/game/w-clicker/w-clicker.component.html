@@ -1,10 +1,15 @@
-<div id="clickerZone" (click)="onClick($event)" style="background-color: lightsalmon">
-  w: {{divX}} h: {{divY}}<br>
-  x: {{posX}} y: {{posY}}<br>
+<div id="clickerZone"
+(click)="onClick($event)"
+style="background-color: aquamarine"
+(window:resize)="onResize()"
+>
+  Clicked:<br>
   x: {{posXPs}}% y: {{posYPs}}%<br>
-  Clicked {{clicks}}x<br>
   Targets:<br>
   x: {{divNextXs}}% y: {{divNextYs}}%<br>
+  Clicked {{clicks}}x<br>
+  Hit: {{hit}}<br>
+  distS: {{distS}}
 </div>
 <div id="canvas">
 

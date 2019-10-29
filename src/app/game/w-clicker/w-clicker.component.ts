@@ -8,51 +8,61 @@ import { Component, OnInit } from '@angular/core';
 export class WClickerComponent implements OnInit {
 
   constructor() { }
-  event: MouseEvent;
+  //event: MouseEvent;
   clicks = 0;
-  posX = null;
-  posY = null;
-  posXP = null;
-  posYP = null;
+  dimension = 0;
+
+  clickXperc = null;
+  clickYperc = null;
   posXPs = "NaN";
   posYPs = "Nan";
-  divX = 0;
-  divY = 0;
-  divNextX = 0;
-  divNextY = 0;
-  divNextXs = "NaN";
-  divNextYs = "NaN";
-  
+  divNextX = 50;
+  divNextY = 50;
+  divNextXs = "50%";
+  divNextYs = "50%";
+  hit = "?";
+  distS = "?";
   onClick(event: MouseEvent): void {
-  //  this.event = event;
-  this.posX = event.clientX;
-  this.posY = event.clientY;
+  //this.event = event
+  this.clickXperc = (event.clientX / this.dimension * 100);
+  this.clickYperc = (event.clientY / this.dimension * 100);
 
-  this.divX = document.getElementById("clickerZone").offsetWidth;
-  this.divY = document.getElementById("clickerZone").offsetHeight;
-
-  this.posXP = (this.posX / this.divX * 100);
-  this.posYP = (this.posY / this.divY * 100);
-
-  this.posXPs = this.posXP.toString().substr(0, 5);
-  this.posYPs = this.posYP.toString().substr(0, 5);
   this.clicks++;
-  //  console.log("Click:" + this.posX.toString() + "x " + this.posY.toString() + "y")
+
+  this.setDebugStrings1();
+  if (Math.pow(this.clickXperc - this.divNextX, 2) + Math.pow(this.clickYperc - this.divNextY, 2) <= 400) {
+    this.hit = "YES";
+  } else {
+    this.hit = "NO";
+  }
+
   this.divNextX = Math.random() * 100; 
   this.divNextY = Math.random() * 100;
 
-  this.divNextXs = this.divNextX.toString().substr(0, 5);
-  this.divNextYs = this.divNextY.toString().substr(0, 5);
-  console.log(event.clientX + " " + event.clientY);
+  this.setDebugStrings2();
 } 
 
   ngOnInit() {
-
-    this.divNextX = Math.random() * 100; 
-    this.divNextY = Math.random() * 100;
-
-    this.divNextXs = this.divNextX.toString().substr(0, 5);
-    this.divNextYs = this.divNextY.toString().substr(0, 5); 
+    this.setDimension();
   }
 
+  onResize(): void {
+    this.setDimension();
+  }
+
+  setDimension(): void{
+    this.dimension = window.innerWidth * 0.3333332;
+  }
+
+  setDebugStrings1(): void{
+    this.posXPs = this.clickXperc.toString().substr(0, 5);
+    this.posYPs = this.clickYperc.toString().substr(0, 5);
+    this.distS = (Math.pow(this.clickXperc - this.divNextX, 2) + Math.pow(this.clickYperc - this.divNextY, 2)).toString().substr(0, 7);
+  }
+
+  setDebugStrings2(): void{
+
+    this.divNextXs = this.divNextX.toString().substr(0, 5);
+    this.divNextYs = this.divNextY.toString().substr(0, 5);
+  }
 }

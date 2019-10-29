@@ -68,6 +68,8 @@ router.post('/register', function (req, res, next) {
             return res.send(response);
           } else {
             res.status(200); 
+            console.log("debug");
+            console.log(data);
             response.username = data.username;
             return res.send(response);
           }
