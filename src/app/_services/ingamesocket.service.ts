@@ -78,6 +78,10 @@ export class IngamesocketService {
 
     this.socket.emit('getGameData', isOnInit);
   }
+  sendClicks(clickRecordObject) {
+
+    this.socket.emit('sendClicks', clickRecordObject);
+  }
   eventName1(id: number) {
 
     this.socket.emit('eventName1', id);
@@ -89,7 +93,6 @@ export class IngamesocketService {
   onTokenExpired() {
     return Observable.create(observer => {
       this.socket.on('tokenExpired', routeMeTo => {
-        console.log("I got rerouted to:" + routeMeTo)
         observer.next(routeMeTo);
       });
     });

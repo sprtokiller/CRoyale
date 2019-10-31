@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IngamesocketService } from './../../_services/ingamesocket.service';
 
 @Component({
   selector: 'app-w-clicker',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WClickerComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private socketService: IngamesocketService
+  ) { }
   //event: MouseEvent;
   clicks = 0;
   dimension = 0;
@@ -23,10 +26,20 @@ export class WClickerComponent implements OnInit {
   hit = "?";
   distS = "?";
   onClick(event: MouseEvent): void {
-  //this.event = event
+
   this.clickXperc = (event.clientX / this.dimension * 100);
   this.clickYperc = (event.clientY / this.dimension * 100);
 
+  this.socketService.sendClicks({ //TO-DO: array[ClickObject], posílat cyklicky po cca 200ms / při nákupu, po odeslání vyprázdnit. Server vždy kontroluje "reálnost"
+    c : {
+      x : this.clickXperc,
+      y : this.clickYperc
+    },
+    t : {
+      x : this.divNextX,
+      y : this.divNextY
+    }
+  });
   this.clicks++;
 
   this.setDebugStrings1();
