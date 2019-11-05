@@ -1,7 +1,15 @@
 #clickerZone{
     position: absolute;
+    z-index: 60;
     width: 100%;
     height: 33.33332vw;
     left: 0px;
     top: 0px;
+    background-color: transparent;
+}
+#tercik{
+    position: absolute;
+    z-index: 50;
+    background-color: royalblue;
+    border-radius: 50%;
 }

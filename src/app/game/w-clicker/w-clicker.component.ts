@@ -14,7 +14,7 @@ export class WClickerComponent implements OnInit {
   //event: MouseEvent;
   clicks = 0;
   dimension = 0;
-
+  clickObject = [];
   clickXperc = null;
   clickYperc = null;
   posXPs = "NaN";
@@ -25,21 +25,26 @@ export class WClickerComponent implements OnInit {
   divNextYs = "50%";
   hit = "?";
   distS = "?";
+  tl = "30%";
+  tt = "30%";
+  tw = "20%";
+  th = "20%";
   onClick(event: MouseEvent): void {
 
   this.clickXperc = (event.clientX / this.dimension * 100);
   this.clickYperc = (event.clientY / this.dimension * 100);
 
-  this.socketService.sendClicks({ //TO-DO: array[ClickObject], posílat cyklicky po cca 200ms / při nákupu, po odeslání vyprázdnit. Server vždy kontroluje "reálnost"
-    c : {
-      x : this.clickXperc,
-      y : this.clickYperc
-    },
-    t : {
-      x : this.divNextX,
-      y : this.divNextY
-    }
-  });
+  this.clickObject.push({ //TO-DO: posílat cyklicky po cca 100ms / při nákupu, po odeslání vyprázdnit. Server vždy kontroluje "reálnost"
+  c : {
+    x : this.clickXperc,
+    y : this.clickYperc
+  },
+  t : {
+    x : this.divNextX,
+    y : this.divNextY
+  }
+});
+
   this.clicks++;
 
   this.setDebugStrings1();
@@ -48,9 +53,9 @@ export class WClickerComponent implements OnInit {
   } else {
     this.hit = "NO";
   }
-
-  this.divNextX = Math.random() * 100; 
-  this.divNextY = Math.random() * 100;
+  
+  this.divNextX = Math.random() * 80 + 10; 
+  this.divNextY = Math.random() * 80 + 10;
 
   this.setDebugStrings2();
 } 
@@ -77,5 +82,13 @@ export class WClickerComponent implements OnInit {
 
     this.divNextXs = this.divNextX.toString().substr(0, 5);
     this.divNextYs = this.divNextY.toString().substr(0, 5);
+    this.tl = (this.divNextX - 10).toString().substr(0, 5) + "%";
+    this.tt = (this.divNextY - 10).toString().substr(0, 5) + "%";
+
+  }
+
+  sendClickObject(): void{
+    this.socketService.sendClicks(this.clickObject);
+    this.clickObject = [];
   }
 }
