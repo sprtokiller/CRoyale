@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IngamesocketService } from './../../_services/ingamesocket.service';
 import { MoneyService } from './../../_services/money.service';
 @Component({
@@ -6,7 +6,7 @@ import { MoneyService } from './../../_services/money.service';
   templateUrl: './w-clicker.component.html',
   styleUrls: ['./w-clicker.component.css']
 })
-export class WClickerComponent implements OnInit {
+export class WClickerComponent implements OnInit, OnDestroy {
 
   constructor(
     private socketService: IngamesocketService,
@@ -33,6 +33,9 @@ export class WClickerComponent implements OnInit {
   tt = "30%";
   tw = "20%";
   th = "20%";
+  inter;
+  
+
   onClick(event: MouseEvent): void {
 
   this.clickXperc = (event.clientX / this.dimension * 100);
@@ -72,6 +75,11 @@ export class WClickerComponent implements OnInit {
 
   ngOnInit() {
     this.setDimension();
+    this.inter = setInterval(() => this.sendClickObject(), 200); //pravidelne posilani
+  }
+  
+  ngOnDestroy(){
+    clearInterval(this.inter);
   }
 
   onResize(): void {
