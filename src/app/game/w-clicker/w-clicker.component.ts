@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IngamesocketService } from './../../_services/ingamesocket.service';
-
+import { MoneyService } from './../../_services/money.service';
 @Component({
   selector: 'app-w-clicker',
   templateUrl: './w-clicker.component.html',
@@ -9,9 +9,13 @@ import { IngamesocketService } from './../../_services/ingamesocket.service';
 export class WClickerComponent implements OnInit {
 
   constructor(
-    private socketService: IngamesocketService
+    private socketService: IngamesocketService,
+    private moneyService: MoneyService
   ) { }
   //event: MouseEvent;
+  overHeat = 0;
+  maxHeat = 100;
+
   clicks = 0;
   dimension = 0;
   clickObject = [];
@@ -48,10 +52,16 @@ export class WClickerComponent implements OnInit {
   this.clicks++;
 
   this.setDebugStrings1();
-  if (Math.pow(this.clickXperc - this.divNextX, 2) + Math.pow(this.clickYperc - this.divNextY, 2) <= 400) {
-    this.hit = "YES";
+  var aprox = Math.pow(this.clickXperc - this.divNextX, 2) + Math.pow(this.clickYperc - this.divNextY, 2);
+  if (aprox <= 25) {
+    this.hit = "Yes, very";
+    this.moneyService.clickIncome(2);
+  } else if (aprox <= 400) {
+    this.hit = "Yes, slightly";
+    this.moneyService.clickIncome(1);
   } else {
-    this.hit = "NO";
+    this.hit = "Nah, not really"
+    this.moneyService.clickIncome(0);
   }
   
   this.divNextX = Math.random() * 80 + 10; 

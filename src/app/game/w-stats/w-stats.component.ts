@@ -9,7 +9,7 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['./w-stats.component.css']
 })
 export class WStatsComponent implements OnInit {
-UName:string="DickObraz";
+
 UBalance:number=912093210941094;
 private messagesRef: Subscription = null;
 private zpravas: Zprava[]; 
