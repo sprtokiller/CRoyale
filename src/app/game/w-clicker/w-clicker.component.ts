@@ -75,9 +75,9 @@ export class WClickerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setDimension();
-    this.inter = setInterval(() => this.sendClickObject(), 200); //pravidelne posilani
+    this.inter = setInterval(() => this.sendClickObject(), 250); //pravidelne posilani
   }
-  
+
   ngOnDestroy(){
     clearInterval(this.inter);
   }
@@ -106,7 +106,9 @@ export class WClickerComponent implements OnInit, OnDestroy {
   }
 
   sendClickObject(): void{
-    this.socketService.sendClicks(this.clickObject);
-    this.clickObject = [];
+    if (this.clickObject.length > 0) {
+      this.socketService.sendClicks(this.clickObject);
+      this.clickObject = []; 
+    }
   }
 }

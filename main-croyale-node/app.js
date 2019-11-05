@@ -170,7 +170,7 @@ function editInGame(socket, i) { //test
   var PVG = socket.PLAYER_visibleGroup;
   allGames[i].groups[PVG].players[
     allGames[i].groups[PVG].players.indexOf(socket)
-  ].PLAYER_money = 100;
+  ].PLAYER_balance = 100;
 };
 
 function createTileData(i) {
@@ -279,7 +279,8 @@ io.on("connection", socket => {
     socket.PLAYER_skinID = query.skinID;
     socket.PLAYER_registred = query.registred;
     socket.PLAYER_visibleGroup = 0;
-    socket.PLAYER_money = 0;
+    socket.PLAYER_balance = 0;
+    socket.PLAYER_clickWorth = 1;
     socket.PLAYER_hp = 100;
     socket.PLAYER_power = 0;
     socket.PLAYER_att = 0;

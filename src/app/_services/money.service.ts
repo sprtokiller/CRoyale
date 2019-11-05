@@ -6,7 +6,10 @@ import { Observable, Subject } from 'rxjs';
 })
 export class MoneyService {
   private messagesSource = new Subject<void>();
+  public balance: Number = 0;
+  public clickWorth: Number = 1;
   /*public messages$ = this.messagesSource.asObservable();
+  
   public msg1: Zprava = {id: 0, text: "", color: "black"}
   public msg2: Zprava = {id: 1, text: "Your offensive branch is: FIRE", color: "Red"}
   public msg3: Zprava = {id: 2, text: "Your defensive branch is: Armor", color: "RoyalBlue"}
@@ -17,7 +20,7 @@ export class MoneyService {
   clickIncome(target : Number){
     switch (target) {
       case 2: //full hit
-        
+        this.balance
         break;
       case 1: //part hit
         
