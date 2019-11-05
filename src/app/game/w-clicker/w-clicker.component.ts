@@ -41,7 +41,7 @@ export class WClickerComponent implements OnInit, OnDestroy {
   this.clickXperc = (event.clientX / this.dimension * 100);
   this.clickYperc = (event.clientY / this.dimension * 100);
 
-  this.clickObject.push({ //TO-DO: posílat cyklicky po cca 100ms / při nákupu, po odeslání vyprázdnit. Server vždy kontroluje "reálnost"
+  this.clickObject.push({ //TO-DO: posílat cyklicky po 250ms / při nákupu, po odeslání vyprázdnit. Server vždy kontroluje "reálnost"
   c : {
     x : this.clickXperc,
     y : this.clickYperc

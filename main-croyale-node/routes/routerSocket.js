@@ -7,14 +7,11 @@ module.exports = function (socket, io) {
       //if no cheat TO-DO
       aprox = Math.pow(click.c.x - click.t.x, 2) + Math.pow(click.c.y - click.t.y, 2);
       if (aprox <= 25) {
-        socket.PLAYER_balance += (socket.PLAYER_clickWorth * 1.5);
-        console.log("Very good hit");
+        socket.PLAYER_balance = Math.round((socket.PLAYER_balance + (socket.PLAYER_clickWorth * 1.5)) * 100) / 100;
       } else if (aprox <= 400) {
-        socket.PLAYER_balance += (socket.PLAYER_clickWorth * 1.2);
-        console.log("OK hit");
+        socket.PLAYER_balance = Math.round((socket.PLAYER_balance + (socket.PLAYER_clickWorth * 1.2)) * 100) / 100;
       } else {
-        socket.PLAYER_balance += socket.PLAYER_clickWorth;
-        console.log("Eh click");
+        socket.PLAYER_balance = Math.round((socket.PLAYER_balance + socket.PLAYER_clickWorth) * 100) / 100;
       }
     });
     console.log(socket.PLAYER_balance);

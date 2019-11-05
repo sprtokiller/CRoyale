@@ -6,8 +6,8 @@ import { Observable, Subject } from 'rxjs';
 })
 export class MoneyService {
   private messagesSource = new Subject<void>();
-  public balance: Number = 0;
-  public clickWorth: Number = 1;
+  public balance: number = 0;
+  public clickWorth: number = 1;
   /*public messages$ = this.messagesSource.asObservable();
   
   public msg1: Zprava = {id: 0, text: "", color: "black"}
@@ -17,16 +17,16 @@ export class MoneyService {
   constructor() {
     
   }
-  clickIncome(target : Number){
+  clickIncome(target : number){
     switch (target) {
       case 2: //full hit
-        this.balance
+        this.balance = Math.round((this.balance + (this.clickWorth * 1.5)) * 100) / 100;
         break;
       case 1: //part hit
-        
+        this.balance += Math.round((this.balance + (this.clickWorth * 1.2)) * 100) / 100;
         break;
       default: //no hit
-
+        this.balance += Math.round((this.balance + this.clickWorth) * 100) / 100;
         break;
     }
   }
