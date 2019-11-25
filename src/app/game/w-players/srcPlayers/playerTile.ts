@@ -1,5 +1,6 @@
 export class PlayerTile {
     nick: string;
+    title: string;
     alive: boolean;
     hp: number;
     power: number;

@@ -181,6 +181,7 @@ function createTileData(i) {
       var myPlayer = gameGroups[i].players[j];
       tileData.push({
         nick: myPlayer.PLAYER_nickName,
+        title: myPlayer.PLAYER_title,
         alive: myPlayer.PLAYER_alive,
         hp: myPlayer.PLAYER_hp,
         power: myPlayer.PLAYER_power,
@@ -206,6 +207,7 @@ function createTileDataForOne(gameIndex, groupIndex, socket) {
 
     tileData.push({
       nick: myPlayer.PLAYER_nickName,
+      title: myPlayer.PLAYER_title,
       alive: myPlayer.PLAYER_alive,
       hp: myPlayer.PLAYER_hp,
       power: myPlayer.PLAYER_power,

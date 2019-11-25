@@ -2,9 +2,11 @@
   <div class="mImgWrapper" [class.visible]="playerTile != null">
     <img *ngIf="playerTile != null" class="detailImg" [src]="getImgPath(playerTile.avatar_id)">
   </div>
-  <div class="detailWrapper">
-    <h2 *ngIf="playerTile != null">{{playerTile.nick | uppercase}} Details</h2>
-    <div *ngIf="playerTile != null"><span>id: </span>{{playerTile.id}}</div>
+  <div class="detailWrapper" *ngIf="playerTile != null">
+    <div>
+        <h2 id="bigNick">{{playerTile.nick | uppercase}}</h2>
+        <h4 id="bigTitle">{{playerTile.title}}</h4>
+    </div>
   </div>
 </div>
 <div class="nemame" [class.visible]="playerTile == null" [class.invisible]="playerTile != null">

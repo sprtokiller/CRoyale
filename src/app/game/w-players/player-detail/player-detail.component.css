@@ -5,6 +5,18 @@ h1{
     margin: 0px;
     padding: 0px;
 }
+#bigNick{
+    text-align: left;
+    line-height: 100%;
+    margin: 0.2em;
+}
+#bigTitle{
+    text-align: left;
+    line-height: 100%;
+    margin: 0.2em;
+    font-style: italic;
+    color: #999999;
+}
 .mame{
     overflow: hidden;
 }

@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.allTitles.includes(this.currentUser.lastTitle) ?
           this.currentTitle = this.currentUser.lastTitle :
           this.currentTitle = this.allTitles[0];
-
+          localStorage.setItem('playerTitle', this.currentTitle);
       }
     });
     // redirect to home if already logged in
@@ -96,6 +96,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     };
     if (!(localStorage.getItem('localStyleMode'))) {
       localStorage.setItem('localStyleMode', '0');
+    };
+    if (!(localStorage.getItem('playerTitle'))) {
+      localStorage.setItem('playerTitle', '');
     };
     this.onGameModeSelect(Number(localStorage.getItem('localGameMode')))
     this.onStyleModeSelect(Number(localStorage.getItem('localStyleMode')))
