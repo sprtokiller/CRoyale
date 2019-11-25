@@ -9,7 +9,13 @@
 }
 #tercik{
     position: absolute;
-    z-index: 50;
+    z-index: 80;
     background-color: royalblue;
+    border-radius: 50%;
+}
+#tercikS{
+    position: absolute;
+    z-index: 85;
+    background-color: lightcoral;
     border-radius: 50%;
 }

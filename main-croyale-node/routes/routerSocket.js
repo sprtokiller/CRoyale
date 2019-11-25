@@ -6,13 +6,13 @@ module.exports = function (socket, io) {
     clickObject.forEach(click => {
       //if no cheat TO-DO
       aprox = Math.pow(click.c.x - click.t.x, 2) + Math.pow(click.c.y - click.t.y, 2);
-      if (aprox <= 25) {
+      if (aprox <= 16) {
         socket.PLAYER_balance = Math.round((socket.PLAYER_balance + (socket.PLAYER_clickWorth * 1.5)) * 100) / 100;
-      } else if (aprox <= 400) {
+      } else if (aprox <= 100) {
         socket.PLAYER_balance = Math.round((socket.PLAYER_balance + (socket.PLAYER_clickWorth * 1.2)) * 100) / 100;
       } else {
         socket.PLAYER_balance = Math.round((socket.PLAYER_balance + socket.PLAYER_clickWorth) * 100) / 100;
-      }
+      } 
     });
     console.log(socket.PLAYER_balance);
     console.log("------------------")

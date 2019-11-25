@@ -29,10 +29,14 @@ export class WClickerComponent implements OnInit, OnDestroy {
   divNextYs = "50%";
   hit = "?";
   distS = "?";
-  tl = "30%";
-  tt = "30%";
+  tl = "40%";
+  tt = "40%";
   tw = "20%";
   th = "20%";
+  tlS = "46%";
+  ttS = "46%";
+  twS = "8%";
+  thS = "8%";
   inter;
   
 
@@ -56,19 +60,22 @@ export class WClickerComponent implements OnInit, OnDestroy {
 
   this.setDebugStrings1();
   var aprox = Math.pow(this.clickXperc - this.divNextX, 2) + Math.pow(this.clickYperc - this.divNextY, 2);
-  if (aprox <= 25) {
+  if (aprox <= 16) {
     this.hit = "Yes, very";
     this.moneyService.clickIncome(2);
-  } else if (aprox <= 400) {
+    this.divNextX = Math.random() * 80 + 10; 
+    this.divNextY = Math.random() * 80 + 10;
+  } else if (aprox <= 100) {
     this.hit = "Yes, slightly";
     this.moneyService.clickIncome(1);
+    this.divNextX = Math.random() * 80 + 10; 
+    this.divNextY = Math.random() * 80 + 10;
   } else {
     this.hit = "Nah, not really"
     this.moneyService.clickIncome(0);
   }
   
-  this.divNextX = Math.random() * 80 + 10; 
-  this.divNextY = Math.random() * 80 + 10;
+
 
   this.setDebugStrings2();
 } 
@@ -102,6 +109,8 @@ export class WClickerComponent implements OnInit, OnDestroy {
     this.divNextYs = this.divNextY.toString().substr(0, 5);
     this.tl = (this.divNextX - 10).toString().substr(0, 5) + "%";
     this.tt = (this.divNextY - 10).toString().substr(0, 5) + "%";
+    this.tlS = (this.divNextX - 4).toString().substr(0, 5) + "%";
+    this.ttS = (this.divNextY - 4).toString().substr(0, 5) + "%";
 
   }
 
@@ -111,4 +120,5 @@ export class WClickerComponent implements OnInit, OnDestroy {
       this.clickObject = []; 
     }
   }
+
 }
